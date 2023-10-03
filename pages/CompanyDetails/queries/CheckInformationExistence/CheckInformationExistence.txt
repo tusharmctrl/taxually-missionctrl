@@ -1,0 +1,13 @@
+query CheckInformationExistence($informationTypeId: Int!, $countryId: Int!, $companyId: Int!) {
+	prod {
+		missionctrl_track_remaining_data_information(
+			where: {
+				information_type_id: { _eq: $informationTypeId }
+				country_id: { _eq: $countryId }
+				company_id: { _eq: $companyId }
+			}
+		) {
+			id
+		}
+	}
+}

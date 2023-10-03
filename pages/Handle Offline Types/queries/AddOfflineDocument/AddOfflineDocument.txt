@@ -1,0 +1,8 @@
+mutation AddOfflineDocumentType($object: missionctrl_offline_document_types_insert_input!) {
+	prod {
+		insert_missionctrl_offline_document_types_one(object: $object) {
+			id
+			NameEN
+		}
+	}
+}

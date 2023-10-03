@@ -1,0 +1,7 @@
+mutation UpdateDocumentTypes($id: Int, $name: String) {
+	prod {
+		update_missionctrl_offline_document_types(where: {id: {_eq: $id}}, _set: {NameEN: $name}) {
+			affected_rows
+		}
+	}
+}

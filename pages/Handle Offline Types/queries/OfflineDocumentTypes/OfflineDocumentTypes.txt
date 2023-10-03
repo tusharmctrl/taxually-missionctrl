@@ -1,0 +1,8 @@
+query OfflineDocumentTypes {
+	prod {
+		missionctrl_offline_document_types {
+			id
+			NameEN
+		}
+	}
+}

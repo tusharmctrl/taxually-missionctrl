@@ -1,0 +1,7 @@
+mutation UpdateClientDocumentStatus($object: missionctrl_track_pending_docs_insert_input!) {
+	prod {
+		insert_missionctrl_track_pending_docs_one(object: $object) {
+			id
+		}
+	}
+}

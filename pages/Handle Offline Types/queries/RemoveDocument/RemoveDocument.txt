@@ -1,0 +1,10 @@
+mutation DeleteDocumentType($id: Int) {
+  prod {
+    delete_missionctrl_offline_document_types(where: {id: {_eq: $id}}) {
+      affected_rows
+    }
+    delete_missionctrl_map_offline_docs_to_country(where: {document_type_id: {_eq: $id}}) {
+      affected_rows
+    }
+  }
+}

@@ -1,0 +1,7 @@
+mutation UpdateDocumentTracker($whereObject: missionctrl_track_pending_docs_bool_exp!, $setObject: missionctrl_track_pending_docs_set_input) {
+	prod {
+		update_missionctrl_track_pending_docs(where: $whereObject, _set: $setObject) {
+			affected_rows
+		}
+	}
+}

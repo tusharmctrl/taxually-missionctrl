@@ -1,0 +1,15 @@
+query GetHistoryOfInformation($company_id: Int!, $information_id: Int!, $country_id: Int!){
+	prod {
+		missionctrl_history_of_information(where: {_and: [{company_id: {_eq:$company_id}}, {information_id: {_eq: $information_id}}, {country_id: {_eq: $country_id}}]}) {
+			id
+			status
+			information_id
+			company_id
+			Information {
+				information
+			}
+			agent
+			created_at
+		}
+	}
+}

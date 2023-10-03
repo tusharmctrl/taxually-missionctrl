@@ -1,0 +1,9 @@
+query GetQuestionnaireData {
+	prod {
+		missionctrl_information_types(where: {id: {_gt: 79}}) {
+			id
+			information
+		}
+	}
+}
+

@@ -1,0 +1,9 @@
+mutation AddInformation($object: missionctrl_track_remaining_data_information_insert_input!) {
+	prod {
+		insert_missionctrl_track_remaining_data_information_one(object: $object) {
+			id
+			company_id
+			information_type_id
+		}
+	}
+}

@@ -1,0 +1,8 @@
+query GetTokenFromDB {
+	prod {
+		missionctrl_azure_tokens(order_by: {id: desc}, limit: 1) {
+			id
+			token
+		}
+	}
+}

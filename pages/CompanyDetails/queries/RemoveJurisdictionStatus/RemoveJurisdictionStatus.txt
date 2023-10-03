@@ -1,0 +1,9 @@
+mutation DeleteJurisdictionStatus($companyId: Int!, $countryId: Int!) {
+	prod {
+		delete_missionctrl_track_jurisdiction_status(where: {_and: [{company_id: {_eq: $companyId}}, {country_id: {_eq: $countryId}}]}) {
+			returning {
+				id
+			}
+		}
+	}
+}

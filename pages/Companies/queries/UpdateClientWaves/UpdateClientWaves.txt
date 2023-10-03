@@ -1,0 +1,7 @@
+mutation AssigningCompaniesToWave($companyIds: [Int!], $waveId: Int) {
+	prod {
+		update_missionctrl_map_company_to_status(where: {company_id: {_in: $companyIds}}, _set: {wave_id: $waveId}) {
+			affected_rows
+		}
+	}
+}

@@ -1,0 +1,9 @@
+mutation HistoryMutation($object: missionctrl_history_of_information_insert_input!) {
+	prod {
+		insert_missionctrl_history_of_information_one(object: $object) {
+			id
+			status
+			agent
+		}
+	}
+}

@@ -1,0 +1,25 @@
+query GetEssentialDataForInfoAndDocs($countryIds: [Int], $type: String){
+	prod {
+
+		missionctrl_map_offline_docs_to_country(where: {country_id: {_in: $countryIds}, type: {_eq: $type}}, order_by: {country_id: desc}) {
+			Country {
+				Id
+				NameEN
+			}
+			Document {
+				id
+				NameEN
+			}
+		}
+		missionctrl_track_missing_information(where: {country_id: {_in: $countryIds}, type: {_eq: $type}}, order_by: {country_id: desc}) {
+			Information {
+				id
+				information
+			}
+			Country {
+				Id
+				NameEN
+			}
+		}
+	}
+}

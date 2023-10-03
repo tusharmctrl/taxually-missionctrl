@@ -1,0 +1,7 @@
+mutation DeleteTrackingDocs($company_id:Int!, $document_type_id:Int!, $country_id: Int!) {
+	prod {
+		delete_missionctrl_track_pending_docs(where: {_and: [{company_id: {_eq: $company_id}}, {document_type_id: {_eq: $document_type_id}}, {country_id: {_eq: $country_id}}]}) {
+			affected_rows
+		}
+	}
+}

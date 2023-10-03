@@ -1,0 +1,7 @@
+mutation DeleteTrackingInformation($company_id: Int!, $information_type_id: Int!, $country_id: Int!) {
+	prod {
+		delete_missionctrl_track_remaining_data_information(where: {_and: [{company_id: {_eq: $company_id}}, {information_type_id: {_eq: $information_type_id}}, {country_id: {_eq: $country_id}}]}) {
+			affected_rows
+		}
+	}
+}

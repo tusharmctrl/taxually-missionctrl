@@ -1,0 +1,13 @@
+query CheckDocumentExistence($documentTypeId: Int!, $countryId: Int!, $companyId: Int!) {
+	prod {
+		missionctrl_track_pending_docs(
+			where: {
+				document_type_id: { _eq: $documentTypeId }
+				country_id: { _eq: $countryId }
+				company_id: { _eq: $companyId }
+			}
+		) {
+			id
+		}
+	}
+}

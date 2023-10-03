@@ -1,0 +1,36 @@
+{
+  "unpublishedCollection": {
+    "name": "Const",
+    "pageId": "CompanyDetails",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "actions": [],
+    "archivedActions": [],
+    "variables": [
+      {
+        "name": "genders",
+        "value": "{\n  \"1\": \"Male\",\n  \"2\": \"Female\"\n}"
+      },
+      {
+        "name": "marketPlaces",
+        "value": "{\n  \"1\": \"Amazon\",\n  \"2\": \"eBay\",\n  \"3\": \"AliBaba\",\n  \"4\": \"Other\",\n  \"5\": \"Shopify\"\n}"
+      },
+      {
+        "name": "products",
+        "value": "{\n  \"1\": \"Fashion/Accessories/Jewelery\",\n  \"2\": \"Electronics/Computer/Office\",\n  \"3\": \"Collectibles/Art/Stationery\",\n  \"4\": \"Home/Garden/Tools\",\n  \"5\": \"Sporting goods/Outdoors\",\n  \"6\": \"Kitchen/Dining\",\n  \"7\": \"Books/Audio\",\n  \"8\": \"Food/Grocery\",\n  \"9\": \"Automotive/Industrial\",\n  \"10\": \"Beauty/Health\",\n  \"11\": \"Music/Movies/Games\",\n  \"12\": \"Toys/Kids/Baby\"\n}"
+      },
+      {
+        "name": "position",
+        "value": "{\n  \"1\": \"Company Director\",\n  \"2\": \"Managing Director\",\n  \"3\": \"Chief Executive Officer\",\n  \"4\": \"Other\"\n}"
+      },
+      {
+        "name": "boolean",
+        "value": "{\n  \"0\": \"NO\",\n  \"1\": \"YES\"\n}"
+      }
+    ],
+    "userPermissions": []
+  },
+  "id": "CompanyDetails_Const",
+  "deleted": false,
+  "gitSyncId": "64ddbc9544dc506821b62c28_65164b2844dc506821b62f36"
+}

@@ -1,0 +1,13 @@
+query GetCountOfCompaniesStatusWise {
+  prod {
+    missionctrl_map_company_to_status(where: {Company: {TenantId: {_eq: "BB2090DC-81C1-49ED-AE2E-5016C79464AB"}}}) {
+      status_id
+      Company {
+        TenantId
+      }
+      CompanyStatus {
+        name
+      }
+    }
+  }
+}

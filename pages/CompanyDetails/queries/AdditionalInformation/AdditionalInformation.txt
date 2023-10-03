@@ -1,0 +1,17 @@
+query AdditionalInformation {
+	prod {
+		Countries {
+			Id
+			NameEN
+			Code
+		}
+		DocumentTypes {
+			Id
+			NameEN
+		}
+		tmp_ReturnFrequencies {
+			ReturnFrequencyId
+			ReturnFrequencyName
+		}
+	}
+}

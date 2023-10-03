@@ -1,0 +1,8 @@
+mutation CreateANewWave($object: missionctrl_waves_insert_input!) {
+  prod {
+    insert_missionctrl_waves_one(object:$object) {
+      id
+      wave_name
+    }
+  }
+}

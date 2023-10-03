@@ -1,0 +1,17 @@
+query CheckManuallyUpdatedInfo {
+	prod {
+		missionctrl_track_remaining_data_information(where: {company_id: {_eq: {{Utils.selectedCompanyId()}}}}) {
+			id
+			company_id
+			information_type_id
+			country_id
+			Information {
+				information
+			}
+			value
+			active
+		}	
+	}
+
+}
+

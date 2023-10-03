@@ -1,0 +1,13 @@
+query GetManuallyUpdatedDocuments
+{
+	prod {
+		missionctrl_track_pending_docs(where: {company_id: {_eq: {{Utils.selectedCompanyId()}}}}) {
+			id
+			company_id
+			document_type_id
+			country_id
+			notes
+			active
+		}		
+	}
+}

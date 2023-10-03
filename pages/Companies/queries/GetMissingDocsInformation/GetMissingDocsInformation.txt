@@ -1,0 +1,158 @@
+query CompanyDetails($id: Int!, $country_id: Int!) {
+  prod {
+    Companies_by_pk(Id: $id) {
+      Id
+      Country {
+        Id
+      }
+      SubscriptionDate
+      LegalNameOfBusiness
+      EstablishedCountry {
+        Id
+        Code
+        NameEN
+      }
+      Marketplaces {
+        MarketplaceId
+        MarketplaceTypeId
+      }
+      Orders {
+        AmountToPay
+        StartDate
+        EndDate
+        status {
+          name
+        }
+        Country {
+          NameEN
+          Code
+        }
+        EndDate
+      }
+      current_orders {
+        status {
+          name
+        }
+        subscription_status {
+          status {
+            name
+            description
+          }
+        }
+        country {
+          NameEN
+          Code
+        }
+        LastEndDate
+      }
+      primary_contact {
+        Email
+        FirstName
+        LastName
+      }
+      status_detail {
+        status
+        name
+        tracker_status
+        description
+      }
+      IncorporationDate
+      IncorporationNumber
+      LegalNameOfBusiness
+      LegalStatus {
+        NameEN
+      }
+      CompanyStatusHistories(order_by: {Time: desc}) {
+        Time
+        Status
+        status_details {
+          name
+          tracker_status
+          description
+        }
+        User {
+          Email
+          FirstName
+          LastName
+        }
+      }
+      Contracts(order_by: {ValidFrom: asc}) {
+        CreatedDate
+        Status
+        ValidFrom
+        Orders {
+          Country {
+            Code
+          }
+        }
+      }
+      Documents(order_by: {CreatedOn: desc}) {
+        Country {
+          Code
+        }
+        DocumentType {
+          NameEN
+        }
+        Path
+        Id
+        CreatedOn
+        IsUploadedByAdmin
+        IssueDate
+        Name
+        User {
+          Email
+          FirstName
+          LastName
+        }
+      }
+      Notes {
+        Date
+        Description
+      }
+      Tenant {
+        Name
+      }
+      Tasks {
+        Document {
+          Path
+          DocumentType {
+            NameEN
+          }
+        }
+        Country {
+          Code
+        }
+        task_type {
+          name
+          description
+        }
+        status {
+          name
+          status
+        }
+        TaskStatusHistories(order_by: {Time: desc}) {
+          Time
+          status {
+            name
+          }
+          User {
+            Email
+            FirstName
+            LastName
+          }
+        }
+        User {
+          Email
+          FirstName
+          LastName
+        }
+      }
+    }
+    missionctrl_track_missing_docs(where: {country_id: {_eq: $country_id}}) {
+      DocumentType {
+        Id
+        NameEN
+      }
+    }
+  }
+}

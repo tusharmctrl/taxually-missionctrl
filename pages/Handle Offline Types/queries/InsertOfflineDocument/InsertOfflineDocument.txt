@@ -1,0 +1,9 @@
+mutation InsertOfflineDocument($object: missionctrl_map_offline_docs_to_country_insert_input!) {
+	prod {
+		insert_missionctrl_map_offline_docs_to_country_one(object: $object) {
+			id
+			country_id
+			document_type_id
+		}
+	}
+}

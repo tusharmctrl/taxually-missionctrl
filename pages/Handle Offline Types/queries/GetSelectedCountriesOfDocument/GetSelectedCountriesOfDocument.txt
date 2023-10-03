@@ -1,0 +1,14 @@
+query CurrentAssignedCountriesToDocument($id: Int, $type: String) {
+	prod {
+		missionctrl_map_offline_docs_to_country(where: {document_type_id: {_eq: $id}, type: {_eq: $type}}) {
+			Country {
+				Id
+				NameEN
+			}
+			Document {
+				id
+				NameEN
+			}
+		}
+	}
+}

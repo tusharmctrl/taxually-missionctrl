@@ -1,0 +1,15 @@
+{
+  "unpublishedCollection": {
+    "name": "Lib",
+    "pageId": "Companies",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "actions": [],
+    "archivedActions": [],
+    "variables": [],
+    "userPermissions": []
+  },
+  "id": "Companies_Lib",
+  "deleted": false,
+  "gitSyncId": "64ddbc9544dc506821b62c28_64df6fb644dc506821b62cb1"
+}

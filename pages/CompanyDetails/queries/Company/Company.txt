@@ -1,0 +1,103 @@
+query CompanyDetails($companyId: Int!) {
+	prod {
+		Companies_by_pk(Id: $companyId) {
+			Id
+			Country {
+				Id
+				EuVatArea
+			}
+			SubscriptionDate
+			LegalNameOfBusiness
+			EstablishedCountry {
+				Id
+				Code
+				NameEN
+			}
+			Marketplaces {
+				MarketplaceId
+				MarketplaceTypeId
+			}
+			VatNumbers {
+				ValidFrom
+				ValidTo
+				Id
+			}
+			CompanyReturnSetups {
+				Frequency
+			}
+			current_orders {
+				status {
+					name
+				}
+				subscription_status {
+					status {
+						name
+						description
+					}
+				}
+				country {
+					Id
+					NameEN
+					Code
+				}
+				LastEndDate
+			}
+			status_detail {
+				status
+				name
+				tracker_status
+				description
+			}
+			Documents {
+				Id
+				Country {
+					Id
+					NameEN
+					Code
+				}
+				DocumentType {
+					Id
+					NameEN
+				}
+				RegistrationFormTemplate {
+					Name
+				}
+				DeletedOn
+				OriginalDocumentId
+				Discriminator
+			}
+			IncorporationDate
+			IncorporationNumber
+			LegalNameOfBusiness
+			LegalStatus {
+				NameEN
+			}
+		}
+		missionctrl_map_company_to_status(where: {company_id: {_eq: $companyId}}) {
+			id
+			status_id
+			company_id
+		}
+		missionctrl_track_pending_docs(where: {company_id: {_eq: $companyId}}) {
+			id
+			company_id
+			document_type_id
+			country_id
+		}
+		missionctrl_track_jurisdiction_status(where: {company_id: {_eq:$companyId}}){
+			id
+			company_id
+			country_id
+		}
+		missionctrl_track_remaining_data_information(where: {company_id: {_eq: $companyId}}) {
+			id
+			company_id
+			information_type_id
+			country_id
+			Information {
+				information
+			}
+		}
+	}
+}
+

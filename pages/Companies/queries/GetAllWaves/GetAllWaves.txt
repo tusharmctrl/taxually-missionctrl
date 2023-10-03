@@ -1,0 +1,8 @@
+query GetAllWaves {
+	prod {
+		missionctrl_waves {
+			id
+			wave_name
+		}
+	}
+}

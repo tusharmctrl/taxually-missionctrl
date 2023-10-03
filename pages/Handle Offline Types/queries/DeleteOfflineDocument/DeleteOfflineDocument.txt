@@ -1,0 +1,7 @@
+mutation DeleteOfflineDocument($whereObject: missionctrl_map_offline_docs_to_country_bool_exp!) {
+  prod {
+    delete_missionctrl_map_offline_docs_to_country(where: $whereObject) {
+      affected_rows
+    }
+  }
+}

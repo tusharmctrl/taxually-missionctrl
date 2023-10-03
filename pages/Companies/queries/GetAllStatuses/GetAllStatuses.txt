@@ -1,0 +1,9 @@
+query CompanyStatus {
+	prod {
+		missionctrl_track_companies_by_status {
+			id
+			name
+			description
+		}
+	}
+}

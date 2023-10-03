@@ -1,0 +1,9 @@
+mutation AddJurisdictionStatus($object: missionctrl_track_jurisdiction_status_insert_input!) {
+	prod {
+		insert_missionctrl_track_jurisdiction_status_one(object: $object) {
+			id
+			company_id
+			country_id
+		}
+	}
+}
