@@ -4550,6 +4550,17 @@
                 "this.params.company_id"
               ],
               "timeoutInMillisecond": 10000
+            },
+            {
+              "id": "CompanyDetails_Utils.necessaryThingsToRunOnLoad",
+              "name": "Utils.necessaryThingsToRunOnLoad",
+              "collectionId": "CompanyDetails_Utils",
+              "confirmBeforeExecute": false,
+              "pluginType": "JS",
+              "jsonPathKeys": [
+                "async () => {\n  if (appsmith.URL.queryParams.companyId) {\n    const companyId = parseInt(appsmith.URL.queryParams.companyId);\n    const companyTask = Company.run({\n      company_id: companyId\n    });\n    const jurisdictionsTask = companyTask.then(() => {\n      const jurisdictions = Company.data.data.prod.Companies_by_pk.current_orders;\n      return jurisdictions.map(jurisdiction => jurisdiction.country.Id);\n    });\n    Promise.all([companyTask, jurisdictionsTask]).then(([_, jurisdictioncountryIds]) => {\n      const type = Company.data.data.prod.Companies_by_pk.Country.EuVatArea ? \"EU\" : \"NON-EU\";\n      return GetEssentialDataForInfoAndDocs.run({\n        countryIds: jurisdictioncountryIds,\n        type\n      });\n    });\n    CheckManuallyUpdatedDocs.run();\n    CheckManuallyUpdatedInfo.run();\n    GetTokenFromDB.run();\n    QuestionnaireAPI.run();\n    AdditionalInformation.run();\n    DocumentAPI.run();\n  } else {\n    navigateTo(\"Companies\");\n  }\n}"
+              ],
+              "timeoutInMillisecond": 10000
             }
           ],
           [
