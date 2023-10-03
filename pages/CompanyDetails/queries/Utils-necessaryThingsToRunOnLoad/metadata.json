@@ -23,7 +23,7 @@
       "jsArguments": [],
       "isAsync": true
     },
-    "executeOnLoad": true,
+    "executeOnLoad": false,
     "dynamicBindingPathList": [
       {
         "key": "body"
@@ -32,12 +32,12 @@
     "isValid": true,
     "invalids": [],
     "messages": [],
-    "userSetOnLoad": true,
+    "userSetOnLoad": false,
     "confirmBeforeExecute": false,
     "policies": [],
     "userPermissions": []
   },
   "id": "CompanyDetails_Utils.necessaryThingsToRunOnLoad",
   "deleted": false,
-  "gitSyncId": "64ddbc9544dc506821b62c28_6501b95e44dc506821b62e64"
+  "gitSyncId": "64ddbc9544dc506821b62c28_651c095044dc506821b62fff"
 }

@@ -16,11 +16,11 @@ export default {
 		const submittedInformation = CheckManuallyUpdatedInfo.data.data.prod.missionctrl_track_remaining_data_information;
 		const finalInformation = [];
 		requiredInformation.filter((information) => {
-			const hasAlreadyBeenAdded = submittedInformation.find((info) => info.information_type_id === information.Information.id && info.country_id === information.Country.Id);
-			if(hasAlreadyBeenAdded && hasAlreadyBeenAdded.active) {
+			const hasAlreadyBeenAdded = submittedInformation.find((info) => info.information_type_id === information.Information.id && info.country_id === information.Country.Id && info.value);
+			if(hasAlreadyBeenAdded) {
 				finalInformation.push({ name: information.Information.information, jurisdiction_country:information.Country.NameEN, jurisdiction_country_id: information.Country.Id, information_id: information.Information.id, missing: false, Value: hasAlreadyBeenAdded.value })
 			} else {
-				finalInformation.push({name: information.Information.information, jurisdiction_country:information.Country.NameEN, jurisdiction_country_id: information.Country.Id, information_id: information.Information.id, missing: true, Value: !hasAlreadyBeenAdded?.active && hasAlreadyBeenAdded?.value ? hasAlreadyBeenAdded?.value : ""  })
+				finalInformation.push({name: information.Information.information, jurisdiction_country:information.Country.NameEN, jurisdiction_country_id: information.Country.Id, information_id: information.Information.id, missing: true, Value: ""  })
 			}
 		})
 		return finalInformation
@@ -87,28 +87,6 @@ export default {
 			}
 		})
 		return jurisdictionsValue;
-	},
-	updateUserInformation: async(isMissing, informationTypeId, countryId, value) => {
-		const companyId = parseInt(Utils.selectedCompanyId());
-		const whereObject = {company_id: {_eq: companyId},information_type_id: {_eq:informationTypeId}, country_id: {_eq:countryId}};
-		try{
-			if(isMissing) {
-				const checkExistence = await Utils.checkInformationExistence(informationTypeId, countryId, companyId);
-				if(checkExistence) {
-					await UpdateOfflineInformation.run({whereObj: whereObject, setObj: {active: 1}}).then((resp) => resp.data ? showAlert("Value has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));			
-				} else {
-					const insertObject = {country_id:countryId, value: value, information_type_id: informationTypeId, company_id: companyId }
-					await AddUserInformation.run({object: insertObject}).then((resp) => resp.data ? showAlert("Value has been added successfully!", "success") : showAlert("Something went wrong!", "error"));
-				}
-			} else {
-				await UpdateOfflineInformation.run({whereObj: whereObject, setObj: {active: 0}}).then((resp) => resp.data ? showAlert("Value has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));	
-			}
-		} catch(error){
-			console.log(error)
-		}
-		await AddStatusLog.run({statusObject: {status: isMissing ? "ADDED" : "REVOKED", agent: appsmith.user.username, company_id:companyId, information_id:informationTypeId, country_id: countryId }})
-		await CheckManuallyUpdatedInfo.run({companyId: companyId });
-		await Utils.getMissingInformation();
 	},
 	getHistoryOfInformation: async(informationType, country_id) => {
 		await GetHistoryOfInformation.run({company_id:parseInt(appsmith.URL.queryParams.companyId), information_id: informationType, country_id: country_id })
@@ -357,6 +335,7 @@ export default {
 			const insertObject = {country_id:jurisdiction_country_id, value: Value, information_type_id: information_id, company_id: companyId }
 			await AddUserInformation.run({object: insertObject}).then((resp) => resp.data ? showAlert("Value has been added successfully!", "success") : showAlert("Something went wrong!", "error"));	
 		}
+		await AddStatusLog.run({statusObject: {status: !checkExistence ? "ADDED" : "REVOKED", agent: appsmith.user.username, company_id:companyId, information_id:information_id, country_id: jurisdiction_country_id, value: Value }})
 		await CheckManuallyUpdatedInfo.run({companyId: parseInt(appsmith.URL.queryParams.companyId) });
 		await Utils.getMissingInformation();
 	},

@@ -9,6 +9,7 @@ query GetHistoryOfInformation($company_id: Int!, $information_id: Int!, $country
 				information
 			}
 			agent
+			value
 			created_at
 		}
 	}
