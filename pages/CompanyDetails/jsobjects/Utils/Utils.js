@@ -20,7 +20,7 @@ export default {
 			if(hasAlreadyBeenAdded && hasAlreadyBeenAdded.active) {
 				finalInformation.push({ name: information.Information.information, jurisdiction_country:information.Country.NameEN, jurisdiction_country_id: information.Country.Id, information_id: information.Information.id, missing: false, Value: hasAlreadyBeenAdded.value })
 			} else {
-				finalInformation.push({name: information.Information.information, jurisdiction_country:information.Country.NameEN, jurisdiction_country_id: information.Country.Id, information_id: information.Information.id, missing: true, Value: !hasAlreadyBeenAdded?.active ? hasAlreadyBeenAdded?.value : ""  })
+				finalInformation.push({name: information.Information.information, jurisdiction_country:information.Country.NameEN, jurisdiction_country_id: information.Country.Id, information_id: information.Information.id, missing: true, Value: !hasAlreadyBeenAdded?.active && hasAlreadyBeenAdded?.value ? hasAlreadyBeenAdded?.value : ""  })
 			}
 		})
 		return finalInformation
@@ -90,12 +90,17 @@ export default {
 	},
 	updateUserInformation: async(isMissing, informationTypeId, countryId, value) => {
 		const companyId = parseInt(Utils.selectedCompanyId());
+		const whereObject = {company_id: {_eq: companyId},information_type_id: {_eq:informationTypeId}, country_id: {_eq:countryId}};
 		try{
 			if(isMissing) {
-				const insertObject = {country_id:countryId, value: value, information_type_id: informationTypeId, company_id: companyId }
-				await AddUserInformation.run({object: insertObject}).then((resp) => resp.data ? showAlert("Value has been added successfully!", "success") : showAlert("Something went wrong!", "error"));
+				const checkExistence = await Utils.checkInformationExistence(informationTypeId, countryId, companyId);
+				if(checkExistence) {
+					await UpdateOfflineInformation.run({whereObj: whereObject, setObj: {active: 1}}).then((resp) => resp.data ? showAlert("Value has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));			
+				} else {
+					const insertObject = {country_id:countryId, value: value, information_type_id: informationTypeId, company_id: companyId }
+					await AddUserInformation.run({object: insertObject}).then((resp) => resp.data ? showAlert("Value has been added successfully!", "success") : showAlert("Something went wrong!", "error"));
+				}
 			} else {
-				const whereObject = {company_id: {_eq: companyId},information_type_id: {_eq:informationTypeId}, country_id: {_eq:countryId}};
 				await UpdateOfflineInformation.run({whereObj: whereObject, setObj: {active: 0}}).then((resp) => resp.data ? showAlert("Value has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));	
 			}
 		} catch(error){
@@ -363,7 +368,7 @@ export default {
 			return { missing: doc.missing, type: "OFFLINE", Status: doc.missing ? "Not Submitted Yet" : "Marked as Received", Country: doc.Country.NameEN, Property: doc.DocumentType.NameEN, DataType: "Document"}
 		})
 		const offlineInformation = Utils.getMissingInformation().map((info) => {
-			return {Property: info.name, Country: info.jurisdiction_country, Status: info.missing ? "Not Submitted Yet" : "Marked as Received", DataType: "Information", type: "OFFLINE", missing: info.missing}
+			return {Property: info.name, Country: info.jurisdiction_country, Status: info.missing ? "Not Submitted Yet" : "Marked as Received", DataType: "Information", type: "OFFLINE", missing: info.missing, Value: info.Value ?? ""}
 		})
 		const onlineInformation = Utils.getMissingQuestionnaireInformation().map((info) => {
 			return {Property: info.fieldName, DataType: "Information", type: "ONLINE", missing: info.isMissing, Status: info.isMissing ? "Not Submitted Yet" : info.value}

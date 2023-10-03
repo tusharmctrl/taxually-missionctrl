@@ -1824,9 +1824,6 @@
                           "key": "primaryColumns.customColumn4.computedValue"
                         },
                         {
-                          "key": "primaryColumns.Value.computedValue"
-                        },
-                        {
                           "key": "primaryColumns.EditActions1.saveButtonColor"
                         },
                         {
@@ -1840,6 +1837,9 @@
                         },
                         {
                           "key": "primaryColumns.EditActions1.isDiscardDisabled"
+                        },
+                        {
+                          "key": "primaryColumns.Value.computedValue"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -1880,7 +1880,7 @@
                         }
                       },
                       "borderRadius": "0.375rem",
-                      "columnUpdatedAt": 1696324392217,
+                      "columnUpdatedAt": 1696326315438,
                       "originalBottomRow": 37,
                       "defaultSelectedRowIndices": [
                         0
@@ -1939,7 +1939,8 @@
                         "Information": 334,
                         "name": 321,
                         "jurisdiction_country": 203,
-                        "customColumn4": 111
+                        "customColumn4": 111,
+                        "Value": 209
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
@@ -2213,37 +2214,6 @@
                           "buttonStyle": "rgb(3, 179, 101)",
                           "labelColor": "#FFFFFF"
                         },
-                        "Value": {
-                          "allowCellWrapping": false,
-                          "allowSameOptionsInNewRow": true,
-                          "index": 5,
-                          "width": 150,
-                          "originalId": "Value",
-                          "id": "Value",
-                          "alias": "Value",
-                          "horizontalAlignment": "LEFT",
-                          "verticalAlignment": "CENTER",
-                          "columnType": "text",
-                          "textColor": "",
-                          "textSize": "0.875rem",
-                          "fontStyle": "",
-                          "enableFilter": true,
-                          "enableSort": true,
-                          "isVisible": true,
-                          "isDisabled": false,
-                          "isCellEditable": true,
-                          "isEditable": true,
-                          "isCellVisible": true,
-                          "isDerived": false,
-                          "label": "Value",
-                          "isSaveVisible": true,
-                          "isDiscardVisible": true,
-                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Value\"]))}}",
-                          "sticky": "",
-                          "validation": {},
-                          "cellBackground": "",
-                          "onSubmit": "{{Utils.updateInformation()}}"
-                        },
                         "EditActions1": {
                           "allowCellWrapping": false,
                           "allowSameOptionsInNewRow": true,
@@ -2283,6 +2253,37 @@
                           "discardButtonVariant": "TERTIARY",
                           "isSaveDisabled": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( !InformationSummaryCopy.updatedRowIndices.includes(currentIndex)))}}",
                           "isDiscardDisabled": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( !InformationSummaryCopy.updatedRowIndices.includes(currentIndex)))}}"
+                        },
+                        "Value": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 5,
+                          "width": 150,
+                          "originalId": "Value",
+                          "id": "Value",
+                          "alias": "Value",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": true,
+                          "isEditable": true,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Value",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Value\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": "",
+                          "onSubmit": "{{Utils.updateInformation()}}"
                         }
                       },
                       "onRowSelected": "",
@@ -4191,6 +4192,9 @@
                         },
                         {
                           "key": "primaryColumns.Status.textColor"
+                        },
+                        {
+                          "key": "primaryColumns.Value.computedValue"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -4228,7 +4232,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1696316765891,
+                      "columnUpdatedAt": 1696327025950,
                       "defaultSelectedRowIndices": [
                         0
                       ],
@@ -4241,7 +4245,8 @@
                         "DataType",
                         "type",
                         "Status",
-                        "missing"
+                        "missing",
+                        "Value"
                       ],
                       "dynamicPropertyPathList": [
                         {
@@ -4259,7 +4264,7 @@
                         "Note": 164,
                         "type": 143,
                         "Property": 320,
-                        "Status": 249
+                        "Status": 184
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
@@ -4430,6 +4435,36 @@
                           "computedValue": "{{SummaryTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Property\"]))}}",
                           "sticky": "",
                           "validation": {}
+                        },
+                        "Value": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 6,
+                          "width": 150,
+                          "originalId": "Value",
+                          "id": "Value",
+                          "alias": "Value",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Value",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{SummaryTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Value\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
                         }
                       },
                       "key": "kxvlrb99fy",
