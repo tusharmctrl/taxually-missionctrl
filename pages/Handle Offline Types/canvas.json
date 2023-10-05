@@ -13,7 +13,7 @@
           "detachFromLayout": true,
           "widgetId": "0",
           "topRow": 0,
-          "bottomRow": 780,
+          "bottomRow": 840,
           "containerStyle": "none",
           "snapRows": 72,
           "parentRowSpace": 1,
@@ -39,7 +39,7 @@
                 "group"
               ],
               "topRow": 3,
-              "bottomRow": 70,
+              "bottomRow": 76,
               "parentRowSpace": 10,
               "type": "CONTAINER_WIDGET",
               "hideCard": false,
@@ -63,7 +63,7 @@
                   "widgetName": "Canvas1",
                   "displayName": "Canvas",
                   "topRow": 0,
-                  "bottomRow": 680,
+                  "bottomRow": 730,
                   "parentRowSpace": 1,
                   "type": "CANVAS_WIDGET",
                   "canExtend": false,
@@ -251,7 +251,7 @@
                                 "step": 70,
                                 "status": 85,
                                 "id": 85,
-                                "NameEN": 300
+                                "NameEN": 377
                               },
                               "parentRowSpace": 10,
                               "hideCard": false,

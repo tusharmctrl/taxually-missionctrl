@@ -35,7 +35,8 @@ export default {
 			});
 			Promise.all([companyTask, jurisdictionsTask]).then(([_, jurisdictioncountryIds]) => {
 				const type = Company.data.data.prod.Companies_by_pk.Country.EuVatArea ? "EU" : "NON-EU";
-				return GetEssentialDataForInfoAndDocs.run({ countryIds: jurisdictioncountryIds, type });
+				const companyType = Company.data.data.prod.Companies_by_pk.LegalStatus.NameEN === "Company" ? "COMPANY" : "INDIVIDUAL";
+				return GetEssentialDataForInfoAndDocs.run({ countryIds: jurisdictioncountryIds, type, companyType:companyType });
 			});
 			CheckManuallyUpdatedDocs.run();
 			CheckManuallyUpdatedInfo.run();

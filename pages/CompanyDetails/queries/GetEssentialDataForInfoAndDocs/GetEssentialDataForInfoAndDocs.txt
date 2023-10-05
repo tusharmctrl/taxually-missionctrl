@@ -1,7 +1,6 @@
-query GetEssentialDataForInfoAndDocs($countryIds: [Int], $type: String){
+query GetEssentialDataForInfoAndDocs($countryIds: [Int], $type: String, $companyType: String){
 	prod {
-
-		missionctrl_map_offline_docs_to_country(where: {country_id: {_in: $countryIds}, type: {_eq: $type}}, order_by: {country_id: desc}) {
+		missionctrl_map_offline_docs_to_country(where: {country_id: {_in: $countryIds}, type: {_eq: $type}, Document: {type: {_eq: $companyType}}}, order_by: {country_id: desc}) {
 			Country {
 				Id
 				NameEN

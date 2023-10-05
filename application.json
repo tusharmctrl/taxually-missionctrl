@@ -11,6 +11,10 @@
     {
       "id": "Handle Offline Types",
       "isDefault": false
+    },
+    {
+      "id": "Offline Data Overview",
+      "isDefault": false
     }
   ],
   "viewMode": false,

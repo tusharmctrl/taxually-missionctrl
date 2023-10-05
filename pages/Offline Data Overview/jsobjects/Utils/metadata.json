@@ -1,0 +1,15 @@
+{
+  "unpublishedCollection": {
+    "name": "Utils",
+    "pageId": "Offline Data Overview",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "actions": [],
+    "archivedActions": [],
+    "variables": [],
+    "userPermissions": []
+  },
+  "id": "Offline Data Overview_Utils",
+  "deleted": false,
+  "gitSyncId": "64ddbc9544dc506821b62c28_651e87a044dc506821b63046"
+}
