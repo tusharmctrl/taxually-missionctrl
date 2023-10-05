@@ -8,18 +8,20 @@ export default {
 		OfflineDocumentTypes.run();
 	},
 	getSelectedCountriesOfDocument: async(id) => {
-		storeValue("currentDocumentId", id);
-		await GetSelectedCountriesOfDocument.run({id: id, type: Select1.selectedOptionValue})
-		const countries = GetCountries.data.data.prod.Countries;
-		const finalResponse = countries.map((country) => {
-			if(GetSelectedCountriesOfDocument.data.data.prod.missionctrl_map_offline_docs_to_country.some((selectedCountry) => selectedCountry.Country.Id === country.Id)) {
-				return {Name: country.NameEN, Assigned: true, DocumentId:id, CountryId: country.Id}
-			} else {
-				return {Name: country.NameEN, Assigned: false, DocumentId:id, CountryId: country.Id}
-			}
-		}).sort((a, b) => (a.Assigned === b.Assigned) ? 0 : a.Assigned ? -1 : 1);
-		showModal("CountryBindingsModal")
-		return finalResponse;
+		if(!GetCountries.isLoading){
+			storeValue("currentDocumentId", id);
+			await GetSelectedCountriesOfDocument.run({id: id, type: Select1.selectedOptionValue})
+			const countries = GetCountries.data.data.prod.Countries;
+			const finalResponse = countries.map((country) => {
+				if(GetSelectedCountriesOfDocument.data.data.prod.missionctrl_map_offline_docs_to_country.some((selectedCountry) => selectedCountry.Country.Id === country.Id)) {
+					return {Name: country.NameEN, Assigned: true, DocumentId:id, CountryId: country.Id}
+				} else {
+					return {Name: country.NameEN, Assigned: false, DocumentId:id, CountryId: country.Id}
+				}
+			}).sort((a, b) => (a.Assigned === b.Assigned) ? 0 : a.Assigned ? -1 : 1);
+			showModal("CountryBindingsModal")
+			return finalResponse;
+		}
 	},
 	updateDocumentInformation: async(documentId, countryId, isAssigned) => {
 		if(isAssigned) {
@@ -57,18 +59,20 @@ export default {
 		OfflineInformationTypes.run();
 	},
 	getSelectedCountriesOfInformation: async(id) => {
-		storeValue("currentInformationId", id);
-		await GetSelectedCountriesOfInfo.run({id: id, type: TypeOfInformation.selectedOptionValue})
-		const countries = GetCountries.data.data.prod.Countries;
-		const finalResponse = countries.map((country) => {
-			if(GetSelectedCountriesOfInfo.data.data.prod.missionctrl_track_missing_information.some((selectedCountry) => selectedCountry.Country.Id === country.Id)) {
-				return {Name: country.NameEN, Assigned: true, InformationId:id, CountryId: country.Id}
-			} else {
-				return {Name: country.NameEN, Assigned: false, InformationId:id, CountryId: country.Id}
-			}
-		}).sort((a, b) => (a.Assigned === b.Assigned) ? 0 : a.Assigned ? -1 : 1);
-		showModal("CountryBindingsToInfoModal")
-		return finalResponse;
+		if(!GetCountries.isLoading){
+			storeValue("currentInformationId", id);
+			await GetSelectedCountriesOfInfo.run({id: id, type: TypeOfInformation.selectedOptionValue})
+			const countries = GetCountries.data.data.prod.Countries;
+			const finalResponse = countries.map((country) => {
+				if(GetSelectedCountriesOfInfo.data.data.prod.missionctrl_track_missing_information.some((selectedCountry) => selectedCountry.Country.Id === country.Id)) {
+					return {Name: country.NameEN, Assigned: true, InformationId:id, CountryId: country.Id}
+				} else {
+					return {Name: country.NameEN, Assigned: false, InformationId:id, CountryId: country.Id}
+				}
+			}).sort((a, b) => (a.Assigned === b.Assigned) ? 0 : a.Assigned ? -1 : 1);
+			showModal("CountryBindingsToInfoModal")
+			return finalResponse;
+		}
 	},
 	updateInformationMatrix: async(informationId, countryId, isAssigned) => {
 		if(isAssigned) {
