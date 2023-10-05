@@ -10,7 +10,7 @@ query GetEssentialDataForInfoAndDocs($countryIds: [Int], $type: String, $company
 				NameEN
 			}
 		}
-		missionctrl_track_missing_information(where: {country_id: {_in: $countryIds}, type: {_eq: $type}}, order_by: {country_id: desc}) {
+		missionctrl_track_missing_information(where: {country_id: {_in: $countryIds}, type: {_eq: $type}, Information: {type: {_eq: $companyType}}}, order_by: {country_id: desc}) {
 			Information {
 				id
 				information
