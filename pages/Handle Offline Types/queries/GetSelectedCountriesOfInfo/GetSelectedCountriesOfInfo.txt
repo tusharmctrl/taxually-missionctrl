@@ -1,0 +1,14 @@
+query CurrentAssignedCountriesToInformation($id: Int, $type: String) {
+	prod {
+		missionctrl_track_missing_information(where: {information_type_id: {_eq: $id}, type: {_eq: $type}}) {
+			Country {
+				Id
+				NameEN
+			}
+			Information {
+				id
+				information
+			}
+		}
+	}
+}

@@ -1,0 +1,7 @@
+mutation DeleteOfflineDocument($whereObject: missionctrl_track_missing_information_bool_exp!) {
+	prod {
+		delete_missionctrl_track_missing_information(where: $whereObject) {
+			affected_rows
+		}
+	}
+}

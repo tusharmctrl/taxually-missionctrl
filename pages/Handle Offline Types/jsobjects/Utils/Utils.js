@@ -56,4 +56,28 @@ export default {
 		await UpdateInformationType.run({id: id, information: information}).then((resp) => resp.data ? showAlert("Information Data Successfully Updated!", "success") : showAlert("Oh no! Something went wrong", "error"))
 		OfflineInformationTypes.run();
 	},
+	getSelectedCountriesOfInformation: async(id) => {
+		storeValue("currentInformationId", id);
+		await GetSelectedCountriesOfInfo.run({id: id, type: TypeOfInformation.selectedOptionValue})
+		const countries = GetCountries.data.data.prod.Countries;
+		const finalResponse = countries.map((country) => {
+			if(GetSelectedCountriesOfInfo.data.data.prod.missionctrl_track_missing_information.some((selectedCountry) => selectedCountry.Country.Id === country.Id)) {
+				return {Name: country.NameEN, Assigned: true, InformationId:id, CountryId: country.Id}
+			} else {
+				return {Name: country.NameEN, Assigned: false, InformationId:id, CountryId: country.Id}
+			}
+		}).sort((a, b) => (a.Assigned === b.Assigned) ? 0 : a.Assigned ? -1 : 1);
+		showModal("CountryBindingsToInfoModal")
+		return finalResponse;
+	},
+	updateInformationMatrix: async(informationId, countryId, isAssigned) => {
+		if(isAssigned) {
+			const whereObject = {country_id: {_eq: countryId}, information_type_id:{_eq: informationId}, type: {_eq: TypeOfInformation.selectedOptionValue}};
+			await DeleteOfflineInformation.run({whereObject: whereObject}).then((resp) => resp.data ? showAlert("Removed Assignment Successfully!", "success") : showAlert("Something went wrong", "error"))
+		} else {
+			const insertObject = {country_id: countryId, information_type_id:informationId, type: TypeOfInformation.selectedOptionValue}
+			await InsertOfflineInformation.run({object: insertObject}).then((resp) => resp.data ? showAlert("Added Assignment Successfully!", "success") : showAlert("Something went wrong", "error"))
+		}
+		Utils.getSelectedCountriesOfInformation(informationId);
+	},
 }

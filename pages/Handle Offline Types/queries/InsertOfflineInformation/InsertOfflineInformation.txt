@@ -1,0 +1,9 @@
+mutation InsertOfflineInformation($object: missionctrl_track_missing_information_insert_input!) {
+	prod {
+		insert_missionctrl_track_missing_information_one(object: $object) {
+			id
+			country_id
+			information_type_id
+		}
+	}
+}
