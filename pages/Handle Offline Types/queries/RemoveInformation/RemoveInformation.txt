@@ -1,0 +1,10 @@
+mutation DeleteInformationType($id: Int) {
+	prod {
+		delete_missionctrl_offline_information_types(where: {id: {_eq: $id}}) {
+			affected_rows
+		}
+		delete_missionctrl_track_missing_information(where: {information_type_id: {_eq: $id}}) {
+			affected_rows
+		}
+	}
+}

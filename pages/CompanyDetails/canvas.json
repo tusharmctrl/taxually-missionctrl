@@ -13,7 +13,7 @@
           "detachFromLayout": true,
           "widgetId": "0",
           "topRow": 0,
-          "bottomRow": 1730,
+          "bottomRow": 1650,
           "containerStyle": "none",
           "snapRows": 57,
           "parentRowSpace": 1,
@@ -1924,6 +1924,9 @@
                         },
                         {
                           "key": "primaryColumns.customColumn4.textColor"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn3.isCellVisible"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -2001,6 +2004,9 @@
                         },
                         {
                           "key": "primaryColumns.customColumn4.textColor"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn3.isCellVisible"
                         }
                       ],
                       "compactMode": "DEFAULT",
@@ -2114,7 +2120,7 @@
                           "isDisabled": false,
                           "isCellEditable": false,
                           "isEditable": false,
-                          "isCellVisible": true,
+                          "isCellVisible": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow.missing ? false : true))}}",
                           "isDerived": true,
                           "label": "History",
                           "isSaveVisible": true,

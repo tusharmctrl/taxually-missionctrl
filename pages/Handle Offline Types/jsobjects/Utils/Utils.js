@@ -35,10 +35,25 @@ export default {
 		const object = {NameEN: CreateDocType.data.DocumentName, type: CreateDocType.data.Type};
 		await AddOfflineDocument.run({object: object}).then((resp) => resp.data ? showAlert("New Document has been added Successfully!", "success") : showAlert("Something went wrong", "error"))
 		OfflineDocumentTypes.run();
-		CreateNewDocumentType.isVisible = false;
+		closeModal("CreateNewDocumentType");
 	},
 	removeDocument: async(id) => {
 		await RemoveDocument.run({id:id}).then((resp) => resp.data ? showAlert("Document has been removed!", "success") : showAlert("Something went wrong", "error"))
 		OfflineDocumentTypes.run();
-	}
+	},
+	removeInformation: async(id) => {
+		await RemoveInformation.run({id:id}).then((resp) => resp.data ? showAlert("Document has been removed!", "success") : showAlert("Something went wrong", "error"))
+		OfflineInformationTypes.run();
+	},
+	addNewInformation: async() => {
+		const object = {information: CreateInfoType.data.InformationName, type: CreateInfoType.data.InformationType};
+		await AddOfflineInformation.run({object: object}).then((resp) => resp.data ? showAlert("New Information has been added Successfully!", "success") : showAlert("Something went wrong", "error"))
+		OfflineInformationTypes.run();
+		closeModal("CreateNewInformationType");
+	},
+	onInformationEditRow: async() => {
+		const {id, information} = InformationMatrix.updatedRow;
+		await UpdateInformationType.run({id: id, information: information}).then((resp) => resp.data ? showAlert("Information Data Successfully Updated!", "success") : showAlert("Oh no! Something went wrong", "error"))
+		OfflineInformationTypes.run();
+	},
 }

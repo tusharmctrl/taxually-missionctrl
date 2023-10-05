@@ -1,0 +1,8 @@
+query OfflineInformationTypes {
+	prod {
+		missionctrl_offline_information_types {
+			id
+			information
+		}
+	}
+}
