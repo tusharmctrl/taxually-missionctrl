@@ -2921,6 +2921,21 @@
                         },
                         {
                           "key": "primaryColumns.customColumn5.boxShadow"
+                        },
+                        {
+                          "key": "primaryColumns.DocumentName.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn6.isCellVisible"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn6.buttonColor"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn6.borderRadius"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn6.boxShadow"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -2959,7 +2974,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1696567309880,
+                      "columnUpdatedAt": 1696599229558,
                       "originalBottomRow": 165,
                       "defaultSelectedRowIndices": [
                         0
@@ -2974,9 +2989,11 @@
                         "missing",
                         "customColumn1",
                         "customColumn4",
+                        "DocumentName",
                         "customColumn2",
                         "customColumn3",
                         "customColumn5",
+                        "customColumn6",
                         "Note",
                         "EditActions1"
                       ],
@@ -3004,6 +3021,12 @@
                         },
                         {
                           "key": "primaryColumns.customColumn5.onClick"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn6.isCellVisible"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn6.onClick"
                         }
                       ],
                       "displayName": "Table",
@@ -3016,9 +3039,11 @@
                         "DocumentType": 411,
                         "customColumn2": 166,
                         "Note": 107,
-                        "customColumn4": 96,
+                        "customColumn4": 149,
                         "type": 79,
-                        "customColumn5": 88
+                        "customColumn5": 88,
+                        "DocumentName": 261,
+                        "customColumn6": 83
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
@@ -3036,6 +3061,9 @@
                         },
                         {
                           "key": "primaryColumns.customColumn5.onClick"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn6.onClick"
                         }
                       ],
                       "borderWidth": "1",
@@ -3377,7 +3405,72 @@
                           "boxShadow": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
                           "customAlias": "",
                           "iconName": "cloud-upload",
-                          "onClick": ""
+                          "onClick": "{{Utils.openFileModal(currentRow.countryId, currentRow.documentTypeId)}}"
+                        },
+                        "DocumentName": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 5,
+                          "width": 150,
+                          "originalId": "DocumentName",
+                          "id": "DocumentName",
+                          "alias": "DocumentName",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Document Name",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"DocumentName\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "customColumn6": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 10,
+                          "width": 150,
+                          "originalId": "customColumn6",
+                          "id": "customColumn6",
+                          "alias": "View",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "iconButton",
+                          "textSize": "0.875rem",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( currentRow.missing ? false : true))}}",
+                          "isDerived": true,
+                          "label": "View",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "",
+                          "sticky": "",
+                          "validation": {},
+                          "buttonStyle": "rgb(3, 179, 101)",
+                          "labelColor": "#FFFFFF",
+                          "customAlias": "",
+                          "iconName": "eye-open",
+                          "onClick": "{{Utils.getDocument(currentRow.DocumentName)}}",
+                          "buttonColor": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.primaryColor)))}}",
+                          "borderRadius": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                          "boxShadow": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}"
                         }
                       },
                       "key": "h4nc937acj",

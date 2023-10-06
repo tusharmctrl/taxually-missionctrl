@@ -258,7 +258,8 @@ export default {
 					DocumentType: requiredDoc.DocumentType,
 					missing: false,
 					type: "OFFLINE",
-					Note: existingData.notes
+					Note: existingData.notes,
+					DocumentName: existingData.document_name
 				}
 			}
 			else {
@@ -355,14 +356,15 @@ export default {
 		})
 		return [...onlineDocumentData, ...offlineDocumentData, ...offlineInformation, ...onlineInformation];
 	},
-	openFileModal: (companyId, countryId, documentTypeId) => {
-		storeValue("FileUploadData", {companyId, countryId, documentTypeId})
+	openFileModal: (countryId, documentTypeId) => {
+		storeValue("FileUploadData", {companyId: Utils.selectedCompanyId(), countryId, documentTypeId})
+		showModal("FileUploadModal")
 	},
 	uploadDocument: async () => {
-		const companyDetails = appsmith.store.FileUploadData;
+		const {documentTypeId, countryId, companyId} = appsmith.store.FileUploadData;
 		const fileData = FilePicker1.files[0].data;
 		let sasToken =
-				"?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2023-10-06T13:21:37Z&st=2023-10-06T05:21:37Z&spr=https&sig=Uj%2F2k8Q%2FXR9KMvUywbqgP7LjwAymY3asq%2BKRlo6OOt8%3D";
+				"?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-04-11T21:25:22Z&st=2023-10-06T13:25:22Z&spr=https&sig=wgQeu%2FFL6dQUIcIjecock8jOdDgPCnY6zEhTop7%2B5BQ%3D";
 		let storageAccountName = "missionctrlprod";
 		let containerName = "taxuallyofflinedocs";
 		const blobName = Utils.selectedCompanyId() + "/" + FilePicker1.files[0].name;
@@ -389,6 +391,8 @@ export default {
 				}
 				await CheckManuallyUpdatedDocs.run({companyId: parseInt(Utils.selectedCompanyId()) });
 				await Utils.getMissingDocumentsRevised();
+				resetWidget("FilePicker1");
+				closeModal("FileUploadModal");
 				// showAlert("Document has been uploaded successfully!", "success")
 			} else {
 				showAlert("Oh no! Something went wrong!", "error")
@@ -406,6 +410,20 @@ export default {
 			bytes[i] = binaryString.charCodeAt(i);
 		}
 		return bytes.buffer;
+	},
+	getDocument: async(documentName) => {
+		let sasToken =
+				"?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-04-11T21:25:22Z&st=2023-10-06T13:25:22Z&spr=https&sig=wgQeu%2FFL6dQUIcIjecock8jOdDgPCnY6zEhTop7%2B5BQ%3D";
+		let storageAccountName = "missionctrlprod";
+		let containerName = "taxuallyofflinedocs";
+		const url = `https://${storageAccountName}.blob.core.windows.net/${containerName}/${documentName}${sasToken}`;
+		navigateTo(url);
+		fetch(url)
+			.then((response) => response.blob())
+			.then((response) => {
+			const blob = new Blob([response], { type: "application/pdf" });
+			download(blob);
+		});
 	}
 }
 
