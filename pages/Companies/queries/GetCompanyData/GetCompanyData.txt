@@ -1,6 +1,6 @@
 query CompanyDetails($limit: Int!, $offset: Int!, $searchText: String!, $statusFilter: Int_MSSQL_comparison_exp!, $waveFilter: Int_MSSQL_comparison_exp!) {
 	prod {
-		missionctrl_map_company_to_status(limit: $limit, offset: $offset, where: {_and: [{Company: {LegalNameOfBusiness: {_like: $searchText}}}, {status_id: $statusFilter}, {wave_id: $waveFilter}, {Company: {TenantId: {_eq: "BB2090DC-81C1-49ED-AE2E-5016C79464AB"}}}]}) {
+		missionctrl_track_company_status_wise(limit: $limit, offset: $offset, where: {_and: [{Company: {LegalNameOfBusiness: {_like: $searchText}}}, {status_id: $statusFilter}, {wave_id: $waveFilter}, {Company: {TenantId: {_eq: "BB2090DC-81C1-49ED-AE2E-5016C79464AB"}}}]}) {
 			Company {
 				Id
 				LegalNameOfBusiness
@@ -28,7 +28,7 @@ query CompanyDetails($limit: Int!, $offset: Int!, $searchText: String!, $statusF
 				wave_name
 			}
 		}
-		missionctrl_map_company_to_status_aggregate(where: {Company: {TenantId: {_eq: "BB2090DC-81C1-49ED-AE2E-5016C79464AB"}}, _and: [{status_id: $statusFilter}, {wave_id: $waveFilter}]}) {
+		missionctrl_track_company_status_wise_aggregate(where: {Company: {TenantId: {_eq: "BB2090DC-81C1-49ED-AE2E-5016C79464AB"}}, _and: [{status_id: $statusFilter}, {wave_id: $waveFilter}]}) {
 			aggregate {
 				count
 			}

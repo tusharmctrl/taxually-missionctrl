@@ -17,7 +17,7 @@ export default {
 		showModal("Modal1")
 	},
 	getCountOfCompaniesStatusWise: () => {
-		const statusWiseCompanyData = GetCountOfCompaniesStatusWise.data.data.prod.missionctrl_map_company_to_status.map(item => item.CompanyStatus.name);;
+		const statusWiseCompanyData = GetCountOfCompaniesStatusWise.data.data.prod.missionctrl_track_company_status_wise.map(item => item.CompanyStatus.name);;
 		const statusCounts = statusWiseCompanyData.reduce((counts, statusName) => {
 			counts[statusName] = (counts[statusName] || 0) + 1;
 			return counts;

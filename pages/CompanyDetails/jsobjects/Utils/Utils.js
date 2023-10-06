@@ -354,5 +354,39 @@ export default {
 			return {Property: info.fieldName, DataType: "Information", type: "ONLINE", missing: info.isMissing, Status: info.isMissing ? "Not Submitted Yet" : info.value}
 		})
 		return [...onlineDocumentData, ...offlineDocumentData, ...offlineInformation, ...onlineInformation];
+	},
+	uploadDocument: async () => {
+		console.log(FilePicker1.files[0])
+		const file = FilePicker1.files[0].data;
+		let sasToken =
+				"?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2023-10-06T13:21:37Z&st=2023-10-06T05:21:37Z&spr=https&sig=Uj%2F2k8Q%2FXR9KMvUywbqgP7LjwAymY3asq%2BKRlo6OOt8%3D";
+		let storageAccountName = "missionctrlprod";
+		let containerName = "taxuallyofflinedocs";
+		const blobName = FilePicker1.files[0].name;
+		const url = `https://${storageAccountName}.blob.core.windows.net/${containerName}/${blobName}${sasToken}`;
+		fetch(url, {
+			body: file,
+			method: "PUT",
+			headers: {
+				"x-ms-blob-type": "BlockBlob",
+				"x-ms-version": "2020-10-02",
+				"Content-Type": "application/pdf"
+			}
+		})
+			.then((response) => {
+			if (response.ok) {
+				console.log("Upload succeeded");
+				showAlert("Uploaded! Whoop Whoop!")
+			} else {
+				console.error("Upload failed");
+			}
+		})
+			.catch((error) => {
+			console.error("Upload error", error);
+		});
 	}
 }
+
+// resetWidget("Form1");
+// closeModal("File");
+

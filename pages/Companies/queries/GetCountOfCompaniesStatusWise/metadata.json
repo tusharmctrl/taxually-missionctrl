@@ -25,7 +25,7 @@
       ],
       "encodeParamsToggle": true,
       "queryParameters": [],
-      "body": "query GetCountOfCompaniesStatusWise {\n  prod {\n    missionctrl_map_company_to_status(where: {Company: {TenantId: {_eq: \"BB2090DC-81C1-49ED-AE2E-5016C79464AB\"}}}) {\n      status_id\n      Company {\n        TenantId\n      }\n      CompanyStatus {\n        name\n      }\n    }\n  }\n}\n",
+      "body": "query GetCountOfCompaniesStatusWise {\n\tprod {\n\t\tmissionctrl_track_company_status_wise(where: {Company: {TenantId: {_eq: \"BB2090DC-81C1-49ED-AE2E-5016C79464AB\"}}}) {\n\t\t\tstatus_id\n\t\t\tCompany {\n\t\t\t\tTenantId\n\t\t\t}\n\t\t\tCompanyStatus {\n\t\t\t\tname\n\t\t\t}\n\t\t}\n\t}\n}\n",
       "httpMethod": "POST",
       "selfReferencingDataPaths": [],
       "pluginSpecifiedTemplates": [
