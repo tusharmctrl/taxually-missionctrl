@@ -355,38 +355,57 @@ export default {
 		})
 		return [...onlineDocumentData, ...offlineDocumentData, ...offlineInformation, ...onlineInformation];
 	},
+	openFileModal: (companyId, countryId, documentTypeId) => {
+		storeValue("FileUploadData", {companyId, countryId, documentTypeId})
+	},
 	uploadDocument: async () => {
-		console.log(FilePicker1.files[0])
-		const file = FilePicker1.files[0].data;
+		const companyDetails = appsmith.store.FileUploadData;
+		const fileData = FilePicker1.files[0].data;
 		let sasToken =
 				"?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2023-10-06T13:21:37Z&st=2023-10-06T05:21:37Z&spr=https&sig=Uj%2F2k8Q%2FXR9KMvUywbqgP7LjwAymY3asq%2BKRlo6OOt8%3D";
 		let storageAccountName = "missionctrlprod";
 		let containerName = "taxuallyofflinedocs";
-		const blobName = FilePicker1.files[0].name;
+		const blobName = Utils.selectedCompanyId() + "/" + FilePicker1.files[0].name;
+		const arrayBuffer = Utils.base64ToArrayBuffer(fileData)
 		const url = `https://${storageAccountName}.blob.core.windows.net/${containerName}/${blobName}${sasToken}`;
 		fetch(url, {
-			body: file,
+			body: arrayBuffer,
 			method: "PUT",
 			headers: {
 				"x-ms-blob-type": "BlockBlob",
 				"x-ms-version": "2020-10-02",
-				"Content-Type": "application/pdf"
+				"Content-Type": FilePicker1.files[0].type
 			}
 		})
-			.then((response) => {
+			.then(async (response) => {
 			if (response.ok) {
-				console.log("Upload succeeded");
-				showAlert("Uploaded! Whoop Whoop!")
+				const checkDocumentExistence = await Utils.checkDocumentsExistence(documentTypeId, countryId, companyId);
+				if(!checkDocumentExistence) {
+					const object = {company_id: parseInt(Utils.selectedCompanyId()), document_type_id: documentTypeId, country_id: countryId, document_name: blobName};
+					await AddDocumentTracker.run({object: object}).then((resp) => resp.data ? showAlert("Document has been added successfully!", "success") : showAlert("Something went wrong!", "error"));
+				} else {
+					const whereObject = {company_id: {_eq: companyId},document_type_id: {_eq:documentTypeId}, country_id: {_eq:countryId } };
+					await UpdateDocumentTracker.run({whereObject: whereObject, setObject: {document_name: blobName}}).then((resp) => resp.data ? showAlert("Document has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));
+				}
+				await CheckManuallyUpdatedDocs.run({companyId: parseInt(Utils.selectedCompanyId()) });
+				await Utils.getMissingDocumentsRevised();
+				// showAlert("Document has been uploaded successfully!", "success")
 			} else {
-				console.error("Upload failed");
+				showAlert("Oh no! Something went wrong!", "error")
 			}
 		})
 			.catch((error) => {
 			console.error("Upload error", error);
 		});
+	},
+	base64ToArrayBuffer: (base64) => {
+		const binaryString = atob(base64.split(",")[1]);
+		const len = binaryString.length;
+		const bytes = new Uint8Array(len);
+		for (let i = 0; i < len; i++) {
+			bytes[i] = binaryString.charCodeAt(i);
+		}
+		return bytes.buffer;
 	}
 }
-
-// resetWidget("Form1");
-// closeModal("File");
 
