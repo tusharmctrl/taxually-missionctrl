@@ -1,8 +1,6 @@
 query GetDataForOverview {
 	prod {
 		missionctrl_map_offline_docs_to_country {
-			id
-			country_id
 			type
 			document_type_id
 			Document {
@@ -13,6 +11,17 @@ query GetDataForOverview {
 				NameEN
 				Code
 			}
+		}
+		missionctrl_track_missing_information {
+			Country {
+				NameEN
+			}
+			Information {
+				information
+				type
+			}
+			information_type_id
+			type
 		}
 	}
 }

@@ -6,27 +6,57 @@ export default {
 		const data = GetDataForOverview.data.data.prod.missionctrl_map_offline_docs_to_country;
 		const groupedData = {};
 		data.forEach((item) => {
-			const documentNameEN = `${item.Document.NameEN}`;
+			const documentNameEN = item.Document.NameEN;
+			const documentId = item.document_type_id;
 			const countryCode = item.Country.NameEN;
 			const type = item.type;
 			const documentType = item.Document.type;
-			if (!groupedData[documentNameEN]) {
-				groupedData[documentNameEN] = {DocumentType: documentType, values: []};
+			if (!groupedData[documentId]) {
+				groupedData[documentId] = {DocumentName: documentNameEN, DocumentType: documentType, values: []};
 			}
-			groupedData[documentNameEN]['values'].push({ CountryCode: countryCode, Type: type });
+			groupedData[documentId]['values'].push({ CountryCode: countryCode, Type: type });
 		});
 		const finalResponse = [];
-		for (const documentNameEN in groupedData) {
-			if (groupedData.hasOwnProperty(documentNameEN)) {
-				const countryData = groupedData[documentNameEN]['values'];
-				const documentType = groupedData[documentNameEN]["DocumentType"]
+		for (const documentId in groupedData) {
+			if (groupedData.hasOwnProperty(documentId)) {
+				const countryData = groupedData[documentId]['values'];
+				const documentType = groupedData[documentId]["DocumentType"];
+				const documentName = groupedData[documentId]["DocumentName"]
 				const euData = countryData.filter((data) => data.Type === "EU")
 				const nonEuData = countryData.filter((data) => data.Type === "NON-EU")
-				euData.length > 0 && finalResponse.push({ DataType: "Document", Type: documentType, Document: documentNameEN, Establishment: "EU", CountryData: euData.map(data => `${data.CountryCode}`).join(", ") });
-				nonEuData.length > 0 && finalResponse.push({ DataType: "Document", Type: documentType, Document: documentNameEN, Establishment: "NON-EU", CountryData: nonEuData.map(data => `${data.CountryCode}`).join(", ") });
+				euData.length > 0 && finalResponse.push({ DataType: "Document", Type: documentType, Document: documentName, Establishment: "EU", CountryData: euData.map(data => `${data.CountryCode}`).join(", ") });
+				nonEuData.length > 0 && finalResponse.push({ DataType: "Document", Type: documentType, Document: documentName, Establishment: "NON-EU", CountryData: nonEuData.map(data => `${data.CountryCode}`).join(", ") });
 			}
 		}
 		return finalResponse;
-	}
+	},
+	getDataForInformationOverview: () => {
+		const data = GetDataForOverview.data.data.prod.missionctrl_track_missing_information;
+		const groupedData = {};
+		data.forEach((item) => {
+			const informationName = item.Information.information;
+			const informationId = item.information_type_id;
+			const countryName = item.Country.NameEN;
+			const type = item.type;
+			const informationType = item.Information.type;
+			if (!groupedData[informationId]) {
+				groupedData[informationId] = {InformationName: informationName, InformationType: informationType, values: []};
+			}
+			groupedData[informationId]['values'].push({ CountryCode: countryName, Type: type });
+		});
+		const finalResponse = [];
+		for (const informationId in groupedData) {
+			if (groupedData.hasOwnProperty(informationId)) {
+				const countryData = groupedData[informationId]['values'];
+				const informationType = groupedData[informationId]["InformationType"];
+				const informationName = groupedData[informationId]["InformationName"]
+				const euData = countryData.filter((data) => data.Type === "EU")
+				const nonEuData = countryData.filter((data) => data.Type === "NON-EU")
+				euData.length > 0 && finalResponse.push({ DataType: "Information", Type: informationType, Document: informationName, Establishment: "EU", CountryData: euData.map(data => `${data.CountryCode}`).join(", ") });
+				nonEuData.length > 0 && finalResponse.push({ DataType: "Information", Type: informationType, Document: informationName, Establishment: "NON-EU", CountryData: nonEuData.map(data => `${data.CountryCode}`).join(", ") });
+			}
+		}
+		return finalResponse;
+	},
 
 }

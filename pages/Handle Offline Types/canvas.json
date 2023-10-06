@@ -173,6 +173,21 @@
                                 },
                                 {
                                   "key": "primaryColumns.customColumn2.boxShadow"
+                                },
+                                {
+                                  "key": "primaryColumns.type.computedValue"
+                                },
+                                {
+                                  "key": "primaryColumns.type.borderRadius"
+                                },
+                                {
+                                  "key": "primaryColumns.type.boxShadow"
+                                },
+                                {
+                                  "key": "primaryColumns.type.menuButtonLabel"
+                                },
+                                {
+                                  "key": "primaryColumns.type.menuItems.menuItem88a6a0pqvq.backgroundColor"
                                 }
                               ],
                               "needsHeightForContent": true,
@@ -211,7 +226,7 @@
                                 }
                               },
                               "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                              "columnUpdatedAt": 1696238712503,
+                              "columnUpdatedAt": 1696513399914,
                               "originalBottomRow": 65,
                               "primaryColumnId": "id",
                               "defaultSelectedRowIndices": [
@@ -224,6 +239,7 @@
                                 "id",
                                 "NameEN",
                                 "customColumn1",
+                                "type",
                                 "customColumn2",
                                 "EditActions1"
                               ],
@@ -251,7 +267,8 @@
                                 "step": 70,
                                 "status": 85,
                                 "id": 85,
-                                "NameEN": 377
+                                "NameEN": 377,
+                                "customColumn2": 97
                               },
                               "parentRowSpace": 10,
                               "hideCard": false,
@@ -430,6 +447,61 @@
                                   "customAlias": "",
                                   "iconName": "trash",
                                   "onClick": "{{Utils.removeDocument(currentRow.id)}}"
+                                },
+                                "type": {
+                                  "allowCellWrapping": false,
+                                  "allowSameOptionsInNewRow": true,
+                                  "index": 2,
+                                  "width": 150,
+                                  "originalId": "type",
+                                  "id": "type",
+                                  "alias": "type",
+                                  "horizontalAlignment": "LEFT",
+                                  "verticalAlignment": "CENTER",
+                                  "columnType": "menuButton",
+                                  "textColor": "",
+                                  "textSize": "0.875rem",
+                                  "fontStyle": "",
+                                  "enableFilter": true,
+                                  "enableSort": true,
+                                  "isVisible": true,
+                                  "isDisabled": false,
+                                  "isCellEditable": false,
+                                  "isEditable": false,
+                                  "isCellVisible": true,
+                                  "isDerived": false,
+                                  "label": "Type",
+                                  "isSaveVisible": true,
+                                  "isDiscardVisible": true,
+                                  "computedValue": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"type\"]))}}",
+                                  "sticky": "",
+                                  "validation": {},
+                                  "cellBackground": "",
+                                  "menuColor": "#f4f4f5",
+                                  "borderRadius": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                                  "boxShadow": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
+                                  "customAlias": "",
+                                  "menuItemsSource": "STATIC",
+                                  "menuItems": {
+                                    "menuItem88a6a0pqvq": {
+                                      "id": "menuItem88a6a0pqvq",
+                                      "index": 0,
+                                      "label": "Company",
+                                      "widgetId": "qvz1ypohrs",
+                                      "isDisabled": false,
+                                      "isVisible": true,
+                                      "backgroundColor": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.backgroundColor)))}}"
+                                    },
+                                    "menuItem5dw66xf0kb": {
+                                      "id": "menuItem5dw66xf0kb",
+                                      "index": 1,
+                                      "label": "Individual",
+                                      "widgetId": "16avhazd7l",
+                                      "isDisabled": false,
+                                      "isVisible": true
+                                    }
+                                  },
+                                  "menuButtonLabel": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( currentRow.type))}}"
                                 }
                               },
                               "key": "su1tre44ib",
@@ -997,7 +1069,7 @@
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
                       "mobileLeftColumn": 0,
                       "maxDynamicHeight": 9000,
-                      "originalBottomRow": 70,
+                      "originalBottomRow": 68,
                       "minDynamicHeight": 15
                     },
                     {
@@ -3221,6 +3293,19 @@
         "layoutOnLoadActions": [
           [
             {
+              "id": "Handle Offline Types_Utils.onLoad",
+              "name": "Utils.onLoad",
+              "collectionId": "Handle Offline Types_Utils",
+              "confirmBeforeExecute": false,
+              "pluginType": "JS",
+              "jsonPathKeys": [
+                "async () => {\n  GetCountries.run();\n}"
+              ],
+              "timeoutInMillisecond": 10000
+            }
+          ],
+          [
+            {
               "id": "Handle Offline Types_GetCountries",
               "name": "GetCountries",
               "confirmBeforeExecute": false,
@@ -3252,17 +3337,6 @@
               "pluginType": "JS",
               "jsonPathKeys": [
                 "async id => {\n  if (!GetCountries.isLoading) {\n    storeValue(\"currentInformationId\", id);\n    await GetSelectedCountriesOfInfo.run({\n      id: id,\n      type: TypeOfInformation.selectedOptionValue\n    });\n    const countries = GetCountries.data.data.prod.Countries;\n    const finalResponse = countries.map(country => {\n      if (GetSelectedCountriesOfInfo.data.data.prod.missionctrl_track_missing_information.some(selectedCountry => selectedCountry.Country.Id === country.Id)) {\n        return {\n          Name: country.NameEN,\n          Assigned: true,\n          InformationId: id,\n          CountryId: country.Id\n        };\n      } else {\n        return {\n          Name: country.NameEN,\n          Assigned: false,\n          InformationId: id,\n          CountryId: country.Id\n        };\n      }\n    }).sort((a, b) => a.Assigned === b.Assigned ? 0 : a.Assigned ? -1 : 1);\n    showModal(\"CountryBindingsToInfoModal\");\n    return finalResponse;\n  }\n}"
-              ],
-              "timeoutInMillisecond": 10000
-            },
-            {
-              "id": "Handle Offline Types_Utils.onLoad",
-              "name": "Utils.onLoad",
-              "collectionId": "Handle Offline Types_Utils",
-              "confirmBeforeExecute": false,
-              "pluginType": "JS",
-              "jsonPathKeys": [
-                "async () => {\n  GetCountries.run();\n}"
               ],
               "timeoutInMillisecond": 10000
             }

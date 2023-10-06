@@ -3,6 +3,7 @@ query OfflineDocumentTypes {
 		missionctrl_offline_document_types {
 			id
 			NameEN
+			type
 		}
 	}
 }
