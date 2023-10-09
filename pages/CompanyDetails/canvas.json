@@ -259,7 +259,7 @@
                       "labelWidth": 5,
                       "type": "SELECT_WIDGET",
                       "serverSideFiltering": false,
-                      "defaultOptionValue": "{{ ((options, serverSideFiltering) => ( Company.data.data.prod.missionctrl_map_company_to_status[0].status_id))(Select1.options, Select1.serverSideFiltering) }}",
+                      "defaultOptionValue": "{{ ((options, serverSideFiltering) => ( Company.data.data.prod.missionctrl_track_company_status_wise[0].status_id))(Select1.options, Select1.serverSideFiltering) }}",
                       "animateLoading": true,
                       "leftColumn": 0,
                       "dynamicBindingPathList": [
@@ -1952,7 +1952,7 @@
                       "isCanvas": true,
                       "iconSVG": "/static/media/icon.35f3ec19dbc201b2b26e900b1eeb08a0.svg",
                       "topRow": 5,
-                      "pageSize": 5,
+                      "pageSize": 6,
                       "type": "LIST_WIDGET_V2",
                       "itemSpacing": 8,
                       "animateLoading": true,
@@ -3563,9 +3563,6 @@
                           "key": "primaryColumns.customColumn6.boxShadow"
                         },
                         {
-                          "key": "primaryColumns.DocumentName.computedValue"
-                        },
-                        {
                           "key": "primaryColumns.customColumn7.borderRadius"
                         },
                         {
@@ -3611,7 +3608,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1696831398443,
+                      "columnUpdatedAt": 1696834152153,
                       "originalBottomRow": 165,
                       "defaultSelectedRowIndices": [
                         0
@@ -3629,8 +3626,7 @@
                         "customColumn3",
                         "customColumn5",
                         "customColumn6",
-                        "customColumn7",
-                        "DocumentName"
+                        "customColumn7"
                       ],
                       "dynamicPropertyPathList": [
                         {
@@ -3951,36 +3947,6 @@
                           "buttonColor": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.primaryColor)))}}",
                           "borderRadius": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
                           "boxShadow": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}"
-                        },
-                        "DocumentName": {
-                          "allowCellWrapping": false,
-                          "allowSameOptionsInNewRow": true,
-                          "index": 5,
-                          "width": 150,
-                          "originalId": "DocumentName",
-                          "id": "DocumentName",
-                          "alias": "DocumentName",
-                          "horizontalAlignment": "LEFT",
-                          "verticalAlignment": "CENTER",
-                          "columnType": "text",
-                          "textColor": "",
-                          "textSize": "0.875rem",
-                          "fontStyle": "",
-                          "enableFilter": true,
-                          "enableSort": true,
-                          "isVisible": true,
-                          "isDisabled": false,
-                          "isCellEditable": false,
-                          "isEditable": false,
-                          "isCellVisible": true,
-                          "isDerived": false,
-                          "label": "DocumentName",
-                          "isSaveVisible": true,
-                          "isDiscardVisible": true,
-                          "computedValue": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"DocumentName\"]))}}",
-                          "sticky": "",
-                          "validation": {},
-                          "cellBackground": ""
                         },
                         "customColumn7": {
                           "allowCellWrapping": false,

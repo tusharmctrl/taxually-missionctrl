@@ -73,7 +73,7 @@ query CompanyDetails($companyId: Int!) {
 				NameEN
 			}
 		}
-		missionctrl_map_company_to_status(where: {company_id: {_eq: $companyId}}) {
+		missionctrl_track_company_status_wise(where: {company_id: {_eq: $companyId}}) {
 			id
 			status_id
 			company_id
