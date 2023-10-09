@@ -138,6 +138,7 @@ export default {
 		const dataFields = Object.values(questionnaireDataOfClient).flatMap(group => group.map(field => ({ name: field.name, value: field.value })));
 		const finalDataToShowInTable = [];
 		const fieldsThatNeedUpdatedValues = ["LegalRepresentative_Position", "LegalRepresentative_Gender", "CountryOfIncorporation", "LegalRepresentative_IsPoliticallyExposed","LegalRepresentative_OthersOwnsMoreThan25Percent", "LegalRepresentative_OwnsMoreThan25Percent", "LegalRepresentative_Nationality", "LegalRepresentative_CountryOfBirth", "NeedEarlierVatReg", "LegalForm", "LegalRepresentative_PersonalIdentificationType"]
+		const dateFields = ["LegalRepresentative_BirthDate", "IncorporationDate"]
 		if(Company.data.data.prod.Companies_by_pk.LegalStatus.NameEN === "Individual") {
 			finalDataToShowInTable.push({
 				fieldName: "Incorporation Date",
@@ -220,7 +221,10 @@ export default {
 					if(fieldsThatNeedUpdatedValues.includes(field.name)) {
 						const updatedData = Utils.updateMeaningFulDataToQuestionnaire(field.value, field.name);
 						finalDataToShowInTable.push(updatedData);
-					} else {
+					} else if(dateFields.includes(field.name)) {
+						finalDataToShowInTable.push({ fieldName: Const.meaningfulNamesOfQuestionnaireData(field.name), value: Lib.formatDate(field.value), isMissing: false });	
+					}
+					else {
 						finalDataToShowInTable.push({ fieldName: Const.meaningfulNamesOfQuestionnaireData(field.name), value: field.value, isMissing: false });	
 					}
 				} else {
