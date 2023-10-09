@@ -1952,7 +1952,7 @@
                       "isCanvas": true,
                       "iconSVG": "/static/media/icon.35f3ec19dbc201b2b26e900b1eeb08a0.svg",
                       "topRow": 5,
-                      "pageSize": 6,
+                      "pageSize": 5,
                       "type": "LIST_WIDGET_V2",
                       "itemSpacing": 8,
                       "animateLoading": true,
@@ -3570,6 +3570,9 @@
                         },
                         {
                           "key": "primaryColumns.customColumn7.isCellVisible"
+                        },
+                        {
+                          "key": "primaryColumns.DocumentName.computedValue"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -3608,7 +3611,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1696834152153,
+                      "columnUpdatedAt": 1696839535703,
                       "originalBottomRow": 165,
                       "defaultSelectedRowIndices": [
                         0
@@ -3626,7 +3629,8 @@
                         "customColumn3",
                         "customColumn5",
                         "customColumn6",
-                        "customColumn7"
+                        "customColumn7",
+                        "DocumentName"
                       ],
                       "dynamicPropertyPathList": [
                         {
@@ -3982,6 +3986,36 @@
                           "customAlias": "",
                           "iconName": "history",
                           "onClick": "{{Utils.getHistoryOfDocument(currentRow.documentTypeId, currentRow.countryId)}}"
+                        },
+                        "DocumentName": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 4,
+                          "width": 150,
+                          "originalId": "DocumentName",
+                          "id": "DocumentName",
+                          "alias": "DocumentName",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "DocumentName",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"DocumentName\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
                         }
                       },
                       "key": "h4nc937acj",
@@ -4195,7 +4229,7 @@
                         "id": 112,
                         "documentType": 127,
                         "DocumentType": 177,
-                        "Country": 192,
+                        "Country": 224,
                         "submitted": 102,
                         "customColumn2": 168,
                         "customColumn5": 193,
@@ -4914,7 +4948,8 @@
                         "Note": 164,
                         "type": 143,
                         "Property": 320,
-                        "Status": 184
+                        "Status": 219,
+                        "Country": 268
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,

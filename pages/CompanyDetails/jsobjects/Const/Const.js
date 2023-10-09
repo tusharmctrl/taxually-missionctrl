@@ -34,6 +34,11 @@ export default {
 		"0": "NO",
 		"1": "YES"
 	},
+	LegalStatus: {
+		"1": "Company",
+		"2": "Individual", 
+		"3" : "Partnership"
+	},
 	getCountryName (id) {
 		const countries = AdditionalInformation.data.data.prod.Countries;
 		const countryOfId = countries.filter((country) => country.Id === id)

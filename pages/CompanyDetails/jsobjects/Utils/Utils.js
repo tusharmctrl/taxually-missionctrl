@@ -108,6 +108,9 @@ export default {
 				case "LegalRepresentative_Position":
 					return {fieldName: updatedFieldName, isMissing: false, value: Const.position[value]}
 					break;
+				case "LegalForm":
+					return {fieldName: updatedFieldName, isMissing: false, value: Const.LegalStatus[value]}
+					break;
 				case "CountryOfIncorporation":
 				case "LegalRepresentative_Nationality":
 				case "LegalRepresentative_CountryOfBirth":
@@ -131,7 +134,7 @@ export default {
 		const questionnaireDataOfClient = QuestionnaireAPI.data;
 		const dataFields = Object.values(questionnaireDataOfClient).flatMap(group => group.map(field => ({ name: field.name, value: field.value })));
 		const finalDataToShowInTable = [];
-		const fieldsThatNeedUpdatedValues = ["LegalRepresentative_Position", "LegalRepresentative_Gender", "CountryOfIncorporation", "LegalRepresentative_IsPoliticallyExposed","LegalRepresentative_OthersOwnsMoreThan25Percent", "LegalRepresentative_OwnsMoreThan25Percent", "LegalRepresentative_Nationality", "LegalRepresentative_CountryOfBirth", "NeedEarlierVatReg"]
+		const fieldsThatNeedUpdatedValues = ["LegalRepresentative_Position", "LegalRepresentative_Gender", "CountryOfIncorporation", "LegalRepresentative_IsPoliticallyExposed","LegalRepresentative_OthersOwnsMoreThan25Percent", "LegalRepresentative_OwnsMoreThan25Percent", "LegalRepresentative_Nationality", "LegalRepresentative_CountryOfBirth", "NeedEarlierVatReg", "LegalForm"]
 		if(Company.data.data.prod.Companies_by_pk.LegalStatus.NameEN === "Individual") {
 			finalDataToShowInTable.push({
 				fieldName: "Incorporation Date",
@@ -275,7 +278,7 @@ export default {
 	getMissingDocumentsRevised: () => {
 		const documentDataFromPortal = DocumentAPI.data;
 		const documentStatus = documentDataFromPortal.map((document) => {
-			const countryName = Const.getCountryName(document.countryId);
+			const countryName = document.isCompanyDocument ? `Company Document | ${Const.getCountryName(document.countryId)}` : Const.getCountryName(document.countryId);
 			const documentTypeName = Const.getDocumentTypeName(document.documentTypeId);
 			const isGenerated = document.isCompanyDocument || document.documentCategory == 5 ? "-" : document.generatedFile ? "YES" : "NO"
 			const necessaryInfoForDocument = {Country: countryName, type: "ONLINE", DocumentType: documentTypeName, DocumentName: document.documentTypeName, Generated: isGenerated };
@@ -341,16 +344,16 @@ export default {
 	},
 	prepareASummary: () => {
 		const onlineDocumentData = Utils.getMissingDocumentsRevised().map((doc) => {
-			return {Country: doc.Country, missing: doc.missing, type: "ONLINE", Status: doc.missing ? "Missing on Portal" : "Uploaded on Portal", DataType: "Document", Property: doc.DocumentName}
+			return {Country: doc.Country, missing: doc.missing, type: "ONLINE", Status: doc.missing ? "Missing on Portal" : "Uploaded on Portal", DataType: "Document", Property: doc.DocumentName, Value: doc.UploadedDocumentName ?? ""}
 		})
 		const offlineDocumentData = Utils.getMissingOfflineDocuments().map((doc) => {
-			return { missing: doc.missing, type: "OFFLINE", Status: doc.missing ? "Not Submitted Yet" : "Marked as Received", Country: doc.Country.NameEN, Property: doc.DocumentType.NameEN, DataType: "Document"}
+			return { missing: doc.missing, type: "OFFLINE", Status: doc.missing ? "Not Submitted Yet" : "Marked as Received", Country: doc.Country.NameEN, Property: doc.DocumentType.NameEN, DataType: "Document", Value: doc.DocumentName ?? ""}
 		})
 		const offlineInformation = Utils.getMissingInformation().map((info) => {
 			return {Property: info.name, Country: info.jurisdiction_country, Status: info.missing ? "Not Submitted Yet" : "Marked as Received", DataType: "Information", type: "OFFLINE", missing: info.missing, Value: info.Value ?? ""}
 		})
 		const onlineInformation = Utils.getMissingQuestionnaireInformation().map((info) => {
-			return {Property: info.fieldName, DataType: "Information", type: "ONLINE", missing: info.isMissing, Status: info.isMissing ? "Not Submitted Yet" : info.value}
+			return {Country: !info.fieldName.startsWith("VAT") ? "Account Level" : info.fieldName.split(" ").slice(-1).join(""), Property: info.fieldName, DataType: "Information", type: "ONLINE", missing: info.isMissing, Status: info.isMissing ? "Not Submitted Yet" : "Submitted on Portal", Value: info.value ?? ""}
 		})
 		return [...onlineDocumentData, ...offlineDocumentData, ...offlineInformation, ...onlineInformation];
 	},
