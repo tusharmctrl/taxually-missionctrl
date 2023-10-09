@@ -1,0 +1,7 @@
+mutation HistoryMutationForDocument($object: missionctrl_history_of_docs_insert_input!) {
+	prod {
+		insert_missionctrl_history_of_docs_one(object: $object) {
+			id
+		}
+	}
+}

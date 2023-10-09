@@ -1,0 +1,16 @@
+query GetHistoryOfDocument($company_id: Int!, $document_id: Int!, $country_id: Int!){
+	prod {
+		missionctrl_history_of_docs(where: {_and: [{company_id: {_eq:$company_id}}, {document_id: {_eq: $document_id}}, {country_id: {_eq: $country_id}}]}) {
+			id
+			status
+			document_id
+			company_id
+			Document {
+				NameEN
+			}
+			agent
+			document_name
+			created_at
+		}
+	}
+}

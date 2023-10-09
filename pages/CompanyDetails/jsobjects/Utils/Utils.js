@@ -251,14 +251,13 @@ export default {
 			}
 		});
 		const finalOfflineData = requiredOfflineDocuments.map((requiredDoc) => {
-			const existingData = manuallyUpdatedDocs.find((doc) => doc.country_id === requiredDoc.Country.Id && doc.document_type_id === requiredDoc.DocumentType.id);
+			const existingData = manuallyUpdatedDocs.find((doc) => doc.country_id === requiredDoc.Country.Id && doc.document_type_id === requiredDoc.DocumentType.id && doc.document_name);
 			if(existingData && existingData.active){
 				return {
 					Country: requiredDoc.Country,
 					DocumentType: requiredDoc.DocumentType,
 					missing: false,
 					type: "OFFLINE",
-					Note: existingData.notes,
 					DocumentName: existingData.document_name
 				}
 			}
@@ -267,8 +266,7 @@ export default {
 					Country: requiredDoc.Country,
 					DocumentType: requiredDoc.DocumentType,
 					missing: true,
-					type: "OFFLINE",
-					Note: existingData?.notes ? existingData?.notes : "" 
+					type: "OFFLINE"
 				}
 			}
 		})
@@ -304,20 +302,20 @@ export default {
 		}
 		await Company.run({company_id: parseInt(appsmith.URL.queryParams.companyId) });
 	},
-	addNote: async() => {
-		const {documentTypeId, countryId, Note, missing} = OfflineDocuments.updatedRow;
-		const companyId = parseInt(Utils.selectedCompanyId());
-		const checkDocumentExistence = await Utils.checkDocumentsExistence(documentTypeId, countryId, companyId);
-		if(!checkDocumentExistence) {
-			const object = {company_id: parseInt(Utils.selectedCompanyId()), document_type_id: documentTypeId, country_id: countryId, notes: Note, active: missing ? 0 : 1};
-			await AddDocumentTracker.run({object: object}).then((resp) => resp.data ? showAlert("Note has been added successfully!", "success") : showAlert("Something went wrong!", "error"));
-		} else {
-			const whereObject = {company_id: {_eq: companyId},document_type_id: {_eq:documentTypeId}, country_id: {_eq:countryId } };
-			await UpdateDocumentTracker.run({whereObject: whereObject, setObject: {notes: Note}}).then((resp) => resp.data ? showAlert("Note has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));
-		}
-		await CheckManuallyUpdatedDocs.run({companyId: parseInt(Utils.selectedCompanyId()) });
-		await Utils.getMissingDocumentsRevised();
-	},
+	// addNote: async() => {
+	// const {documentTypeId, countryId, Note, missing} = OfflineDocuments.updatedRow;
+	// const companyId = parseInt(Utils.selectedCompanyId());
+	// const checkDocumentExistence = await Utils.checkDocumentsExistence(documentTypeId, countryId, companyId);
+	// if(!checkDocumentExistence) {
+	// const object = {company_id: parseInt(Utils.selectedCompanyId()), document_type_id: documentTypeId, country_id: countryId, notes: Note, active: missing ? 0 : 1};
+	// await AddDocumentTracker.run({object: object}).then((resp) => resp.data ? showAlert("Note has been added successfully!", "success") : showAlert("Something went wrong!", "error"));
+	// } else {
+	// const whereObject = {company_id: {_eq: companyId},document_type_id: {_eq:documentTypeId}, country_id: {_eq:countryId } };
+	// await UpdateDocumentTracker.run({whereObject: whereObject, setObject: {notes: Note}}).then((resp) => resp.data ? showAlert("Note has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));
+	// }
+	// await CheckManuallyUpdatedDocs.run({companyId: parseInt(Utils.selectedCompanyId()) });
+	// await Utils.getMissingDocumentsRevised();
+	// },
 	checkDocumentsExistence: async(documentTypeId, countryId, companyId) => {
 		const doesDocumentExist = await CheckDocumentExistence.run({documentTypeId:documentTypeId, countryId:countryId, companyId:companyId })
 		return doesDocumentExist && doesDocumentExist.data.prod.missionctrl_track_pending_docs.length ? true : false;
@@ -337,7 +335,7 @@ export default {
 			const insertObject = {country_id:jurisdiction_country_id, value: Value, information_type_id: information_id, company_id: companyId }
 			await AddUserInformation.run({object: insertObject}).then((resp) => resp.data ? showAlert("Value has been added successfully!", "success") : showAlert("Something went wrong!", "error"));	
 		}
-		await AddStatusLog.run({statusObject: {status: !checkExistence ? "ADDED" : "REVOKED", agent: appsmith.user.username, company_id:companyId, information_id:information_id, country_id: jurisdiction_country_id, value: Value }})
+		await AddStatusLog.run({statusObject: {status: !checkExistence ? "ADDED" : "UPDATED", agent: appsmith.user.username, company_id:companyId, information_id:information_id, country_id: jurisdiction_country_id, value: Value }})
 		await CheckManuallyUpdatedInfo.run({companyId: parseInt(appsmith.URL.queryParams.companyId) });
 		await Utils.getMissingInformation();
 	},
@@ -381,6 +379,8 @@ export default {
 		})
 			.then(async (response) => {
 			if (response.ok) {
+				resetWidget("FilePicker1");
+				closeModal("FileUploadModal");
 				const checkDocumentExistence = await Utils.checkDocumentsExistence(documentTypeId, countryId, companyId);
 				if(!checkDocumentExistence) {
 					const object = {company_id: parseInt(Utils.selectedCompanyId()), document_type_id: documentTypeId, country_id: countryId, document_name: blobName};
@@ -389,11 +389,9 @@ export default {
 					const whereObject = {company_id: {_eq: companyId},document_type_id: {_eq:documentTypeId}, country_id: {_eq:countryId } };
 					await UpdateDocumentTracker.run({whereObject: whereObject, setObject: {document_name: blobName}}).then((resp) => resp.data ? showAlert("Document has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));
 				}
+				await AddDocumentStatusLog.run({documentStatusObject: {status: !checkDocumentExistence ? "ADDED" : "UPDATED", agent: appsmith.user.username, company_id:companyId, document_id:documentTypeId, country_id: countryId, document_name: blobName }})
 				await CheckManuallyUpdatedDocs.run({companyId: parseInt(Utils.selectedCompanyId()) });
 				await Utils.getMissingDocumentsRevised();
-				resetWidget("FilePicker1");
-				closeModal("FileUploadModal");
-				// showAlert("Document has been uploaded successfully!", "success")
 			} else {
 				showAlert("Oh no! Something went wrong!", "error")
 			}
@@ -413,17 +411,15 @@ export default {
 	},
 	getDocument: async(documentName) => {
 		let sasToken =
-				"?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-04-11T21:25:22Z&st=2023-10-06T13:25:22Z&spr=https&sig=wgQeu%2FFL6dQUIcIjecock8jOdDgPCnY6zEhTop7%2B5BQ%3D";
+				"?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2023-10-09T12:08:06Z&st=2023-10-09T04:08:06Z&spr=https&sig=rXd%2FW%2BKnhtE41m3kHSSLWX56oFw5BWHgNnfa8XHK5xc%3D";
 		let storageAccountName = "missionctrlprod";
 		let containerName = "taxuallyofflinedocs";
 		const url = `https://${storageAccountName}.blob.core.windows.net/${containerName}/${documentName}${sasToken}`;
-		navigateTo(url);
-		fetch(url)
-			.then((response) => response.blob())
-			.then((response) => {
-			const blob = new Blob([response], { type: "application/pdf" });
-			download(blob);
-		});
-	}
+		navigateTo(url, {}, "NEW_WINDOW")
+	},
+	getHistoryOfDocument: async(documentTypeId, countryId) => {
+		await GetHistoryOfDocument.run({company_id:parseInt(Utils.selectedCompanyId()), document_id: documentTypeId, country_id: countryId })
+		showModal("HistoryOfDocument")
+	},
 }
 

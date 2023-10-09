@@ -2,8 +2,8 @@
   "pluginType": "JS",
   "pluginId": "js-plugin",
   "unpublishedAction": {
-    "name": "addNote",
-    "fullyQualifiedName": "Utils.addNote",
+    "name": "getHistoryOfDocument",
+    "fullyQualifiedName": "Utils.getHistoryOfDocument",
     "datasource": {
       "name": "UNUSED_DATASOURCE",
       "pluginId": "js-plugin",
@@ -20,7 +20,14 @@
       "paginationType": "NONE",
       "encodeParamsToggle": true,
       "selfReferencingDataPaths": [],
-      "jsArguments": [],
+      "jsArguments": [
+        {
+          "name": "documentTypeId"
+        },
+        {
+          "name": "countryId"
+        }
+      ],
       "isAsync": true
     },
     "executeOnLoad": false,
@@ -35,10 +42,9 @@
     "userSetOnLoad": false,
     "confirmBeforeExecute": false,
     "policies": [],
-    "userPermissions": [],
-    "createdAt": "2023-10-02T10:34:36Z"
+    "userPermissions": []
   },
-  "id": "CompanyDetails_Utils.addNote",
+  "id": "CompanyDetails_Utils.getHistoryOfDocument",
   "deleted": false,
-  "gitSyncId": "64ddbc9544dc506821b62c28_651a9cbc44dc506821b62fc0"
+  "gitSyncId": "64ddbc9544dc506821b62c28_6523956544dc506821b630ba"
 }
