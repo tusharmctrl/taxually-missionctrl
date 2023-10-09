@@ -2,8 +2,8 @@
   "pluginType": "JS",
   "pluginId": "js-plugin",
   "unpublishedAction": {
-    "name": "openFileModal",
-    "fullyQualifiedName": "Utils.openFileModal",
+    "name": "constructUrl",
+    "fullyQualifiedName": "Utils.constructUrl",
     "datasource": {
       "name": "UNUSED_DATASOURCE",
       "pluginId": "js-plugin",
@@ -22,19 +22,10 @@
       "selfReferencingDataPaths": [],
       "jsArguments": [
         {
-          "name": "countryId"
-        },
-        {
-          "name": "documentTypeId"
-        },
-        {
-          "name": "documentName"
-        },
-        {
-          "name": "countryName"
+          "name": "fileName"
         }
       ],
-      "isAsync": true
+      "isAsync": false
     },
     "executeOnLoad": false,
     "dynamicBindingPathList": [
@@ -50,7 +41,7 @@
     "policies": [],
     "userPermissions": []
   },
-  "id": "CompanyDetails_Utils.openFileModal",
+  "id": "CompanyDetails_Utils.constructUrl",
   "deleted": false,
-  "gitSyncId": "64ddbc9544dc506821b62c28_6523f08244dc506821b630e1"
+  "gitSyncId": "64ddbc9544dc506821b62c28_6523f5a744dc506821b630e9"
 }

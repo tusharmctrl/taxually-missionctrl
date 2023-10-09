@@ -2,8 +2,8 @@
   "pluginType": "JS",
   "pluginId": "js-plugin",
   "unpublishedAction": {
-    "name": "openFileModal",
-    "fullyQualifiedName": "Utils.openFileModal",
+    "name": "deleteDocument",
+    "fullyQualifiedName": "Utils.deleteDocument",
     "datasource": {
       "name": "UNUSED_DATASOURCE",
       "pluginId": "js-plugin",
@@ -29,9 +29,6 @@
         },
         {
           "name": "documentName"
-        },
-        {
-          "name": "countryName"
         }
       ],
       "isAsync": true
@@ -50,7 +47,7 @@
     "policies": [],
     "userPermissions": []
   },
-  "id": "CompanyDetails_Utils.openFileModal",
+  "id": "CompanyDetails_Utils.deleteDocument",
   "deleted": false,
-  "gitSyncId": "64ddbc9544dc506821b62c28_6523f08244dc506821b630e1"
+  "gitSyncId": "64ddbc9544dc506821b62c28_6523f08244dc506821b630e3"
 }

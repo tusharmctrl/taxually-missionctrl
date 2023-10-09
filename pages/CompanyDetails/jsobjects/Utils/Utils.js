@@ -281,7 +281,7 @@ export default {
 	getMissingDocumentsRevised: () => {
 		const documentDataFromPortal = DocumentAPI.data;
 		const documentStatus = documentDataFromPortal.map((document) => {
-			const countryName = document.isCompanyDocument ? `Company Document | ${Const.getCountryName(document.countryId)}` : Const.getCountryName(document.countryId);
+			const countryName = document.isCompanyDocument ? `${Utils.selectedCompany().LegalNameOfBusiness} | ${Const.getCountryName(document.countryId)}` : Const.getCountryName(document.countryId);
 			const documentTypeName = Const.getDocumentTypeName(document.documentTypeId);
 			const isGenerated = document.isCompanyDocument || document.documentCategory == 5 ? "-" : document.generatedFile ? "YES" : "NO"
 			const necessaryInfoForDocument = {Country: countryName, type: "ONLINE", DocumentType: documentTypeName, DocumentName: document.documentTypeName, Generated: isGenerated, StatusId: document.documentStatus };
@@ -364,16 +364,20 @@ export default {
 		storeValue("FileUploadData", {companyId: Utils.selectedCompanyId(), countryId, documentTypeId, documentName, countryName})
 		showModal("FileUploadModal")
 	},
-	uploadDocument: async () => {
-		const {documentTypeId, countryId, companyId} = appsmith.store.FileUploadData;
-		const fileData = FilePicker1.files[0].data;
+	constructUrl: (fileName) => {
 		let sasToken =
 				"?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-04-11T21:25:22Z&st=2023-10-06T13:25:22Z&spr=https&sig=wgQeu%2FFL6dQUIcIjecock8jOdDgPCnY6zEhTop7%2B5BQ%3D";
 		let storageAccountName = "missionctrlprod";
 		let containerName = "taxuallyofflinedocs";
+		const url = `https://${storageAccountName}.blob.core.windows.net/${containerName}/${fileName}${sasToken}`;
+		return url;
+	},
+	uploadDocument: async () => {
+		const {documentTypeId, countryId, companyId} = appsmith.store.FileUploadData;
+		const fileData = FilePicker1.files[0].data;
 		const blobName = Utils.selectedCompanyId() + "/" + FilePicker1.files[0].name;
 		const arrayBuffer = Utils.base64ToArrayBuffer(fileData)
-		const url = `https://${storageAccountName}.blob.core.windows.net/${containerName}/${blobName}${sasToken}`;
+		const url = Utils.constructUrl(blobName);
 		storeValue("UploadingOfflineDocument", true);
 		fetch(url, {
 			body: arrayBuffer,
@@ -408,6 +412,34 @@ export default {
 		});
 		storeValue("UploadingOfflineDocument", false);
 	},
+	deleteDocument: async (countryId, documentTypeId, documentName) => {
+		const url = Utils.constructUrl(documentName);
+		try {
+			const response = await fetch(url, { method: 'DELETE' });
+			if (response.ok) {
+				const whereObject = {
+					"company_id": { "_eq": parseInt(Utils.selectedCompanyId()) },
+					"document_type_id": { "_eq": documentTypeId },
+					"country_id": { "_eq": countryId }
+				};
+				await DeleteDocument.run({ whereObj: whereObject }).then((resp) => {
+					if (resp.data) {
+						showAlert("Document has been deleted successfully!", "success");
+					} else {
+						showAlert("Something went wrong!", "error");
+					}
+				});
+				showAlert("File has been deleted successfully!", "success");
+				await AddDocumentStatusLog.run({documentStatusObject: {status: "REMOVED", agent: appsmith.user.username, company_id:parseInt(Utils.selectedCompanyId()), document_id:documentTypeId, country_id: countryId, document_name: documentName }})
+				await CheckManuallyUpdatedDocs.run({ companyId: parseInt(appsmith.URL.queryParams.companyId) });
+				await Utils.getMissingDocumentsRevised();
+			} else {
+				showAlert('Failed to delete file:', response.statusText);
+			}
+		} catch (error) {
+			console.error('Error:', error);
+		}
+	},
 	base64ToArrayBuffer: (base64) => {
 		const binaryString = atob(base64.split(",")[1]);
 		const len = binaryString.length;
@@ -418,11 +450,7 @@ export default {
 		return bytes.buffer;
 	},
 	getDocument: async(documentName) => {
-		let sasToken =
-				"?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2023-10-09T12:08:06Z&st=2023-10-09T04:08:06Z&spr=https&sig=rXd%2FW%2BKnhtE41m3kHSSLWX56oFw5BWHgNnfa8XHK5xc%3D";
-		let storageAccountName = "missionctrlprod";
-		let containerName = "taxuallyofflinedocs";
-		const url = `https://${storageAccountName}.blob.core.windows.net/${containerName}/${documentName}${sasToken}`;
+		const url = Utils.constructUrl(documentName);
 		navigateTo(url, {}, "NEW_WINDOW")
 	},
 	getHistoryOfDocument: async(documentTypeId, countryId) => {

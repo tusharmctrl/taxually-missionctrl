@@ -13,7 +13,7 @@
           "detachFromLayout": true,
           "widgetId": "0",
           "topRow": 0,
-          "bottomRow": 1800,
+          "bottomRow": 1720,
           "containerStyle": "none",
           "snapRows": 57,
           "parentRowSpace": 1,
@@ -1837,7 +1837,7 @@
                           "boxShadow": "{{Table2Copy.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
                           "customAlias": "",
                           "iconName": "eye-open",
-                          "onClick": "{{Utils.getDocument(currentRow.document_name)}}"
+                          "onClick": "{{Utils.getDocument(currentRow?.document_name)}}"
                         }
                       },
                       "key": "c266rzsad2",
@@ -1953,7 +1953,7 @@
                       "isCanvas": true,
                       "iconSVG": "/static/media/icon.35f3ec19dbc201b2b26e900b1eeb08a0.svg",
                       "topRow": 5,
-                      "pageSize": 5,
+                      "pageSize": 6,
                       "type": "LIST_WIDGET_V2",
                       "itemSpacing": 8,
                       "animateLoading": true,
@@ -3570,10 +3570,16 @@
                           "key": "primaryColumns.customColumn7.boxShadow"
                         },
                         {
-                          "key": "primaryColumns.customColumn7.isCellVisible"
+                          "key": "primaryColumns.customColumn8.borderRadius"
                         },
                         {
-                          "key": "primaryColumns.DocumentName.computedValue"
+                          "key": "primaryColumns.customColumn8.boxShadow"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn8.isCellVisible"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn7.isCellVisible"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -3612,7 +3618,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1696839535703,
+                      "columnUpdatedAt": 1696855918001,
                       "originalBottomRow": 165,
                       "defaultSelectedRowIndices": [
                         0
@@ -3631,7 +3637,7 @@
                         "customColumn5",
                         "customColumn6",
                         "customColumn7",
-                        "DocumentName"
+                        "customColumn8"
                       ],
                       "dynamicPropertyPathList": [
                         {
@@ -3651,6 +3657,12 @@
                         },
                         {
                           "key": "primaryColumns.customColumn7.isCellVisible"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn8.isCellVisible"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn8.onClick"
                         }
                       ],
                       "displayName": "Table",
@@ -3664,11 +3676,12 @@
                         "customColumn2": 166,
                         "Note": 107,
                         "customColumn4": 149,
-                        "type": 79,
+                        "type": 108,
                         "customColumn5": 91,
                         "DocumentName": 228.5625,
                         "customColumn6": 83,
-                        "customColumn7": 80
+                        "customColumn7": 80,
+                        "customColumn8": 81
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
@@ -3683,6 +3696,9 @@
                         },
                         {
                           "key": "primaryColumns.customColumn7.onClick"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn8.onClick"
                         }
                       ],
                       "borderWidth": "1",
@@ -3988,35 +4004,40 @@
                           "iconName": "history",
                           "onClick": "{{Utils.getHistoryOfDocument(currentRow.documentTypeId, currentRow.countryId)}}"
                         },
-                        "DocumentName": {
+                        "customColumn8": {
                           "allowCellWrapping": false,
                           "allowSameOptionsInNewRow": true,
-                          "index": 4,
+                          "index": 10,
                           "width": 150,
-                          "originalId": "DocumentName",
-                          "id": "DocumentName",
-                          "alias": "DocumentName",
+                          "originalId": "customColumn8",
+                          "id": "customColumn8",
+                          "alias": "Remove",
                           "horizontalAlignment": "LEFT",
                           "verticalAlignment": "CENTER",
-                          "columnType": "text",
-                          "textColor": "",
+                          "columnType": "iconButton",
                           "textSize": "0.875rem",
-                          "fontStyle": "",
                           "enableFilter": true,
                           "enableSort": true,
                           "isVisible": true,
                           "isDisabled": false,
                           "isCellEditable": false,
                           "isEditable": false,
-                          "isCellVisible": true,
-                          "isDerived": false,
-                          "label": "DocumentName",
+                          "isCellVisible": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( !currentRow.missing))}}",
+                          "isDerived": true,
+                          "label": "Remove",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"DocumentName\"]))}}",
+                          "computedValue": "",
                           "sticky": "",
                           "validation": {},
-                          "cellBackground": ""
+                          "buttonStyle": "rgb(3, 179, 101)",
+                          "labelColor": "#FFFFFF",
+                          "buttonColor": "#ef4444",
+                          "borderRadius": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                          "boxShadow": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
+                          "customAlias": "",
+                          "iconName": "remove",
+                          "onClick": "{{Utils.deleteDocument(currentRow.countryId, currentRow.documentTypeId, currentRow.DocumentName)}}"
                         }
                       },
                       "key": "h4nc937acj",
@@ -4951,7 +4972,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1696327025950,
+                      "columnUpdatedAt": 1696847675643,
                       "defaultSelectedRowIndices": [
                         0
                       ],
@@ -4961,11 +4982,11 @@
                       "columnOrder": [
                         "Country",
                         "Property",
+                        "Value",
                         "DataType",
                         "type",
                         "Status",
-                        "missing",
-                        "Value"
+                        "missing"
                       ],
                       "dynamicPropertyPathList": [
                         {
@@ -5401,7 +5422,7 @@
                                 "label"
                               ],
                               "topRow": 3,
-                              "bottomRow": 11,
+                              "bottomRow": 9,
                               "type": "TEXT_WIDGET",
                               "hideCard": false,
                               "mobileRightColumn": 25.5,
@@ -5469,8 +5490,8 @@
                               "searchTags": [
                                 "upload"
                               ],
-                              "topRow": 18,
-                              "bottomRow": 22,
+                              "topRow": 16,
+                              "bottomRow": 20,
                               "parentRowSpace": 10,
                               "allowedFileTypes": [
                                 "*"

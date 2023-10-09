@@ -1,0 +1,7 @@
+mutation DeleteDocument($whereObj: missionctrl_track_pending_docs_bool_exp!) {
+  prod {
+    delete_missionctrl_track_pending_docs(where: $whereObj) {
+      affected_rows
+    }
+  }
+}
