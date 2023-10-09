@@ -351,7 +351,7 @@ export default {
 	},
 	prepareASummary: () => {
 		const onlineDocumentData = Utils.getMissingDocumentsRevised().map((doc) => {
-			return {Country: doc.Country, missing: doc.missing, type: "ONLINE", Status: doc.missing ? "Missing on Portal" : "Uploaded on Portal", DataType: "Document", Property: doc.DocumentName, Value: doc.UploadedDocumentName ?? ""}
+			return {Country: doc.Country, missing: doc.missing, type: "ONLINE", Status: doc.missing ? "Missing on Portal" : "Uploaded on Portal", DataType: "Document", Property: doc.DocumentName, Value: doc.UploadedDocumentName ?? "", Status: doc.Status}
 		})
 		const offlineDocumentData = Utils.getMissingOfflineDocuments().map((doc) => {
 			return { missing: doc.missing, type: "OFFLINE", Status: doc.missing ? "Not Submitted Yet" : "Marked as Received", Country: doc.Country.NameEN, Property: doc.DocumentType.NameEN, DataType: "Document", Value: doc.DocumentName ?? ""}

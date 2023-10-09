@@ -5121,7 +5121,7 @@
                           "computedValue": "{{SummaryTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Status\"]))}}",
                           "sticky": "",
                           "validation": {},
-                          "textColor": "{{SummaryTable.processedTableData.map((currentRow, currentIndex) => ( currentRow.missing ? \"red\" : \"green\"))}}"
+                          "textColor": "{{SummaryTable.processedTableData.map((currentRow, currentIndex) => ( !(currentRow.type === \"ONLINE\" && currentRow.DataType===\"Document\") && currentRow.missing ? \"red\" : \"green\"))}}"
                         },
                         "DataType": {
                           "allowCellWrapping": false,
