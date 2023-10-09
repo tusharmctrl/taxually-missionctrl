@@ -4,7 +4,15 @@ export default {
 	},
 	onEditRow: async() => {
 		const {id, NameEN} = Table1.updatedRow;
-		await UpdateDocumentTypes.run({id: id, name: NameEN}).then((resp) => resp.data ? showAlert("Doument Data Successfully Updated!", "success") : showAlert("Oh no! Something went wrong", "error"))
+		const whereObj = {id: {_eq: id}}
+		const setObj = {NameEN: NameEN}
+		await UpdateDocumentTypes.run({whereObj, setObj}).then((resp) => resp.data ? showAlert("Doument Data Successfully Updated!", "success") : showAlert("Oh no! Something went wrong", "error"))
+		OfflineDocumentTypes.run();
+	},
+	onUpdateDocumentType: async (id, type) => {
+		const whereObj = {id: {_eq: id}}
+		const setObj = {type: type}
+		await UpdateDocumentTypes.run({whereObj, setObj}).then((resp) => resp.data ? showAlert(`Doument type Successfully Updated to ${type}!`, "success") : showAlert("Oh no! Something went wrong", "error"));
 		OfflineDocumentTypes.run();
 	},
 	getSelectedCountriesOfDocument: async(id) => {

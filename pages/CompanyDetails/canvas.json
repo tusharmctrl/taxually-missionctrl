@@ -1397,7 +1397,7 @@
                       "boxShadow": "none",
                       "mobileBottomRow": 22,
                       "widgetName": "Button1Copy",
-                      "onClick": "{{closeModal('HistoryOfInformationCopy');}}",
+                      "onClick": "{{closeModal('HistoryOfDocument');}}",
                       "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
                       "displayName": "Button",
                       "iconSVG": "/static/media/icon.7beb9123fb53027d9d6b778cdfe4caed.svg",
@@ -3665,8 +3665,9 @@
                         "customColumn4": 149,
                         "type": 79,
                         "customColumn5": 91,
-                        "DocumentName": 261,
-                        "customColumn6": 83
+                        "DocumentName": 228.5625,
+                        "customColumn6": 83,
+                        "customColumn7": 80
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
