@@ -28,6 +28,10 @@
         "value": "{\n  \"0\": \"NO\",\n  \"1\": \"YES\"\n}"
       },
       {
+        "name": "identification",
+        "value": "{\n  \"1\": \"Identity card\",\n  \"2\": \"Passport\"\n}"
+      },
+      {
         "name": "LegalStatus",
         "value": "{\n  \"1\": \"Company\",\n  \"2\": \"Individual\",\n  \"3\": \"Partnership\"\n}"
       }

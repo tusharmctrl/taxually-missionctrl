@@ -34,6 +34,10 @@ export default {
 		"0": "NO",
 		"1": "YES"
 	},
+	identification: {
+		"1": "Identity card",
+		"2": "Passport"
+	},
 	LegalStatus: {
 		"1": "Company",
 		"2": "Individual", 

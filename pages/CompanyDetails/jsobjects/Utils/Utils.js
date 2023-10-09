@@ -111,6 +111,9 @@ export default {
 				case "LegalForm":
 					return {fieldName: updatedFieldName, isMissing: false, value: Const.LegalStatus[value]}
 					break;
+				case "LegalRepresentative_PersonalIdentificationType": 
+					return {fieldName: updatedFieldName, isMissing: false, value: Const.identification[value]}
+					break;
 				case "CountryOfIncorporation":
 				case "LegalRepresentative_Nationality":
 				case "LegalRepresentative_CountryOfBirth":
@@ -134,7 +137,7 @@ export default {
 		const questionnaireDataOfClient = QuestionnaireAPI.data;
 		const dataFields = Object.values(questionnaireDataOfClient).flatMap(group => group.map(field => ({ name: field.name, value: field.value })));
 		const finalDataToShowInTable = [];
-		const fieldsThatNeedUpdatedValues = ["LegalRepresentative_Position", "LegalRepresentative_Gender", "CountryOfIncorporation", "LegalRepresentative_IsPoliticallyExposed","LegalRepresentative_OthersOwnsMoreThan25Percent", "LegalRepresentative_OwnsMoreThan25Percent", "LegalRepresentative_Nationality", "LegalRepresentative_CountryOfBirth", "NeedEarlierVatReg", "LegalForm"]
+		const fieldsThatNeedUpdatedValues = ["LegalRepresentative_Position", "LegalRepresentative_Gender", "CountryOfIncorporation", "LegalRepresentative_IsPoliticallyExposed","LegalRepresentative_OthersOwnsMoreThan25Percent", "LegalRepresentative_OwnsMoreThan25Percent", "LegalRepresentative_Nationality", "LegalRepresentative_CountryOfBirth", "NeedEarlierVatReg", "LegalForm", "LegalRepresentative_PersonalIdentificationType"]
 		if(Company.data.data.prod.Companies_by_pk.LegalStatus.NameEN === "Individual") {
 			finalDataToShowInTable.push({
 				fieldName: "Incorporation Date",

@@ -13,7 +13,7 @@
           "detachFromLayout": true,
           "widgetId": "0",
           "topRow": 0,
-          "bottomRow": 1800,
+          "bottomRow": 1720,
           "containerStyle": "none",
           "snapRows": 57,
           "parentRowSpace": 1,
@@ -4949,7 +4949,7 @@
                         "type": 143,
                         "Property": 320,
                         "Status": 219,
-                        "Country": 268
+                        "Country": 172
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
