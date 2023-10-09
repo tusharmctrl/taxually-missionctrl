@@ -34,6 +34,10 @@
       {
         "name": "LegalStatus",
         "value": "{\n  \"1\": \"Company\",\n  \"2\": \"Individual\",\n  \"3\": \"Partnership\"\n}"
+      },
+      {
+        "name": "documentStatus",
+        "value": "{\n  \"1\": \"Missing\",\n  \"2\": \"Requires Signature\",\n  \"3\": \"No Signature Required\",\n  \"4\": \"Signed\",\n  \"5\": \"Correct\"\n}"
       }
     ],
     "userPermissions": []

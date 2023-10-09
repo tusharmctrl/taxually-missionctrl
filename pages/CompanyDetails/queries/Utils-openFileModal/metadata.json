@@ -26,6 +26,12 @@
         },
         {
           "name": "documentTypeId"
+        },
+        {
+          "name": "documentName"
+        },
+        {
+          "name": "countryName"
         }
       ],
       "isAsync": true

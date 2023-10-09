@@ -13,7 +13,7 @@
           "detachFromLayout": true,
           "widgetId": "0",
           "topRow": 0,
-          "bottomRow": 1720,
+          "bottomRow": 1800,
           "containerStyle": "none",
           "snapRows": 57,
           "parentRowSpace": 1,
@@ -574,7 +574,7 @@
                       "text": "{{Utils.companyInfoTable()}}",
                       "key": "aqlb8ae9yi",
                       "isDeprecated": false,
-                      "rightColumn": 64,
+                      "rightColumn": 63,
                       "textAlign": "LEFT",
                       "dynamicHeight": "AUTO_HEIGHT",
                       "widgetId": "zv92tlch3i",
@@ -1573,9 +1573,10 @@
                         "step": 70,
                         "status": 121,
                         "Information": 267,
-                        "agent": 137,
+                        "agent": 231,
                         "value": 170,
-                        "Document": 63
+                        "Document": 63,
+                        "created_at": 141
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
@@ -3659,7 +3660,7 @@
                         "step": 70,
                         "status": 85,
                         "Country": 164,
-                        "DocumentType": 411,
+                        "DocumentType": 185,
                         "customColumn2": 166,
                         "Note": 107,
                         "customColumn4": 149,
@@ -3915,7 +3916,7 @@
                           "boxShadow": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
                           "customAlias": "",
                           "iconName": "cloud-upload",
-                          "onClick": "{{Utils.openFileModal(currentRow.countryId, currentRow.documentTypeId)}}"
+                          "onClick": "{{Utils.openFileModal(currentRow.countryId, currentRow.documentTypeId, currentRow.DocumentType, currentRow.Country)}}"
                         },
                         "customColumn6": {
                           "allowCellWrapping": false,
@@ -4102,12 +4103,6 @@
                           "key": "tableData"
                         },
                         {
-                          "key": "primaryColumns.customColumn5.computedValue"
-                        },
-                        {
-                          "key": "primaryColumns.customColumn5.textColor"
-                        },
-                        {
                           "key": "primaryColumns.Country.computedValue"
                         },
                         {
@@ -4145,6 +4140,15 @@
                         },
                         {
                           "key": "primaryColumns.DocumentId.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.Status.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.StatusId.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.Status.textColor"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -4184,7 +4188,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1696504527383,
+                      "columnUpdatedAt": 1696845949919,
                       "originalBottomRow": 160,
                       "defaultSelectedRowIndices": [
                         0
@@ -4197,30 +4201,31 @@
                         "type",
                         "DocumentType",
                         "DocumentName",
+                        "Status",
                         "Generated",
-                        "customColumn5",
                         "missing",
                         "customColumn6",
                         "UploadedDocumentName",
                         "UploadedBy",
-                        "DocumentId"
+                        "DocumentId",
+                        "StatusId"
                       ],
                       "dynamicPropertyPathList": [
                         {
                           "key": "isVisible"
                         },
                         {
-                          "key": "primaryColumns.customColumn5.textColor"
-                        },
-                        {
                           "key": "primaryColumns.customColumn6.onClick"
                         },
                         {
                           "key": "primaryColumns.customColumn6.isCellVisible"
+                        },
+                        {
+                          "key": "primaryColumns.Status.textColor"
                         }
                       ],
                       "displayName": "Table",
-                      "bottomRow": 37,
+                      "bottomRow": 40,
                       "columnWidthMap": {
                         "task": 245,
                         "step": 70,
@@ -4374,36 +4379,6 @@
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
-                        },
-                        "customColumn5": {
-                          "allowCellWrapping": false,
-                          "allowSameOptionsInNewRow": true,
-                          "index": 7,
-                          "width": 150,
-                          "originalId": "customColumn5",
-                          "id": "customColumn5",
-                          "alias": "Status of Online Documents",
-                          "horizontalAlignment": "LEFT",
-                          "verticalAlignment": "CENTER",
-                          "columnType": "text",
-                          "textColor": "{{DocumentSummary.processedTableData.map((currentRow, currentIndex) => ( currentRow.missing ? \"red\" : \"green\"))}}",
-                          "textSize": "0.875rem",
-                          "enableFilter": true,
-                          "enableSort": true,
-                          "isVisible": true,
-                          "isDisabled": false,
-                          "isCellEditable": false,
-                          "isEditable": false,
-                          "isCellVisible": true,
-                          "isDerived": true,
-                          "label": "Status of Online Documents",
-                          "isSaveVisible": true,
-                          "isDiscardVisible": true,
-                          "computedValue": "{{DocumentSummary.processedTableData.map((currentRow, currentIndex) => ( currentRow.missing ? \"Missing on Portal\" : \"Submitted on Portal\"))}}",
-                          "sticky": "",
-                          "validation": {},
-                          "buttonStyle": "rgb(3, 179, 101)",
-                          "labelColor": "#FFFFFF"
                         },
                         "missing": {
                           "allowCellWrapping": false,
@@ -4576,7 +4551,7 @@
                           "fontStyle": "",
                           "enableFilter": true,
                           "enableSort": true,
-                          "isVisible": true,
+                          "isVisible": false,
                           "isDisabled": false,
                           "isCellEditable": false,
                           "isEditable": false,
@@ -4586,6 +4561,66 @@
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
                           "computedValue": "{{DocumentSummary.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"DocumentId\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "Status": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 9,
+                          "width": 150,
+                          "originalId": "Status",
+                          "id": "Status",
+                          "alias": "Status",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "{{DocumentSummary.processedTableData.map((currentRow, currentIndex) => ( currentRow.StatusId === 1 ? \"red\" : currentRow.StatusId === 2 ? \"orange\" : \"green\"))}}",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Status",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{DocumentSummary.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Status\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "StatusId": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 10,
+                          "width": 150,
+                          "originalId": "StatusId",
+                          "id": "StatusId",
+                          "alias": "StatusId",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "number",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": false,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "StatusId",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{DocumentSummary.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"StatusId\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
@@ -4948,8 +4983,8 @@
                         "Note": 164,
                         "type": 143,
                         "Property": 320,
-                        "Status": 219,
-                        "Country": 172
+                        "Status": 179,
+                        "Country": 246
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
@@ -5365,8 +5400,8 @@
                                 "paragraph",
                                 "label"
                               ],
-                              "topRow": 10,
-                              "bottomRow": 14,
+                              "topRow": 3,
+                              "bottomRow": 11,
                               "type": "TEXT_WIDGET",
                               "hideCard": false,
                               "mobileRightColumn": 25.5,
@@ -5374,7 +5409,7 @@
                               "overflow": "NONE",
                               "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
                               "dynamicTriggerPathList": [],
-                              "leftColumn": 16,
+                              "leftColumn": 1,
                               "dynamicBindingPathList": [
                                 {
                                   "key": "truncateButtonColor"
@@ -5384,14 +5419,17 @@
                                 },
                                 {
                                   "key": "borderRadius"
+                                },
+                                {
+                                  "key": "text"
                                 }
                               ],
                               "shouldTruncate": false,
                               "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
-                              "text": "Upload Documents",
+                              "text": "Upload Document - {{appsmith.store.FileUploadData.documentName}} FOR {{appsmith.store.FileUploadData.countryName}}",
                               "key": "4slqxeptl2",
                               "isDeprecated": false,
-                              "rightColumn": 47,
+                              "rightColumn": 64,
                               "textAlign": "LEFT",
                               "dynamicHeight": "AUTO_HEIGHT",
                               "widgetId": "53g2fbs5fe",
@@ -5421,6 +5459,9 @@
                               "dynamicPropertyPathList": [
                                 {
                                   "key": "onFilesSelected"
+                                },
+                                {
+                                  "key": "isDisabled"
                                 }
                               ],
                               "displayName": "FilePicker",
@@ -5428,8 +5469,8 @@
                               "searchTags": [
                                 "upload"
                               ],
-                              "topRow": 17,
-                              "bottomRow": 21,
+                              "topRow": 18,
+                              "bottomRow": 22,
                               "parentRowSpace": 10,
                               "allowedFileTypes": [
                                 "*"
@@ -5451,9 +5492,12 @@
                                 },
                                 {
                                   "key": "borderRadius"
+                                },
+                                {
+                                  "key": "isDisabled"
                                 }
                               ],
-                              "isDisabled": false,
+                              "isDisabled": "{{appsmith.store.UploadingOfflineDocument}}",
                               "key": "8kharqphpe",
                               "onFilesSelected": "{{Utils.uploadDocument()}}",
                               "isRequired": false,
@@ -5474,10 +5518,10 @@
                               "isLoading": false,
                               "mobileTopRow": 7,
                               "responsiveBehavior": "hug",
-                              "originalTopRow": 21,
+                              "originalTopRow": 16,
                               "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
                               "mobileLeftColumn": 1,
-                              "originalBottomRow": 25,
+                              "originalBottomRow": 20,
                               "files": [],
                               "maxNumFiles": "1"
                             }

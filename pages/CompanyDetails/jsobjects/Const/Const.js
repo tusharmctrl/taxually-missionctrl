@@ -43,6 +43,13 @@ export default {
 		"2": "Individual", 
 		"3" : "Partnership"
 	},
+	documentStatus: {
+		"1": "Missing",
+		"2": "Requires Signature",
+		"3": "No Signature Required",
+		"4": "Signed",
+		"5": "Correct"
+	},
 	getCountryName (id) {
 		const countries = AdditionalInformation.data.data.prod.Countries;
 		const countryOfId = countries.filter((country) => country.Id === id)

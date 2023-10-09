@@ -284,11 +284,11 @@ export default {
 			const countryName = document.isCompanyDocument ? `Company Document | ${Const.getCountryName(document.countryId)}` : Const.getCountryName(document.countryId);
 			const documentTypeName = Const.getDocumentTypeName(document.documentTypeId);
 			const isGenerated = document.isCompanyDocument || document.documentCategory == 5 ? "-" : document.generatedFile ? "YES" : "NO"
-			const necessaryInfoForDocument = {Country: countryName, type: "ONLINE", DocumentType: documentTypeName, DocumentName: document.documentTypeName, Generated: isGenerated };
+			const necessaryInfoForDocument = {Country: countryName, type: "ONLINE", DocumentType: documentTypeName, DocumentName: document.documentTypeName, Generated: isGenerated, StatusId: document.documentStatus };
 			if(!document.uploadedFile) {
-				return {...necessaryInfoForDocument, missing: true}
+				return {...necessaryInfoForDocument, missing: true, Status: Const.documentStatus[document.documentStatus]}
 			} else {
-				return {...necessaryInfoForDocument, missing: false, UploadedDocumentName: document.uploadedFile.fileName, UploadedBy:document.uploadedFile.uploader.name, DocumentId:document.uploadedFile.id}
+				return {...necessaryInfoForDocument, missing: false, UploadedDocumentName: document.uploadedFile.fileName, UploadedBy:document.uploadedFile.uploader.name, DocumentId:document.uploadedFile.id, Status: Const.documentStatus[document.documentStatus]}
 			}
 		})
 		return documentStatus;
@@ -360,8 +360,8 @@ export default {
 		})
 		return [...onlineDocumentData, ...offlineDocumentData, ...offlineInformation, ...onlineInformation];
 	},
-	openFileModal: (countryId, documentTypeId) => {
-		storeValue("FileUploadData", {companyId: Utils.selectedCompanyId(), countryId, documentTypeId})
+	openFileModal: (countryId, documentTypeId, documentName, countryName) => {
+		storeValue("FileUploadData", {companyId: Utils.selectedCompanyId(), countryId, documentTypeId, documentName, countryName})
 		showModal("FileUploadModal")
 	},
 	uploadDocument: async () => {
@@ -374,6 +374,7 @@ export default {
 		const blobName = Utils.selectedCompanyId() + "/" + FilePicker1.files[0].name;
 		const arrayBuffer = Utils.base64ToArrayBuffer(fileData)
 		const url = `https://${storageAccountName}.blob.core.windows.net/${containerName}/${blobName}${sasToken}`;
+		storeValue("UploadingOfflineDocument", true);
 		fetch(url, {
 			body: arrayBuffer,
 			method: "PUT",
@@ -405,6 +406,7 @@ export default {
 			.catch((error) => {
 			console.error("Upload error", error);
 		});
+		storeValue("UploadingOfflineDocument", false);
 	},
 	base64ToArrayBuffer: (base64) => {
 		const binaryString = atob(base64.split(",")[1]);
