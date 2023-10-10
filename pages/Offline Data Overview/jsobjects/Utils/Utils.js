@@ -9,10 +9,13 @@ export default {
 			const documentNameEN = item.Document.NameEN;
 			const documentId = item.document_type_id;
 			const countryCode = item.Country.NameEN;
+			const docPOA = item.Document.poa;
+			const docSigned = item.Document.signed;
+			const docFiling = item.Document.filing;
 			const type = item.type;
 			const documentType = item.Document.type;
 			if (!groupedData[documentId]) {
-				groupedData[documentId] = {DocumentName: documentNameEN, DocumentType: documentType, values: []};
+				groupedData[documentId] = {DocumentName: documentNameEN, poa:docPOA, signed: docSigned, filing: docFiling, DocumentType: documentType, values: []};
 			}
 			groupedData[documentId]['values'].push({ CountryCode: countryCode, Type: type });
 		});
@@ -22,10 +25,13 @@ export default {
 				const countryData = groupedData[documentId]['values'];
 				const documentType = groupedData[documentId]["DocumentType"];
 				const documentName = groupedData[documentId]["DocumentName"]
+				const documentPOA = groupedData[documentId]["poa"] ? "YES" : "NO";
+				const documentSigned = groupedData[documentId]["signed"] ? "YES" : "NO";
+				const documentFiling = groupedData[documentId]["filing"] ? "YES" : "NO";
 				const euData = countryData.filter((data) => data.Type === "EU")
 				const nonEuData = countryData.filter((data) => data.Type === "NON-EU")
-				euData.length > 0 && finalResponse.push({ DataType: "Document", Type: documentType, Document: documentName, Establishment: "EU", CountryData: euData.map(data => `${data.CountryCode}`).join(", ") });
-				nonEuData.length > 0 && finalResponse.push({ DataType: "Document", Type: documentType, Document: documentName, Establishment: "NON-EU", CountryData: nonEuData.map(data => `${data.CountryCode}`).join(", ") });
+				euData.length > 0 && finalResponse.push({ DataType: "Document", Type: documentType, Document: documentName, Establishment: "EU", POA:documentPOA, Filing: documentFiling, Signed: documentSigned, CountryData: euData.map(data => `${data.CountryCode}`).join(", ") });
+				nonEuData.length > 0 && finalResponse.push({ DataType: "Document", Type: documentType, Document: documentName, Establishment: "NON-EU",POA:documentPOA,Filing: documentFiling, Signed: documentSigned, CountryData: nonEuData.map(data => `${data.CountryCode}`).join(", ") });
 			}
 		}
 		return finalResponse;
