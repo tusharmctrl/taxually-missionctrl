@@ -14,16 +14,18 @@ export default {
 	getMissingInformation: () => {
 		const requiredInformation = GetEssentialDataForInfoAndDocs.data.data.prod.missionctrl_track_missing_information;
 		const submittedInformation = CheckManuallyUpdatedInfo.data.data.prod.missionctrl_track_remaining_data_information;
-		const finalInformation = [];
-		requiredInformation.filter((information) => {
+
+		return requiredInformation.map((information) => {
 			const hasAlreadyBeenAdded = submittedInformation.find((info) => info.information_type_id === information.Information.id && info.country_id === information.Country.Id && info.value);
-			if(hasAlreadyBeenAdded) {
-				finalInformation.push({ name: information.Information.information, jurisdiction_country:information.Country.NameEN, jurisdiction_country_id: information.Country.Id, information_id: information.Information.id, missing: false, Value: hasAlreadyBeenAdded.value })
-			} else {
-				finalInformation.push({name: information.Information.information, jurisdiction_country:information.Country.NameEN, jurisdiction_country_id: information.Country.Id, information_id: information.Information.id, missing: true, Value: ""  })
-			}
-		})
-		return finalInformation
+			return {
+				name: information.Information.information,
+				jurisdiction_country: information.Country.NameEN,
+				jurisdiction_country_id: information.Country.Id,
+				information_id: information.Information.id,
+				missing: !hasAlreadyBeenAdded,
+				Value: hasAlreadyBeenAdded ? hasAlreadyBeenAdded.value : ""
+			};
+		});
 	},
 	necessaryThingsToRunOnLoad: async() => {
 		if (appsmith.URL.queryParams.companyId) {
@@ -261,26 +263,17 @@ export default {
 			}
 		});
 		const finalOfflineData = requiredOfflineDocuments.map((requiredDoc) => {
-			const existingData = manuallyUpdatedDocs.find((doc) => doc.country_id === requiredDoc.Country.Id && doc.document_type_id === requiredDoc.DocumentType.id && doc.document_name);
-			if(existingData && existingData.active){
-				return {
-					Country: requiredDoc.Country,
-					DocumentType: requiredDoc.DocumentType,
-					missing: false,
-					type: "OFFLINE",
-					DocumentName: existingData.document_name
-				}
+			const existingData = manuallyUpdatedDocs.find((doc) => doc.country_id === requiredDoc.Country.Id && doc.document_type_id === requiredDoc.DocumentType.id);
+			return {
+				Country: requiredDoc.Country,
+				DocumentType: requiredDoc.DocumentType,
+				missing: existingData?.document_name ? false : true,
+				type: "OFFLINE",
+				DocumentName: existingData ? existingData.document_name : "",
+				Irrelevant: existingData ? existingData.irrelevant : 0
 			}
-			else {
-				return {
-					Country: requiredDoc.Country,
-					DocumentType: requiredDoc.DocumentType,
-					POA: requiredDoc.POA,
-					missing: true,
-					type: "OFFLINE"
-				}
-			}
-		})
+		});
+
 		return finalOfflineData.sort((a, b) => (a.missing === b.missing) ? 0 : a.missing ? 1 : -1);
 	},
 	getMissingDocumentsRevised: () => {
@@ -313,20 +306,6 @@ export default {
 		}
 		await Company.run({company_id: parseInt(appsmith.URL.queryParams.companyId) });
 	},
-	// addNote: async() => {
-	// const {documentTypeId, countryId, Note, missing} = OfflineDocuments.updatedRow;
-	// const companyId = parseInt(Utils.selectedCompanyId());
-	// const checkDocumentExistence = await Utils.checkDocumentsExistence(documentTypeId, countryId, companyId);
-	// if(!checkDocumentExistence) {
-	// const object = {company_id: parseInt(Utils.selectedCompanyId()), document_type_id: documentTypeId, country_id: countryId, notes: Note, active: missing ? 0 : 1};
-	// await AddDocumentTracker.run({object: object}).then((resp) => resp.data ? showAlert("Note has been added successfully!", "success") : showAlert("Something went wrong!", "error"));
-	// } else {
-	// const whereObject = {company_id: {_eq: companyId},document_type_id: {_eq:documentTypeId}, country_id: {_eq:countryId } };
-	// await UpdateDocumentTracker.run({whereObject: whereObject, setObject: {notes: Note}}).then((resp) => resp.data ? showAlert("Note has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));
-	// }
-	// await CheckManuallyUpdatedDocs.run({companyId: parseInt(Utils.selectedCompanyId()) });
-	// await Utils.getMissingDocumentsRevised();
-	// },
 	checkDocumentsExistence: async(documentTypeId, countryId, companyId) => {
 		const doesDocumentExist = await CheckDocumentExistence.run({documentTypeId:documentTypeId, countryId:countryId, companyId:companyId })
 		return doesDocumentExist && doesDocumentExist.data.prod.missionctrl_track_pending_docs.length ? true : false;
@@ -462,5 +441,22 @@ export default {
 		await GetHistoryOfDocument.run({company_id:parseInt(Utils.selectedCompanyId()), document_id: documentTypeId, country_id: countryId })
 		showModal("HistoryOfDocument")
 	},
+	irrelavantFlagUpdate: async (dataType) => {
+		if(dataType === "OFFLINE_DOCUMENT") {
+			const  {documentTypeId, countryId, Irrelevant} = OfflineDocuments.updatedRow;
+			const companyId = parseInt(Utils.selectedCompanyId())
+			const checkDocumentExistence = await Utils.checkDocumentsExistence(documentTypeId, countryId, companyId);
+			if(!checkDocumentExistence) {
+				console.log("COMING HERE")
+				const object = {company_id: parseInt(Utils.selectedCompanyId()), document_type_id: documentTypeId, country_id: countryId, document_name: "", irrelevant: Irrelevant ? 1 : 0};
+				await AddDocumentTracker.run({object: object}).then((resp) => resp.data ? showAlert("Document has been added successfully!", "success") : showAlert("Something went wrong!", "error"));
+			} else {
+				const whereObject = {company_id: {_eq: companyId},document_type_id: {_eq:documentTypeId}, country_id: {_eq:countryId } };
+				await UpdateDocumentTracker.run({whereObject: whereObject, setObject: {irrelevant: Irrelevant ? 1 : 0}}).then((resp) => resp.data ? showAlert("Document has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));
+			}
+			await CheckManuallyUpdatedDocs.run({companyId: parseInt(Utils.selectedCompanyId())});
+			await Utils.getMissingOfflineDocuments();
+		}
+	}
 }
 

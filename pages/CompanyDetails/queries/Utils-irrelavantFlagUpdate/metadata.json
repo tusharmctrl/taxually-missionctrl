@@ -2,8 +2,8 @@
   "pluginType": "JS",
   "pluginId": "js-plugin",
   "unpublishedAction": {
-    "name": "getMissingInformation",
-    "fullyQualifiedName": "Utils.getMissingInformation",
+    "name": "irrelavantFlagUpdate",
+    "fullyQualifiedName": "Utils.irrelavantFlagUpdate",
     "datasource": {
       "name": "UNUSED_DATASOURCE",
       "pluginId": "js-plugin",
@@ -20,8 +20,12 @@
       "paginationType": "NONE",
       "encodeParamsToggle": true,
       "selfReferencingDataPaths": [],
-      "jsArguments": [],
-      "isAsync": false
+      "jsArguments": [
+        {
+          "name": "dataType"
+        }
+      ],
+      "isAsync": true
     },
     "executeOnLoad": false,
     "dynamicBindingPathList": [
@@ -37,7 +41,7 @@
     "policies": [],
     "userPermissions": []
   },
-  "id": "CompanyDetails_Utils.getMissingInformation",
+  "id": "CompanyDetails_Utils.irrelavantFlagUpdate",
   "deleted": false,
-  "gitSyncId": "64ddbc9544dc506821b62c28_6524f1a144dc506821b63121"
+  "gitSyncId": "64ddbc9544dc506821b62c28_6524e66644dc506821b63117"
 }
