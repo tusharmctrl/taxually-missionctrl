@@ -17,6 +17,8 @@ query GetEssentialDataForInfoAndDocs($countryIds: [Int], $type: String, $company
 			Information {
 				id
 				information
+				poa
+				filing
 			}
 			Country {
 				Id

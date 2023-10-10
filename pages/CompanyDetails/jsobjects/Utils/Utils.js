@@ -24,7 +24,9 @@ export default {
 				information_id: information.Information.id,
 				missing: hasAlreadyBeenAdded?.value ? false : true,
 				Value: hasAlreadyBeenAdded ? hasAlreadyBeenAdded.value : "",
-				Irrelevant: hasAlreadyBeenAdded ? hasAlreadyBeenAdded.irrelevant : 0
+				Irrelevant: hasAlreadyBeenAdded ? hasAlreadyBeenAdded.irrelevant : 0,
+				Poa: information.Information.poa ? "YES" : "NO",
+				Filing: information.Information.filing ? "YES" : "NO"
 			};
 		});
 	},

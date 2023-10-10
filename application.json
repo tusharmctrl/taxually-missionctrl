@@ -21,6 +21,9 @@
   "appIsExample": false,
   "unreadCommentThreads": 0,
   "unpublishedApplicationDetail": {
+    "appPositioning": {
+      "type": "FIXED"
+    },
     "navigationSetting": {
       "showNavbar": true,
       "orientation": "top",

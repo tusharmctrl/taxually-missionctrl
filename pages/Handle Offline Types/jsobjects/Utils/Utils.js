@@ -49,7 +49,6 @@ export default {
 	},
 	addNewDocument: async() => {
 		const object = {NameEN: CreateDocType.data.DocumentName, type: CreateDocType.data.Type, poa: CreateDocType.data.CheckboxGroup1.includes("poa") ? 1 : 0, filing: CreateDocType.data.CheckboxGroup1.includes("filing") ? 1 : 0, signed: CreateDocType.data.CheckboxGroup1.includes("signed") ? 1 : 0};
-		console.log(CreateDocType.data)
 		await AddOfflineDocument.run({object: object}).then((resp) => resp.data ? showAlert("New Document has been added Successfully!", "success") : showAlert("Something went wrong", "error"))
 		OfflineDocumentTypes.run();
 		closeModal("CreateNewDocumentType");
@@ -115,5 +114,17 @@ export default {
 			await UpdateDocumentTypes.run({whereObj, setObj}).then((resp) => resp.data ? showAlert("Doument Successfully Updated!", "success") : showAlert("Oh no! Something went wrong", "error"))
 		}
 		OfflineDocumentTypes.run();
+	},
+	updateAdditionalInformationData: async(dataType) => {
+		const { poa, id, filing } = InformationMatrix.updatedRow
+		const whereObj = {id: {_eq: id}}
+		if(dataType === "POA") {
+			const setObj = {poa: poa ? 1 : 0}
+			await UpdateInformationType.run({whereObj, setObj}).then((resp) => resp.data ? showAlert("Information Successfully Updated!", "success") : showAlert("Oh no! Something went wrong", "error"))
+		} else if(dataType === "FILING") {
+			const setObj = {filing: filing ? 1 : 0}
+			await UpdateInformationType.run({whereObj, setObj}).then((resp) => resp.data ? showAlert("Information Successfully Updated!", "success") : showAlert("Oh no! Something went wrong", "error"))
+		}
+		OfflineInformationTypes.run();
 	}
 }

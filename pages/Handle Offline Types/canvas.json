@@ -888,6 +888,12 @@
                                 },
                                 {
                                   "key": "primaryColumns.type.buttonLabel"
+                                },
+                                {
+                                  "key": "primaryColumns.filing.computedValue"
+                                },
+                                {
+                                  "key": "primaryColumns.poa.computedValue"
                                 }
                               ],
                               "needsHeightForContent": true,
@@ -926,7 +932,7 @@
                                 }
                               },
                               "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                              "columnUpdatedAt": 1696936830884,
+                              "columnUpdatedAt": 1696941234778,
                               "originalBottomRow": 65,
                               "primaryColumnId": "id",
                               "defaultSelectedRowIndices": [
@@ -941,6 +947,8 @@
                                 "customColumn1",
                                 "type",
                                 "customColumn2",
+                                "poa",
+                                "filing",
                                 "EditActions1"
                               ],
                               "dynamicPropertyPathList": [
@@ -964,6 +972,12 @@
                                 },
                                 {
                                   "key": "primaryColumns.type.onClick"
+                                },
+                                {
+                                  "key": "primaryColumns.poa.onCheckChange"
+                                },
+                                {
+                                  "key": "primaryColumns.filing.onCheckChange"
                                 }
                               ],
                               "displayName": "Table",
@@ -997,6 +1011,12 @@
                                 },
                                 {
                                   "key": "primaryColumns.type.onClick"
+                                },
+                                {
+                                  "key": "primaryColumns.poa.onCheckChange"
+                                },
+                                {
+                                  "key": "primaryColumns.filing.onCheckChange"
                                 }
                               ],
                               "borderWidth": "1",
@@ -1199,6 +1219,68 @@
                                   "buttonLabel": "{{InformationMatrix.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"type\"]))}}",
                                   "buttonVariant": "TERTIARY",
                                   "onClick": "{{Utils.onUpdateInformationType(currentRow.id, currentRow.type === \"COMPANY\" ? \"INDIVIDUAL\" : \"COMPANY\")}}"
+                                },
+                                "poa": {
+                                  "allowCellWrapping": false,
+                                  "allowSameOptionsInNewRow": true,
+                                  "index": 3,
+                                  "width": 150,
+                                  "originalId": "poa",
+                                  "id": "poa",
+                                  "alias": "poa",
+                                  "horizontalAlignment": "LEFT",
+                                  "verticalAlignment": "CENTER",
+                                  "columnType": "checkbox",
+                                  "textColor": "",
+                                  "textSize": "0.875rem",
+                                  "fontStyle": "",
+                                  "enableFilter": true,
+                                  "enableSort": true,
+                                  "isVisible": true,
+                                  "isDisabled": false,
+                                  "isCellEditable": true,
+                                  "isEditable": true,
+                                  "isCellVisible": true,
+                                  "isDerived": false,
+                                  "label": "POA",
+                                  "isSaveVisible": true,
+                                  "isDiscardVisible": true,
+                                  "computedValue": "{{InformationMatrix.processedTableData.map((currentRow, currentIndex) => ( currentRow.poa ? true : false))}}",
+                                  "sticky": "",
+                                  "validation": {},
+                                  "cellBackground": "",
+                                  "onCheckChange": "{{Utils.updateAdditionalInformationData(\"POA\")}}"
+                                },
+                                "filing": {
+                                  "allowCellWrapping": false,
+                                  "allowSameOptionsInNewRow": true,
+                                  "index": 4,
+                                  "width": 150,
+                                  "originalId": "filing",
+                                  "id": "filing",
+                                  "alias": "filing",
+                                  "horizontalAlignment": "LEFT",
+                                  "verticalAlignment": "CENTER",
+                                  "columnType": "checkbox",
+                                  "textColor": "",
+                                  "textSize": "0.875rem",
+                                  "fontStyle": "",
+                                  "enableFilter": true,
+                                  "enableSort": true,
+                                  "isVisible": true,
+                                  "isDisabled": false,
+                                  "isCellEditable": true,
+                                  "isEditable": true,
+                                  "isCellVisible": true,
+                                  "isDerived": false,
+                                  "label": "Filing",
+                                  "isSaveVisible": true,
+                                  "isDiscardVisible": true,
+                                  "computedValue": "{{InformationMatrix.processedTableData.map((currentRow, currentIndex) => ( currentRow.filing ? true : false))}}",
+                                  "sticky": "",
+                                  "validation": {},
+                                  "cellBackground": "",
+                                  "onCheckChange": "{{Utils.updateAdditionalInformationData(\"FILING\")}}"
                                 }
                               },
                               "key": "su1tre44ib",
@@ -1282,7 +1364,7 @@
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
                       "mobileLeftColumn": 0,
                       "maxDynamicHeight": 9000,
-                      "originalBottomRow": 70,
+                      "originalBottomRow": 68,
                       "minDynamicHeight": 15
                     },
                     {

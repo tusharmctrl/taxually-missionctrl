@@ -4,6 +4,8 @@ query OfflineInformationTypes {
 			id
 			information
 			type
+			poa
+			filing
 		}
 	}
 }

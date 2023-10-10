@@ -2589,6 +2589,12 @@
                         },
                         {
                           "key": "primaryColumns.Irrelevant.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.Poa.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.Filing.computedValue"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -2629,7 +2635,7 @@
                         }
                       },
                       "borderRadius": "0.375rem",
-                      "columnUpdatedAt": 1696926911699,
+                      "columnUpdatedAt": 1696941986380,
                       "originalBottomRow": 37,
                       "defaultSelectedRowIndices": [
                         0
@@ -2647,6 +2653,8 @@
                         "missing",
                         "jurisdiction_country_id",
                         "information_id",
+                        "Poa",
+                        "Filing",
                         "EditActions1"
                       ],
                       "dynamicPropertyPathList": [
@@ -2690,7 +2698,8 @@
                         "jurisdiction_country": 203,
                         "customColumn4": 111,
                         "Value": 105.9912109375,
-                        "Irrelevant": 111.5712890625
+                        "Irrelevant": 111.5712890625,
+                        "customColumn3": 94
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
@@ -3030,6 +3039,66 @@
                           "validation": {},
                           "cellBackground": "",
                           "onCheckChange": "{{Utils.irrelavantFlagUpdate(\"OFFLINE_INFORMATION\")}}"
+                        },
+                        "Poa": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 7,
+                          "width": 150,
+                          "originalId": "Poa",
+                          "id": "Poa",
+                          "alias": "Poa",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "number",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Poa",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Poa\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "Filing": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 8,
+                          "width": 150,
+                          "originalId": "Filing",
+                          "id": "Filing",
+                          "alias": "Filing",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "number",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Filing",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Filing\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
                         }
                       },
                       "onRowSelected": "",
