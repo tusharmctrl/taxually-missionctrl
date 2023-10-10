@@ -55,6 +55,11 @@ export default {
 		const countryOfId = countries.filter((country) => country.Id === id)
 		return countryOfId[0].NameEN;
 	},
+	getCountryNameByCode (code) {
+		const countries = AdditionalInformation.data.data.prod.Countries;
+		const countryOfCode = countries.filter((country) => country.Code === code)
+		return countryOfCode[0].NameEN;
+	},
 	getDocumentTypeName (id) {
 		const documentTypes = AdditionalInformation.data.data.prod.DocumentTypes;
 		const documentTypeOfId = documentTypes.filter((docType) => docType.Id === id)

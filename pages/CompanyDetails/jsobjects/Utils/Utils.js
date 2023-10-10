@@ -340,7 +340,7 @@ export default {
 			return {Property: info.name, Country: info.jurisdiction_country, Status: info.missing ? "Not Submitted Yet" : "Marked as Received", DataType: "Information", type: "OFFLINE", missing: info.missing, Value: info.Value ?? ""}
 		})
 		const onlineInformation = Utils.getMissingQuestionnaireInformation().map((info) => {
-			return {Country: !info.fieldName.startsWith("VAT") ? "Account Level" : info.fieldName.split(" ").slice(-1).join(""), Property: info.fieldName, DataType: "Information", type: "ONLINE", missing: info.isMissing, Status: info.isMissing ? "Not Submitted Yet" : "Submitted on Portal", Value: info.value ?? ""}
+			return {Country: !info.fieldName.startsWith("VAT") ? "Account Level" : Const.getCountryNameByCode(info.fieldName.split(" ").slice(-1).join("")), Property: info.fieldName, DataType: "Information", type: "ONLINE", missing: info.isMissing, Status: info.isMissing ? "Not Submitted Yet" : "Submitted on Portal", Value: info.value ?? ""}
 		})
 		return [...onlineDocumentData, ...offlineDocumentData, ...offlineInformation, ...onlineInformation];
 	},
@@ -377,13 +377,8 @@ export default {
 				resetWidget("FilePicker1");
 				closeModal("FileUploadModal");
 				const checkDocumentExistence = await Utils.checkDocumentsExistence(documentTypeId, countryId, companyId);
-				if(!checkDocumentExistence) {
-					const object = {company_id: parseInt(Utils.selectedCompanyId()), document_type_id: documentTypeId, country_id: countryId, document_name: blobName};
-					await AddDocumentTracker.run({object: object}).then((resp) => resp.data ? showAlert("Document has been added successfully!", "success") : showAlert("Something went wrong!", "error"));
-				} else {
-					const whereObject = {company_id: {_eq: companyId},document_type_id: {_eq:documentTypeId}, country_id: {_eq:countryId } };
-					await UpdateDocumentTracker.run({whereObject: whereObject, setObject: {document_name: blobName}}).then((resp) => resp.data ? showAlert("Document has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));
-				}
+				const object = {company_id: parseInt(Utils.selectedCompanyId()), document_type_id: documentTypeId, country_id: countryId, document_name: blobName, irrelevant: 0};
+				await AddDocumentTracker.run({object: object}).then((resp) => resp.data ? showAlert("Document has been added successfully!", "success") : showAlert("Something went wrong!", "error"));
 				await AddDocumentStatusLog.run({documentStatusObject: {status: !checkDocumentExistence ? "ADDED" : "UPDATED", agent: appsmith.user.username, company_id:companyId, document_id:documentTypeId, country_id: countryId, document_name: blobName }})
 				await CheckManuallyUpdatedDocs.run({companyId: parseInt(Utils.selectedCompanyId()) });
 				await Utils.getMissingDocumentsRevised();
@@ -443,17 +438,10 @@ export default {
 	},
 	irrelavantFlagUpdate: async (dataType) => {
 		if(dataType === "OFFLINE_DOCUMENT") {
-			const  {documentTypeId, countryId, Irrelevant} = OfflineDocuments.updatedRow;
+			const  {documentTypeId, countryId, Irrelevant, DocumentName} = OfflineDocuments.updatedRow;
 			const companyId = parseInt(Utils.selectedCompanyId())
-			const checkDocumentExistence = await Utils.checkDocumentsExistence(documentTypeId, countryId, companyId);
-			if(!checkDocumentExistence) {
-				console.log("COMING HERE")
-				const object = {company_id: parseInt(Utils.selectedCompanyId()), document_type_id: documentTypeId, country_id: countryId, document_name: "", irrelevant: Irrelevant ? 1 : 0};
-				await AddDocumentTracker.run({object: object}).then((resp) => resp.data ? showAlert("Document has been added successfully!", "success") : showAlert("Something went wrong!", "error"));
-			} else {
-				const whereObject = {company_id: {_eq: companyId},document_type_id: {_eq:documentTypeId}, country_id: {_eq:countryId } };
-				await UpdateDocumentTracker.run({whereObject: whereObject, setObject: {irrelevant: Irrelevant ? 1 : 0}}).then((resp) => resp.data ? showAlert("Document has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));
-			}
+			const object = {company_id: companyId, document_type_id: documentTypeId, country_id: countryId, document_name: DocumentName ?? "", irrelevant: Irrelevant ? 1 : 0};
+			await AddDocumentTracker.run({object: object}).then((resp) => resp.data ? showAlert(`Document ${Irrelevant ? "Added as" : "Removed From"} Irrelevant`, "success") : showAlert("Something went wrong!", "error"));
 			await CheckManuallyUpdatedDocs.run({companyId: parseInt(Utils.selectedCompanyId())});
 			await Utils.getMissingOfflineDocuments();
 		}

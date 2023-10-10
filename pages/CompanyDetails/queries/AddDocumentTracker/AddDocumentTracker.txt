@@ -1,7 +1,8 @@
 mutation UpdateClientDocumentStatus($object: missionctrl_track_pending_docs_insert_input!) {
 	prod {
-		insert_missionctrl_track_pending_docs_one(object: $object) {
+		insert_missionctrl_track_pending_docs_one(object: $object, if_matched: {match_columns: [company_id, document_type_id, country_id], update_columns: [irrelevant, document_name]}) {
 			id
+			irrelevant
 		}
 	}
 }
