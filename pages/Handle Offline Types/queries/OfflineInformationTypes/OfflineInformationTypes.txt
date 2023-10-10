@@ -3,6 +3,7 @@ query OfflineInformationTypes {
 		missionctrl_offline_information_types {
 			id
 			information
+			type
 		}
 	}
 }

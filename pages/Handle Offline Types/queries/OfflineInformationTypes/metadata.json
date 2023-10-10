@@ -25,7 +25,7 @@
       ],
       "encodeParamsToggle": true,
       "queryParameters": [],
-      "body": "query OfflineInformationTypes {\n\tprod {\n\t\tmissionctrl_offline_information_types {\n\t\t\tid\n\t\t\tinformation\n\t\t}\n\t}\n}",
+      "body": "query OfflineInformationTypes {\n\tprod {\n\t\tmissionctrl_offline_information_types {\n\t\t\tid\n\t\t\tinformation\n\t\t\ttype\n\t\t}\n\t}\n}",
       "httpMethod": "POST",
       "selfReferencingDataPaths": [],
       "pluginSpecifiedTemplates": [

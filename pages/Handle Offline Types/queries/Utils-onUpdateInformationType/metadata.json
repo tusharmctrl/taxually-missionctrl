@@ -2,8 +2,8 @@
   "pluginType": "JS",
   "pluginId": "js-plugin",
   "unpublishedAction": {
-    "name": "updateClientDocumentStatus",
-    "fullyQualifiedName": "Utils.updateClientDocumentStatus",
+    "name": "onUpdateInformationType",
+    "fullyQualifiedName": "Utils.onUpdateInformationType",
     "datasource": {
       "name": "UNUSED_DATASOURCE",
       "pluginId": "js-plugin",
@@ -13,8 +13,8 @@
       "policies": [],
       "userPermissions": []
     },
-    "pageId": "CompanyDetails",
-    "collectionId": "CompanyDetails_Utils",
+    "pageId": "Handle Offline Types",
+    "collectionId": "Handle Offline Types_Utils",
     "actionConfiguration": {
       "timeoutInMillisecond": 10000,
       "paginationType": "NONE",
@@ -22,16 +22,10 @@
       "selfReferencingDataPaths": [],
       "jsArguments": [
         {
-          "name": "isMissing"
+          "name": "id"
         },
         {
-          "name": "countryId"
-        },
-        {
-          "name": "documentTypeId"
-        },
-        {
-          "name": "note"
+          "name": "type"
         }
       ],
       "isAsync": true
@@ -48,10 +42,9 @@
     "userSetOnLoad": false,
     "confirmBeforeExecute": false,
     "policies": [],
-    "userPermissions": [],
-    "createdAt": "2023-09-06T12:27:47Z"
+    "userPermissions": []
   },
-  "id": "CompanyDetails_Utils.updateClientDocumentStatus",
+  "id": "Handle Offline Types_Utils.onUpdateInformationType",
   "deleted": false,
-  "gitSyncId": "64ddbc9544dc506821b62c28_64f8704344dc506821b62dd0"
+  "gitSyncId": "64ddbc9544dc506821b62c28_6525339e44dc506821b63154"
 }

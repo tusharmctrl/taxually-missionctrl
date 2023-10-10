@@ -15,6 +15,12 @@ export default {
 		await UpdateDocumentTypes.run({whereObj, setObj}).then((resp) => resp.data ? showAlert(`Doument type Successfully Updated to ${type}!`, "success") : showAlert("Oh no! Something went wrong", "error"));
 		OfflineDocumentTypes.run();
 	},
+	onUpdateInformationType: async (id, type) => {
+		const whereObj = {id: {_eq: id}}
+		const setObj = {type: type}
+		await UpdateInformationType.run({whereObj, setObj}).then((resp) => resp.data ? showAlert(`Information type Successfully Updated to ${type}!`, "success") : showAlert("Oh no! Something went wrong", "error"));
+		OfflineInformationTypes.run();
+	},
 	getSelectedCountriesOfDocument: async(id) => {
 		if(!GetCountries.isLoading){
 			storeValue("currentDocumentId", id);
@@ -42,7 +48,8 @@ export default {
 		Utils.getSelectedCountriesOfDocument(documentId);
 	},
 	addNewDocument: async() => {
-		const object = {NameEN: CreateDocType.data.DocumentName, type: CreateDocType.data.Type};
+		const object = {NameEN: CreateDocType.data.DocumentName, type: CreateDocType.data.Type, poa: CreateDocType.data.CheckboxGroup1.includes("poa") ? 1 : 0, filing: CreateDocType.data.CheckboxGroup1.includes("filing") ? 1 : 0, signed: CreateDocType.data.CheckboxGroup1.includes("signed") ? 1 : 0};
+		console.log(CreateDocType.data)
 		await AddOfflineDocument.run({object: object}).then((resp) => resp.data ? showAlert("New Document has been added Successfully!", "success") : showAlert("Something went wrong", "error"))
 		OfflineDocumentTypes.run();
 		closeModal("CreateNewDocumentType");
@@ -63,7 +70,9 @@ export default {
 	},
 	onInformationEditRow: async() => {
 		const {id, information} = InformationMatrix.updatedRow;
-		await UpdateInformationType.run({id: id, information: information}).then((resp) => resp.data ? showAlert("Information Data Successfully Updated!", "success") : showAlert("Oh no! Something went wrong", "error"))
+		const whereObj = {id: {_eq: id}}
+		const setObj = {information}
+		await UpdateInformationType.run({whereObj, setObj}).then((resp) => resp.data ? showAlert("Information Data Successfully Updated!", "success") : showAlert("Oh no! Something went wrong", "error"))
 		OfflineInformationTypes.run();
 	},
 	getSelectedCountriesOfInformation: async(id) => {

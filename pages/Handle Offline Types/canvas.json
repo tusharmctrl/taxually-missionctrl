@@ -83,7 +83,7 @@
                       "displayName": "Tabs",
                       "iconSVG": "/static/media/icon.8a93874870bccee17fbcd02b950c3bcd.svg",
                       "topRow": 5,
-                      "bottomRow": 68,
+                      "bottomRow": 70,
                       "parentRowSpace": 10,
                       "type": "TABS_WIDGET",
                       "hideCard": false,
@@ -110,7 +110,7 @@
                           "mobileBottomRow": 150,
                           "widgetName": "Canvas2",
                           "displayName": "Canvas",
-                          "bottomRow": 590,
+                          "bottomRow": 610,
                           "topRow": 0,
                           "parentRowSpace": 1,
                           "type": "CANVAS_WIDGET",
@@ -296,8 +296,9 @@
                                 "id": 85,
                                 "NameEN": 377,
                                 "customColumn2": 97,
-                                "poa": 79,
-                                "filing": 96
+                                "poa": 98,
+                                "filing": 96,
+                                "type": 160
                               },
                               "parentRowSpace": 10,
                               "hideCard": false,
@@ -562,7 +563,7 @@
                                   "selectOptions": "",
                                   "buttonLabel": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( currentRow.type))}}",
                                   "buttonVariant": "TERTIARY",
-                                  "buttonColor": "#231f20",
+                                  "buttonColor": "#18181b",
                                   "onClick": "{{Utils.onUpdateDocumentType(currentRow.id, currentRow.type === \"COMPANY\" ? \"INDIVIDUAL\" : \"COMPANY\")}}"
                                 },
                                 "poa": {
@@ -761,7 +762,7 @@
                           "mobileBottomRow": 150,
                           "widgetName": "Canvas3",
                           "displayName": "Canvas",
-                          "bottomRow": 590,
+                          "bottomRow": 610,
                           "topRow": 0,
                           "parentRowSpace": 1,
                           "type": "CANVAS_WIDGET",
@@ -881,6 +882,12 @@
                                 },
                                 {
                                   "key": "tableData"
+                                },
+                                {
+                                  "key": "primaryColumns.type.computedValue"
+                                },
+                                {
+                                  "key": "primaryColumns.type.buttonLabel"
                                 }
                               ],
                               "needsHeightForContent": true,
@@ -919,7 +926,7 @@
                                 }
                               },
                               "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                              "columnUpdatedAt": 1696477959202,
+                              "columnUpdatedAt": 1696936830884,
                               "originalBottomRow": 65,
                               "primaryColumnId": "id",
                               "defaultSelectedRowIndices": [
@@ -932,6 +939,7 @@
                                 "id",
                                 "information",
                                 "customColumn1",
+                                "type",
                                 "customColumn2",
                                 "EditActions1"
                               ],
@@ -950,6 +958,12 @@
                                 },
                                 {
                                   "key": "primaryColumns.customColumn2.onClick"
+                                },
+                                {
+                                  "key": "primaryColumns.information.onSubmit"
+                                },
+                                {
+                                  "key": "primaryColumns.type.onClick"
                                 }
                               ],
                               "displayName": "Table",
@@ -960,7 +974,7 @@
                                 "status": 85,
                                 "id": 85,
                                 "NameEN": 538,
-                                "information": 390,
+                                "information": 274,
                                 "customColumn2": 136,
                                 "customColumn1": 177
                               },
@@ -977,6 +991,12 @@
                                 },
                                 {
                                   "key": "primaryColumns.customColumn2.onClick"
+                                },
+                                {
+                                  "key": "primaryColumns.information.onSubmit"
+                                },
+                                {
+                                  "key": "primaryColumns.type.onClick"
                                 }
                               ],
                               "borderWidth": "1",
@@ -1054,7 +1074,7 @@
                                   "textSize": "0.875rem",
                                   "enableFilter": true,
                                   "enableSort": true,
-                                  "isVisible": true,
+                                  "isVisible": false,
                                   "isDisabled": false,
                                   "isCellEditable": false,
                                   "isEditable": false,
@@ -1140,7 +1160,45 @@
                                   "isDiscardVisible": true,
                                   "computedValue": "{{InformationMatrix.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"information\"]))}}",
                                   "sticky": "",
-                                  "validation": {}
+                                  "validation": {},
+                                  "onSubmit": "{{Utils.onInformationEditRow()}}"
+                                },
+                                "type": {
+                                  "allowCellWrapping": false,
+                                  "allowSameOptionsInNewRow": true,
+                                  "index": 2,
+                                  "width": 150,
+                                  "originalId": "type",
+                                  "id": "type",
+                                  "alias": "type",
+                                  "horizontalAlignment": "LEFT",
+                                  "verticalAlignment": "CENTER",
+                                  "columnType": "button",
+                                  "textColor": "",
+                                  "textSize": "0.875rem",
+                                  "fontStyle": "",
+                                  "enableFilter": true,
+                                  "enableSort": true,
+                                  "isVisible": true,
+                                  "isDisabled": false,
+                                  "isCellEditable": false,
+                                  "isEditable": false,
+                                  "isCellVisible": true,
+                                  "isDerived": false,
+                                  "label": "Type",
+                                  "isSaveVisible": true,
+                                  "isDiscardVisible": true,
+                                  "computedValue": "{{InformationMatrix.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"type\"]))}}",
+                                  "sticky": "",
+                                  "validation": {},
+                                  "cellBackground": "#fff",
+                                  "buttonColor": "#18181b",
+                                  "borderRadius": "0.375rem",
+                                  "boxShadow": "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+                                  "customAlias": "",
+                                  "buttonLabel": "{{InformationMatrix.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"type\"]))}}",
+                                  "buttonVariant": "TERTIARY",
+                                  "onClick": "{{Utils.onUpdateInformationType(currentRow.id, currentRow.type === \"COMPANY\" ? \"INDIVIDUAL\" : \"COMPANY\")}}"
                                 }
                               },
                               "key": "su1tre44ib",
@@ -1224,7 +1282,7 @@
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
                       "mobileLeftColumn": 0,
                       "maxDynamicHeight": 9000,
-                      "originalBottomRow": 68,
+                      "originalBottomRow": 70,
                       "minDynamicHeight": 15
                     },
                     {
@@ -2454,13 +2512,13 @@
                   "widgetName": "Canvas5",
                   "displayName": "Canvas",
                   "topRow": 0,
-                  "bottomRow": 370,
+                  "bottomRow": 450,
                   "parentRowSpace": 1,
                   "type": "CANVAS_WIDGET",
                   "canExtend": true,
                   "hideCard": true,
                   "shouldScrollContents": false,
-                  "minHeight": 374,
+                  "minHeight": 452,
                   "mobileRightColumn": 251.2890625,
                   "parentColumnSpace": 1,
                   "leftColumn": 0,
@@ -2585,7 +2643,7 @@
                         "group"
                       ],
                       "topRow": 5,
-                      "bottomRow": 36,
+                      "bottomRow": 42,
                       "parentRowSpace": 10,
                       "type": "FORM_WIDGET",
                       "hideCard": false,
@@ -2609,7 +2667,7 @@
                           "widgetName": "Canvas6",
                           "displayName": "Canvas",
                           "topRow": 0,
-                          "bottomRow": 310,
+                          "bottomRow": 370,
                           "parentRowSpace": 1,
                           "type": "CANVAS_WIDGET",
                           "canExtend": false,
@@ -2638,8 +2696,8 @@
                                 "click",
                                 "submit"
                               ],
-                              "topRow": 23,
-                              "bottomRow": 27,
+                              "topRow": 30,
+                              "bottomRow": 34,
                               "type": "BUTTON_WIDGET",
                               "hideCard": false,
                               "mobileRightColumn": 62,
@@ -2649,7 +2707,7 @@
                                   "key": "onClick"
                                 }
                               ],
-                              "leftColumn": 48,
+                              "leftColumn": 47,
                               "dynamicBindingPathList": [
                                 {
                                   "key": "buttonColor"
@@ -2662,7 +2720,7 @@
                               "isDisabled": false,
                               "key": "misn2269cr",
                               "isDeprecated": false,
-                              "rightColumn": 64,
+                              "rightColumn": 63,
                               "isDefaultClickDisabled": true,
                               "widgetId": "2w8746o04a",
                               "minWidth": 120,
@@ -2674,9 +2732,11 @@
                               "isLoading": false,
                               "mobileTopRow": 33,
                               "responsiveBehavior": "hug",
+                              "originalTopRow": 30,
                               "disabledWhenInvalid": true,
                               "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
                               "mobileLeftColumn": 46,
+                              "originalBottomRow": 34,
                               "buttonVariant": "PRIMARY",
                               "placement": "CENTER"
                             },
@@ -2692,13 +2752,13 @@
                                 "click",
                                 "submit"
                               ],
-                              "topRow": 23,
-                              "bottomRow": 27,
+                              "topRow": 30,
+                              "bottomRow": 34,
                               "type": "BUTTON_WIDGET",
                               "hideCard": false,
                               "mobileRightColumn": 46,
                               "animateLoading": true,
-                              "leftColumn": 32,
+                              "leftColumn": 30,
                               "dynamicBindingPathList": [
                                 {
                                   "key": "buttonColor"
@@ -2711,7 +2771,7 @@
                               "isDisabled": false,
                               "key": "misn2269cr",
                               "isDeprecated": false,
-                              "rightColumn": 48,
+                              "rightColumn": 46,
                               "isDefaultClickDisabled": true,
                               "widgetId": "0jjd8kc72k",
                               "minWidth": 120,
@@ -2723,9 +2783,11 @@
                               "isLoading": false,
                               "mobileTopRow": 33,
                               "responsiveBehavior": "hug",
+                              "originalTopRow": 30,
                               "disabledWhenInvalid": false,
                               "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
                               "mobileLeftColumn": 30,
+                              "originalBottomRow": 34,
                               "buttonVariant": "SECONDARY",
                               "placement": "CENTER"
                             },
@@ -2852,6 +2914,71 @@
                               "mobileLeftColumn": 4,
                               "maxDynamicHeight": 9000,
                               "minDynamicHeight": 4
+                            },
+                            {
+                              "mobileBottomRow": 26,
+                              "widgetName": "CheckboxGroup1",
+                              "displayName": "Checkbox Group",
+                              "iconSVG": "/static/media/icon.bda24aa6992a7bc7616b83aca2c931d9.svg",
+                              "labelText": "Additional Information",
+                              "topRow": 20,
+                              "bottomRow": 27,
+                              "parentRowSpace": 10,
+                              "labelWidth": 5,
+                              "type": "CHECKBOX_GROUP_WIDGET",
+                              "hideCard": false,
+                              "mobileRightColumn": 27,
+                              "animateLoading": true,
+                              "parentColumnSpace": 9.90625,
+                              "dynamicTriggerPathList": [],
+                              "leftColumn": 4,
+                              "dynamicBindingPathList": [
+                                {
+                                  "key": "accentColor"
+                                },
+                                {
+                                  "key": "borderRadius"
+                                }
+                              ],
+                              "labelPosition": "Top",
+                              "options": [
+                                {
+                                  "label": "Needed for POA",
+                                  "value": "poa"
+                                },
+                                {
+                                  "label": "Needed for Filing",
+                                  "value": "filing"
+                                },
+                                {
+                                  "label": "Should be signed?",
+                                  "value": "signed"
+                                }
+                              ],
+                              "isDisabled": false,
+                              "key": "kdm178qfvb",
+                              "labelTextSize": "0.875rem",
+                              "isRequired": false,
+                              "isDeprecated": false,
+                              "rightColumn": 60,
+                              "defaultSelectedValues": "",
+                              "dynamicHeight": "AUTO_HEIGHT",
+                              "widgetId": "9xyth0vuv6",
+                              "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+                              "isVisible": true,
+                              "version": 2,
+                              "parentId": "4iw08ualm6",
+                              "labelAlignment": "left",
+                              "renderMode": "CANVAS",
+                              "isLoading": false,
+                              "mobileTopRow": 20,
+                              "originalTopRow": 20,
+                              "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+                              "mobileLeftColumn": 4,
+                              "maxDynamicHeight": 9000,
+                              "originalBottomRow": 27,
+                              "isInline": true,
+                              "minDynamicHeight": 4
                             }
                           ],
                           "key": "7uw373bqvy",
@@ -2912,7 +3039,7 @@
                 }
               ],
               "key": "g5hrwmuuli",
-              "height": 374,
+              "height": 452,
               "isDeprecated": false,
               "rightColumn": 14,
               "detachFromLayout": true,

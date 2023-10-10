@@ -237,24 +237,6 @@ export default {
 		});
 		return finalDataToShowInTable;
 	},
-	updateClientDocumentStatus: async(isMissing, countryId, documentTypeId, note) => {
-		const companyId = parseInt(Utils.selectedCompanyId());
-		const whereObject = {company_id: {_eq: companyId},document_type_id: {_eq:documentTypeId}, country_id: {_eq:countryId } };
-		if(isMissing) {
-			const object = {company_id: companyId, document_type_id: documentTypeId, country_id: countryId, notes: note ?? OfflineDocuments.updatedRow.Note};
-			const checkDocumentExistence = await Utils.checkDocumentsExistence(documentTypeId, countryId, companyId);
-			console.log(checkDocumentExistence);
-			if(!checkDocumentExistence) {
-				await AddDocumentTracker.run({object: object}).then((resp) => resp.data ? showAlert("Document Status has been added as received successfully!", "success") : showAlert("Document Status has been removed from successfully!", "error"))
-			} else {
-				await UpdateDocumentTracker.run({whereObject: whereObject, setObject: {...object, active: 1}}).then((resp) => resp.data ? showAlert("Document State has been removed from received!", "success") : showAlert("Something went wrong!", "error"));
-			}
-		} else {
-			await UpdateDocumentTracker.run({whereObject: whereObject, setObject: {active: 0}}).then((resp) => resp.data ? showAlert("Document State has been removed from received!", "success") : showAlert("Something went wrong!", "error"));
-		}
-		await CheckManuallyUpdatedDocs.run({companyId: parseInt(appsmith.URL.queryParams.companyId) });
-		await Utils.getMissingDocumentsRevised();
-	},
 	getMissingOfflineDocuments: () => {
 		const manuallyUpdatedDocs = CheckManuallyUpdatedDocs.data.data.prod.missionctrl_track_pending_docs
 		const requiredOfflineDocuments = GetEssentialDataForInfoAndDocs.data.data.prod.missionctrl_map_offline_docs_to_country.map((document) => {
@@ -318,14 +300,9 @@ export default {
 	updateInformation: async() => {
 		const  {jurisdiction_country_id, Value, information_id} = InformationSummaryCopy.updatedRow;
 		const companyId = parseInt(Utils.selectedCompanyId());
-		// const whereObject = {company_id: {_eq: companyId},information_type_id: {_eq:information_id}, country_id: {_eq:jurisdiction_country_id}};
 		const checkExistence = await Utils.checkInformationExistence(information_id, jurisdiction_country_id, companyId);
-		// if(checkExistence) {
-		// await UpdateOfflineInformation.run({whereObj: whereObject, setObj: {value: Value}}).then((resp) => resp.data ? showAlert("Value has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));			
-		// } else {
 		const insertObject = {country_id:jurisdiction_country_id, value: Value, information_type_id: information_id, company_id: companyId, irrelevant: 0 }
 		await AddUserInformation.run({object: insertObject}).then((resp) => resp.data ? showAlert("Value has been added successfully!", "success") : showAlert("Something went wrong!", "error"));	
-		// }
 		await AddStatusLog.run({statusObject: {status: !checkExistence ? "ADDED" : "UPDATED", agent: appsmith.user.username, company_id:companyId, information_id:information_id, country_id: jurisdiction_country_id, value: Value }})
 		await CheckManuallyUpdatedInfo.run({companyId: parseInt(appsmith.URL.queryParams.companyId) });
 		await Utils.getMissingInformation();

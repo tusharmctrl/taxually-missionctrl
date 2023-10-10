@@ -1,7 +1,7 @@
-mutation UpdateInformationType($id: Int, $information: String) {
-	prod {
-		update_missionctrl_offline_information_types(where: {id: {_eq: $id}}, _set: {information: $information}) {
-			affected_rows
-		}
-	}
+mutation UpdateInformationType($whereObj: missionctrl_offline_information_types_bool_exp!, $setObj: missionctrl_offline_information_types_set_input) {
+  prod {
+    update_missionctrl_offline_information_types(where: $whereObj, _set: $setObj) {
+      affected_rows
+    }
+  }
 }

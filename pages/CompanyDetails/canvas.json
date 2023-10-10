@@ -208,7 +208,7 @@
                       "minDynamicHeight": 4
                     },
                     {
-                      "boxShadow": "none",
+                      "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
                       "mobileBottomRow": 12,
                       "widgetName": "Image1",
                       "displayName": "Image",
@@ -324,7 +324,7 @@
                       "minDynamicHeight": 4
                     },
                     {
-                      "boxShadow": "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+                      "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
                       "mobileBottomRow": 17,
                       "widgetName": "IconButton2",
                       "onClick": "{{Utils.refreshPage()}}",
@@ -1188,7 +1188,7 @@
                       "textSize": "0.875rem",
                       "widgetId": "vwrm1r42we",
                       "minWidth": 450,
-                      "tableData": "{{GetHistoryOfInformation.data.data.prod.missionctrl_history_of_information}}",
+                      "tableData": "{{GetHistoryOfInformation?.data?.data?.prod.missionctrl_history_of_information ?? []}}",
                       "label": "Data",
                       "searchKey": "",
                       "parentId": "5nwgpq581k",
@@ -2690,7 +2690,7 @@
                         "jurisdiction_country": 203,
                         "customColumn4": 111,
                         "Value": 105.9912109375,
-                        "Irrelevant": 150.5712890625
+                        "Irrelevant": 111.5712890625
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
@@ -3772,7 +3772,7 @@
                         "customColumn11": 98,
                         "Irrelevant": 137.5625,
                         "customColumn10": 82,
-                        "customColumn9": 161
+                        "customColumn9": 84
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
@@ -5991,18 +5991,6 @@
               "jsonPathKeys": [
                 "this.params.country_id",
                 "this.params.document_id",
-                "this.params.company_id"
-              ],
-              "timeoutInMillisecond": 10000
-            },
-            {
-              "id": "CompanyDetails_GetHistoryOfInformation",
-              "name": "GetHistoryOfInformation",
-              "confirmBeforeExecute": false,
-              "pluginType": "API",
-              "jsonPathKeys": [
-                "this.params.country_id",
-                "this.params.information_id",
                 "this.params.company_id"
               ],
               "timeoutInMillisecond": 10000
