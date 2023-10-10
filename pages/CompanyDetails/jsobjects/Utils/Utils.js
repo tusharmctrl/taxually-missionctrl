@@ -16,14 +16,15 @@ export default {
 		const submittedInformation = CheckManuallyUpdatedInfo.data.data.prod.missionctrl_track_remaining_data_information;
 
 		return requiredInformation.map((information) => {
-			const hasAlreadyBeenAdded = submittedInformation.find((info) => info.information_type_id === information.Information.id && info.country_id === information.Country.Id && info.value);
+			const hasAlreadyBeenAdded = submittedInformation.find((info) => info.information_type_id === information.Information.id && info.country_id === information.Country.Id);
 			return {
 				name: information.Information.information,
 				jurisdiction_country: information.Country.NameEN,
 				jurisdiction_country_id: information.Country.Id,
 				information_id: information.Information.id,
-				missing: !hasAlreadyBeenAdded,
-				Value: hasAlreadyBeenAdded ? hasAlreadyBeenAdded.value : ""
+				missing: hasAlreadyBeenAdded?.value ? false : true,
+				Value: hasAlreadyBeenAdded ? hasAlreadyBeenAdded.value : "",
+				Irrelevant: hasAlreadyBeenAdded ? hasAlreadyBeenAdded.irrelevant : 0
 			};
 		});
 	},
@@ -317,14 +318,14 @@ export default {
 	updateInformation: async() => {
 		const  {jurisdiction_country_id, Value, information_id} = InformationSummaryCopy.updatedRow;
 		const companyId = parseInt(Utils.selectedCompanyId());
-		const whereObject = {company_id: {_eq: companyId},information_type_id: {_eq:information_id}, country_id: {_eq:jurisdiction_country_id}};
+		// const whereObject = {company_id: {_eq: companyId},information_type_id: {_eq:information_id}, country_id: {_eq:jurisdiction_country_id}};
 		const checkExistence = await Utils.checkInformationExistence(information_id, jurisdiction_country_id, companyId);
-		if(checkExistence) {
-			await UpdateOfflineInformation.run({whereObj: whereObject, setObj: {value: Value}}).then((resp) => resp.data ? showAlert("Value has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));			
-		} else {
-			const insertObject = {country_id:jurisdiction_country_id, value: Value, information_type_id: information_id, company_id: companyId }
-			await AddUserInformation.run({object: insertObject}).then((resp) => resp.data ? showAlert("Value has been added successfully!", "success") : showAlert("Something went wrong!", "error"));	
-		}
+		// if(checkExistence) {
+		// await UpdateOfflineInformation.run({whereObj: whereObject, setObj: {value: Value}}).then((resp) => resp.data ? showAlert("Value has been updated successfully!", "success") : showAlert("Something went wrong!", "error"));			
+		// } else {
+		const insertObject = {country_id:jurisdiction_country_id, value: Value, information_type_id: information_id, company_id: companyId, irrelevant: 0 }
+		await AddUserInformation.run({object: insertObject}).then((resp) => resp.data ? showAlert("Value has been added successfully!", "success") : showAlert("Something went wrong!", "error"));	
+		// }
 		await AddStatusLog.run({statusObject: {status: !checkExistence ? "ADDED" : "UPDATED", agent: appsmith.user.username, company_id:companyId, information_id:information_id, country_id: jurisdiction_country_id, value: Value }})
 		await CheckManuallyUpdatedInfo.run({companyId: parseInt(appsmith.URL.queryParams.companyId) });
 		await Utils.getMissingInformation();
@@ -444,6 +445,13 @@ export default {
 			await AddDocumentTracker.run({object: object}).then((resp) => resp.data ? showAlert(`Document ${Irrelevant ? "Added as" : "Removed From"} Irrelevant`, "success") : showAlert("Something went wrong!", "error"));
 			await CheckManuallyUpdatedDocs.run({companyId: parseInt(Utils.selectedCompanyId())});
 			await Utils.getMissingOfflineDocuments();
+		} else if(dataType === "OFFLINE_INFORMATION") {
+			const  {jurisdiction_country_id, Value, information_id, Irrelevant} = InformationSummaryCopy.updatedRow;
+			const companyId = parseInt(Utils.selectedCompanyId());
+			const insertObject = {country_id:jurisdiction_country_id, value: Value ?? "", information_type_id: information_id, company_id: companyId, irrelevant:Irrelevant ? 1 : 0 };
+			await AddUserInformation.run({object: insertObject}).then((resp) => resp.data ? showAlert("Value has been added successfully!", "success") : showAlert("Something went wrong!", "error"));
+			await CheckManuallyUpdatedInfo.run({companyId: parseInt(appsmith.URL.queryParams.companyId) });
+			await Utils.getMissingInformation();
 		}
 	}
 }
