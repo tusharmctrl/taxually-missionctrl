@@ -2,8 +2,8 @@
   "pluginType": "JS",
   "pluginId": "js-plugin",
   "unpublishedAction": {
-    "name": "onEditRow",
-    "fullyQualifiedName": "Utils.onEditRow",
+    "name": "updateAdditionalDocumentData",
+    "fullyQualifiedName": "Utils.updateAdditionalDocumentData",
     "datasource": {
       "name": "UNUSED_DATASOURCE",
       "pluginId": "js-plugin",
@@ -20,7 +20,11 @@
       "paginationType": "NONE",
       "encodeParamsToggle": true,
       "selfReferencingDataPaths": [],
-      "jsArguments": [],
+      "jsArguments": [
+        {
+          "name": "dataType"
+        }
+      ],
       "isAsync": true
     },
     "executeOnLoad": false,
@@ -35,10 +39,9 @@
     "userSetOnLoad": false,
     "confirmBeforeExecute": false,
     "policies": [],
-    "userPermissions": [],
-    "createdAt": "2023-09-29T12:33:43Z"
+    "userPermissions": []
   },
-  "id": "Handle Offline Types_Utils.onEditRow",
+  "id": "Handle Offline Types_Utils.updateAdditionalDocumentData",
   "deleted": false,
-  "gitSyncId": "64ddbc9544dc506821b62c28_6516c42744dc506821b62f7b"
+  "gitSyncId": "64ddbc9544dc506821b62c28_6524d21444dc506821b63104"
 }

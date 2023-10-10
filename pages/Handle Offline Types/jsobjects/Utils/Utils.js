@@ -3,7 +3,7 @@ export default {
 		GetCountries.run();
 	},
 	onEditRow: async() => {
-		const {id, NameEN} = Table1.updatedRow;
+		const {id, NameEN} = OfflineDocs.updatedRow;
 		const whereObj = {id: {_eq: id}}
 		const setObj = {NameEN: NameEN}
 		await UpdateDocumentTypes.run({whereObj, setObj}).then((resp) => resp.data ? showAlert("Doument Data Successfully Updated!", "success") : showAlert("Oh no! Something went wrong", "error"))
@@ -92,4 +92,19 @@ export default {
 		}
 		Utils.getSelectedCountriesOfInformation(informationId);
 	},
+	updateAdditionalDocumentData: async(dataType) => {
+		const { poa, id, filing, signed } = OfflineDocs.updatedRow
+		const whereObj = {id: {_eq: id}}
+		if(dataType === "POA") {
+			const setObj = {poa: poa ? 1 : 0}
+			await UpdateDocumentTypes.run({whereObj, setObj}).then((resp) => resp.data ? showAlert("Doument Successfully Updated!", "success") : showAlert("Oh no! Something went wrong", "error"))
+		} else if(dataType === "FILING") {
+			const setObj = {filing: filing ? 1 : 0}
+			await UpdateDocumentTypes.run({whereObj, setObj}).then((resp) => resp.data ? showAlert("Doument Successfully Updated!", "success") : showAlert("Oh no! Something went wrong", "error"))
+		} else if(dataType === "SIGNED") {
+			const setObj = {signed: signed ? 1 : 0}
+			await UpdateDocumentTypes.run({whereObj, setObj}).then((resp) => resp.data ? showAlert("Doument Successfully Updated!", "success") : showAlert("Oh no! Something went wrong", "error"))
+		}
+		OfflineDocumentTypes.run();
+	}
 }

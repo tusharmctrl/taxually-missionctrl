@@ -185,6 +185,15 @@
                                 },
                                 {
                                   "key": "primaryColumns.type.buttonLabel"
+                                },
+                                {
+                                  "key": "primaryColumns.filing.computedValue"
+                                },
+                                {
+                                  "key": "primaryColumns.signed.computedValue"
+                                },
+                                {
+                                  "key": "primaryColumns.poa.computedValue"
                                 }
                               ],
                               "needsHeightForContent": true,
@@ -223,20 +232,23 @@
                                 }
                               },
                               "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                              "columnUpdatedAt": 1696832767198,
+                              "columnUpdatedAt": 1696911587331,
                               "originalBottomRow": 65,
                               "primaryColumnId": "id",
                               "defaultSelectedRowIndices": [
                                 0
                               ],
                               "mobileBottomRow": 41,
-                              "widgetName": "Table1",
+                              "widgetName": "OfflineDocs",
                               "defaultPageSize": 0,
                               "columnOrder": [
                                 "id",
                                 "NameEN",
                                 "customColumn1",
                                 "type",
+                                "poa",
+                                "filing",
+                                "signed",
                                 "customColumn2",
                                 "EditActions1"
                               ],
@@ -264,6 +276,15 @@
                                 },
                                 {
                                   "key": "primaryColumns.type.onClick"
+                                },
+                                {
+                                  "key": "primaryColumns.poa.onCheckChange"
+                                },
+                                {
+                                  "key": "primaryColumns.filing.onCheckChange"
+                                },
+                                {
+                                  "key": "primaryColumns.signed.onCheckChange"
                                 }
                               ],
                               "displayName": "Table",
@@ -274,7 +295,9 @@
                                 "status": 85,
                                 "id": 85,
                                 "NameEN": 377,
-                                "customColumn2": 97
+                                "customColumn2": 97,
+                                "poa": 79,
+                                "filing": 96
                               },
                               "parentRowSpace": 10,
                               "hideCard": false,
@@ -298,6 +321,15 @@
                                 },
                                 {
                                   "key": "primaryColumns.type.onClick"
+                                },
+                                {
+                                  "key": "primaryColumns.poa.onCheckChange"
+                                },
+                                {
+                                  "key": "primaryColumns.filing.onCheckChange"
+                                },
+                                {
+                                  "key": "primaryColumns.signed.onCheckChange"
                                 }
                               ],
                               "borderWidth": "1",
@@ -325,7 +357,7 @@
                                   "label": "Id",
                                   "isSaveVisible": true,
                                   "isDiscardVisible": true,
-                                  "computedValue": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"id\"]))}}",
+                                  "computedValue": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"id\"]))}}",
                                   "sticky": "",
                                   "validation": {}
                                 },
@@ -352,7 +384,7 @@
                                   "label": "Name",
                                   "isSaveVisible": true,
                                   "isDiscardVisible": true,
-                                  "computedValue": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"NameEN\"]))}}",
+                                  "computedValue": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"NameEN\"]))}}",
                                   "sticky": "",
                                   "validation": {},
                                   "onSubmit": "{{Utils.onEditRow()}}"
@@ -420,13 +452,13 @@
                                   "discardIconAlign": "left",
                                   "saveActionLabel": "Save",
                                   "discardActionLabel": "Discard",
-                                  "saveButtonColor": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.primaryColor)))}}",
+                                  "saveButtonColor": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.primaryColor)))}}",
                                   "discardButtonColor": "#F22B2B",
-                                  "saveBorderRadius": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
-                                  "discardBorderRadius": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                                  "saveBorderRadius": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                                  "discardBorderRadius": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
                                   "discardButtonVariant": "TERTIARY",
-                                  "isSaveDisabled": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( !Table1.updatedRowIndices.includes(currentIndex)))}}",
-                                  "isDiscardDisabled": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( !Table1.updatedRowIndices.includes(currentIndex)))}}",
+                                  "isSaveDisabled": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( !OfflineDocs.updatedRowIndices.includes(currentIndex)))}}",
+                                  "isDiscardDisabled": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( !OfflineDocs.updatedRowIndices.includes(currentIndex)))}}",
                                   "onSave": "{{Utils.onEditRow()}}"
                                 },
                                 "customColumn2": {
@@ -458,8 +490,8 @@
                                   "buttonStyle": "rgb(3, 179, 101)",
                                   "labelColor": "#FFFFFF",
                                   "buttonColor": "#ef4444",
-                                  "borderRadius": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
-                                  "boxShadow": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
+                                  "borderRadius": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                                  "boxShadow": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
                                   "customAlias": "",
                                   "iconName": "trash",
                                   "onClick": "{{Utils.removeDocument(currentRow.id)}}"
@@ -489,7 +521,7 @@
                                   "label": "Type",
                                   "isSaveVisible": true,
                                   "isDiscardVisible": true,
-                                  "computedValue": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"type\"]))}}",
+                                  "computedValue": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"type\"]))}}",
                                   "sticky": "",
                                   "validation": {},
                                   "cellBackground": "#fff",
@@ -503,7 +535,7 @@
                                       "widgetId": "qvz1ypohrs",
                                       "isDisabled": false,
                                       "isVisible": true,
-                                      "backgroundColor": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.backgroundColor)))}}",
+                                      "backgroundColor": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.backgroundColor)))}}",
                                       "onClick": ""
                                     },
                                     "menuItem5dw66xf0kb": {
@@ -515,7 +547,7 @@
                                       "isVisible": true
                                     }
                                   },
-                                  "menuButtonLabel": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( currentRow.type))}}",
+                                  "menuButtonLabel": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( currentRow.type))}}",
                                   "sourceData": [],
                                   "configureMenuItems": {
                                     "label": "Configure menu items",
@@ -528,10 +560,103 @@
                                     }
                                   },
                                   "selectOptions": "",
-                                  "buttonLabel": "{{Table1.processedTableData.map((currentRow, currentIndex) => ( currentRow.type))}}",
+                                  "buttonLabel": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( currentRow.type))}}",
                                   "buttonVariant": "TERTIARY",
                                   "buttonColor": "#231f20",
                                   "onClick": "{{Utils.onUpdateDocumentType(currentRow.id, currentRow.type === \"COMPANY\" ? \"INDIVIDUAL\" : \"COMPANY\")}}"
+                                },
+                                "poa": {
+                                  "allowCellWrapping": false,
+                                  "allowSameOptionsInNewRow": true,
+                                  "index": 3,
+                                  "width": 150,
+                                  "originalId": "poa",
+                                  "id": "poa",
+                                  "alias": "poa",
+                                  "horizontalAlignment": "LEFT",
+                                  "verticalAlignment": "CENTER",
+                                  "columnType": "checkbox",
+                                  "textColor": "",
+                                  "textSize": "0.875rem",
+                                  "fontStyle": "",
+                                  "enableFilter": true,
+                                  "enableSort": true,
+                                  "isVisible": true,
+                                  "isDisabled": false,
+                                  "isCellEditable": true,
+                                  "isEditable": true,
+                                  "isCellVisible": true,
+                                  "isDerived": false,
+                                  "label": "POA",
+                                  "isSaveVisible": true,
+                                  "isDiscardVisible": true,
+                                  "computedValue": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( currentRow.poa ? true : false))}}",
+                                  "sticky": "",
+                                  "validation": {},
+                                  "cellBackground": "",
+                                  "onCheckChange": "{{Utils.updateAdditionalDocumentData(\"POA\")}}"
+                                },
+                                "filing": {
+                                  "allowCellWrapping": false,
+                                  "allowSameOptionsInNewRow": true,
+                                  "index": 4,
+                                  "width": 150,
+                                  "originalId": "filing",
+                                  "id": "filing",
+                                  "alias": "filing",
+                                  "horizontalAlignment": "LEFT",
+                                  "verticalAlignment": "CENTER",
+                                  "columnType": "checkbox",
+                                  "textColor": "",
+                                  "textSize": "0.875rem",
+                                  "fontStyle": "",
+                                  "enableFilter": true,
+                                  "enableSort": true,
+                                  "isVisible": true,
+                                  "isDisabled": false,
+                                  "isCellEditable": true,
+                                  "isEditable": true,
+                                  "isCellVisible": true,
+                                  "isDerived": false,
+                                  "label": "Filing",
+                                  "isSaveVisible": true,
+                                  "isDiscardVisible": true,
+                                  "computedValue": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( currentRow.filing ? true : false))}}",
+                                  "sticky": "",
+                                  "validation": {},
+                                  "cellBackground": "",
+                                  "onCheckChange": "{{Utils.updateAdditionalDocumentData(\"FILING\")}}"
+                                },
+                                "signed": {
+                                  "allowCellWrapping": false,
+                                  "allowSameOptionsInNewRow": true,
+                                  "index": 5,
+                                  "width": 150,
+                                  "originalId": "signed",
+                                  "id": "signed",
+                                  "alias": "signed",
+                                  "horizontalAlignment": "LEFT",
+                                  "verticalAlignment": "CENTER",
+                                  "columnType": "checkbox",
+                                  "textColor": "",
+                                  "textSize": "0.875rem",
+                                  "fontStyle": "",
+                                  "enableFilter": true,
+                                  "enableSort": true,
+                                  "isVisible": true,
+                                  "isDisabled": false,
+                                  "isCellEditable": true,
+                                  "isEditable": true,
+                                  "isCellVisible": true,
+                                  "isDerived": false,
+                                  "label": "Should be Signed?",
+                                  "isSaveVisible": true,
+                                  "isDiscardVisible": true,
+                                  "computedValue": "{{OfflineDocs.processedTableData.map((currentRow, currentIndex) => ( currentRow.signed ? true : false))}}",
+                                  "sticky": "",
+                                  "validation": {},
+                                  "cellBackground": "",
+                                  "onCheckChange": "{{Utils.updateAdditionalDocumentData(\"SIGNED\")}}"
                                 }
                               },
                               "key": "su1tre44ib",

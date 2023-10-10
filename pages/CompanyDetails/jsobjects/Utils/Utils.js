@@ -148,7 +148,7 @@ export default {
 
 			finalDataToShowInTable.push({
 				fieldName: "Incorporation Number",
-				value: Company.data.data.prod.Companies_by_pk.IncorporationNumber || "",
+				value: Lib.formatDate(Company.data.data.prod.Companies_by_pk.IncorporationNumber) || "",
 				isMissing: !Company.data.data.prod.Companies_by_pk.IncorporationNumber,
 			});
 
@@ -257,7 +257,7 @@ export default {
 		const requiredOfflineDocuments = GetEssentialDataForInfoAndDocs.data.data.prod.missionctrl_map_offline_docs_to_country.map((document) => {
 			return {
 				Country: document.Country,
-				DocumentType: document.Document
+				DocumentType: document.Document,
 			}
 		});
 		const finalOfflineData = requiredOfflineDocuments.map((requiredDoc) => {
@@ -275,6 +275,7 @@ export default {
 				return {
 					Country: requiredDoc.Country,
 					DocumentType: requiredDoc.DocumentType,
+					POA: requiredDoc.POA,
 					missing: true,
 					type: "OFFLINE"
 				}
@@ -351,7 +352,7 @@ export default {
 	},
 	prepareASummary: () => {
 		const onlineDocumentData = Utils.getMissingDocumentsRevised().map((doc) => {
-			return {Country: doc.Country, missing: doc.missing, type: "ONLINE", Status: doc.missing ? "Missing on Portal" : "Uploaded on Portal", DataType: "Document", Property: doc.DocumentName, Value: doc.UploadedDocumentName ?? "", Status: doc.Status}
+			return {Country: doc.Country, missing: doc.missing, type: "ONLINE", Status: doc.missing ? "Missing on Portal" : "Uploaded on Portal", DataType: "Document", Property: doc.DocumentName, Value: doc.UploadedDocumentName ?? "", PortalStatus: doc.Status}
 		})
 		const offlineDocumentData = Utils.getMissingOfflineDocuments().map((doc) => {
 			return { missing: doc.missing, type: "OFFLINE", Status: doc.missing ? "Not Submitted Yet" : "Marked as Received", Country: doc.Country.NameEN, Property: doc.DocumentType.NameEN, DataType: "Document", Value: doc.DocumentName ?? ""}

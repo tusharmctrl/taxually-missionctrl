@@ -4,6 +4,9 @@ query OfflineDocumentTypes {
 			id
 			NameEN
 			type
+			poa
+			filing
+			signed
 		}
 	}
 }

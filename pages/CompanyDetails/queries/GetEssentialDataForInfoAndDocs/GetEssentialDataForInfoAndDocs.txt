@@ -8,6 +8,9 @@ query GetEssentialDataForInfoAndDocs($countryIds: [Int], $type: String, $company
 			Document {
 				id
 				NameEN
+				poa
+				signed
+				filing
 			}
 		}
 		missionctrl_track_missing_information(where: {country_id: {_in: $countryIds}, type: {_eq: $type}, Information: {type: {_eq: $companyType}}}, order_by: {country_id: desc}) {
