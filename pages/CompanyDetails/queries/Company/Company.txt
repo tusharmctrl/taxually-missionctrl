@@ -98,6 +98,9 @@ query CompanyDetails($companyId: Int!) {
 				information
 			}
 		}
+		missionctrl_company_notes {
+			note
+		}
 	}
 }
 

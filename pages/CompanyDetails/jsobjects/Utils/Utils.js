@@ -318,10 +318,10 @@ export default {
 			return {Country: doc.Country, missing: doc.missing, type: "ONLINE", Status: doc.missing ? "Missing on Portal" : "Uploaded on Portal", DataType: "Document", Property: doc.DocumentName, Value: doc.UploadedDocumentName ?? "", PortalStatus: doc.Status}
 		})
 		const offlineDocumentData = Utils.getMissingOfflineDocuments().map((doc) => {
-			return { missing: doc.missing, type: "OFFLINE", Status: doc.missing ? "Not Submitted Yet" : "Marked as Received", Country: doc.Country.NameEN, Property: doc.DocumentType.NameEN, DataType: "Document", Value: doc.DocumentName ?? "", POA: doc.DocumentType.poa ? "YES" : "NO", Filing: doc.DocumentType.filing ? "YES" : "NO", Signed: doc.DocumentType.signed ? "YES" : "NO", Irrelevant: doc.Irrelevant ? "YES" : "NO"}
+			return { missing: doc.missing, type: "OFFLINE", Status: doc.missing ? "Not Submitted Yet" : "Marked as Received", Country: doc.Country.NameEN, Property: doc.DocumentType.NameEN, DataType: "Document", Value: doc.DocumentName ?? "", POA: doc.DocumentType.poa ? "YES" : "NO", Filing: doc.DocumentType.filing ? "YES" : "NO", Signed: doc.DocumentType.signed ? "YES" : "NO"}
 		})
 		const offlineInformation = Utils.getMissingInformation().map((info) => {
-			return {Property: info.name, Country: info.jurisdiction_country, Status: info.missing ? "Not Submitted Yet" : "Marked as Received", DataType: "Information", type: "OFFLINE", missing: info.missing, Value: info.Value ?? "", POA: info.Poa, Filing: info.Filing, Irrelevant: info.Irrelevant ? "YES" : "NO"}
+			return {Property: info.name, Country: info.jurisdiction_country, Status: info.missing ? "Not Submitted Yet" : "Marked as Received", DataType: "Information", type: "OFFLINE", missing: info.missing, Value: info.Value ?? "", POA: info.Poa, Filing: info.Filing}
 		})
 		const onlineInformation = Utils.getMissingQuestionnaireInformation().map((info) => {
 			return {Country: !info.fieldName.startsWith("VAT") ? "Account Level" : Const.getCountryNameByCode(info.fieldName.split(" ").slice(-1).join("")), Property: info.fieldName, DataType: "Information", type: "ONLINE", missing: info.isMissing, Status: info.isMissing ? "Not Submitted Yet" : "Submitted on Portal", Value: info.value ?? ""}
@@ -436,6 +436,11 @@ export default {
 			await CheckManuallyUpdatedInfo.run({companyId: parseInt(appsmith.URL.queryParams.companyId) });
 			await Utils.getMissingInformation();
 		}
+	},
+	addNote: async() => {
+		const object = {note: NoteForm.data.NoteInput, company_id: parseInt(Utils.selectedCompanyId())};
+		await AddNote.run({object}).then((resp) => resp.data ? showAlert("Nore has been added successfully!", "success") : showAlert("Something went wrong!", "error"));
+		Company.run({ company_id: parseInt(Utils.selectedCompanyId()) })
 	}
 }
 

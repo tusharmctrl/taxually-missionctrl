@@ -1,0 +1,7 @@
+mutation AddCompanyNote($object: missionctrl_company_notes_insert_input!) {
+	prod {
+		insert_missionctrl_company_notes_one(object: $object, if_matched: {match_columns: [company_id], update_columns: [note]}) {
+			id
+		}
+	}
+}
