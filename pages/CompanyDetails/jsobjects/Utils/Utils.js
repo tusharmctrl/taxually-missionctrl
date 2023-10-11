@@ -22,6 +22,7 @@ export default {
 				jurisdiction_country: information.Country.NameEN,
 				jurisdiction_country_id: information.Country.Id,
 				information_id: information.Information.id,
+				SpecialComments: information.special_comments,
 				missing: hasAlreadyBeenAdded?.value ? false : true,
 				Value: hasAlreadyBeenAdded ? hasAlreadyBeenAdded.value : "",
 				Irrelevant: hasAlreadyBeenAdded ? hasAlreadyBeenAdded.irrelevant : 0,

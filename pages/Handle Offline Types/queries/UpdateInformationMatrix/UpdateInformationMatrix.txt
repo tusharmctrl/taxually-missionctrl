@@ -1,0 +1,7 @@
+mutation UpdateMatrix($whereObj:missionctrl_track_missing_information_bool_exp!, $setObj:missionctrl_track_missing_information_set_input){
+	prod {
+		update_missionctrl_track_missing_information(where:$whereObj, _set: $setObj) {
+			affected_rows
+		}
+	}
+}

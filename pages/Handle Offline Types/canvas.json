@@ -83,7 +83,7 @@
                       "displayName": "Tabs",
                       "iconSVG": "/static/media/icon.8a93874870bccee17fbcd02b950c3bcd.svg",
                       "topRow": 5,
-                      "bottomRow": 68,
+                      "bottomRow": 70,
                       "parentRowSpace": 10,
                       "type": "TABS_WIDGET",
                       "hideCard": false,
@@ -110,7 +110,7 @@
                           "mobileBottomRow": 150,
                           "widgetName": "Canvas2",
                           "displayName": "Canvas",
-                          "bottomRow": 590,
+                          "bottomRow": 610,
                           "topRow": 0,
                           "parentRowSpace": 1,
                           "type": "CANVAS_WIDGET",
@@ -762,7 +762,7 @@
                           "mobileBottomRow": 150,
                           "widgetName": "Canvas3",
                           "displayName": "Canvas",
-                          "bottomRow": 590,
+                          "bottomRow": 610,
                           "topRow": 0,
                           "parentRowSpace": 1,
                           "type": "CANVAS_WIDGET",
@@ -1364,7 +1364,7 @@
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
                       "mobileLeftColumn": 0,
                       "maxDynamicHeight": 9000,
-                      "originalBottomRow": 68,
+                      "originalBottomRow": 70,
                       "minDynamicHeight": 15
                     },
                     {
@@ -2326,6 +2326,27 @@
                         },
                         {
                           "key": "primaryColumns.InformationId.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.SpecialComments.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.EditActions1.saveButtonColor"
+                        },
+                        {
+                          "key": "primaryColumns.EditActions1.saveBorderRadius"
+                        },
+                        {
+                          "key": "primaryColumns.EditActions1.discardBorderRadius"
+                        },
+                        {
+                          "key": "primaryColumns.EditActions1.isSaveDisabled"
+                        },
+                        {
+                          "key": "primaryColumns.EditActions1.isDiscardDisabled"
+                        },
+                        {
+                          "key": "primaryColumns.SpecialComments.isCellEditable"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -2364,7 +2385,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1696486385556,
+                      "columnUpdatedAt": 1697020457976,
                       "originalBottomRow": 64,
                       "primaryColumnId": "Name",
                       "defaultSelectedRowIndices": [
@@ -2377,7 +2398,9 @@
                         "Name",
                         "Assigned",
                         "CountryId",
-                        "InformationId"
+                        "InformationId",
+                        "SpecialComments",
+                        "EditActions1"
                       ],
                       "dynamicPropertyPathList": [
                         {
@@ -2388,6 +2411,18 @@
                         },
                         {
                           "key": "primaryColumns.Assigned.onClick"
+                        },
+                        {
+                          "key": "primaryColumns.EditActions1.isSaveDisabled"
+                        },
+                        {
+                          "key": "primaryColumns.EditActions1.isDiscardDisabled"
+                        },
+                        {
+                          "key": "primaryColumns.SpecialComments.onSubmit"
+                        },
+                        {
+                          "key": "primaryColumns.SpecialComments.isCellEditable"
                         }
                       ],
                       "displayName": "Table",
@@ -2405,6 +2440,9 @@
                       "dynamicTriggerPathList": [
                         {
                           "key": "primaryColumns.Assigned.onClick"
+                        },
+                        {
+                          "key": "primaryColumns.SpecialComments.onSubmit"
                         }
                       ],
                       "borderWidth": "1",
@@ -2531,6 +2569,73 @@
                           "computedValue": "{{AssignInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"InformationId\"]))}}",
                           "sticky": "",
                           "validation": {}
+                        },
+                        "SpecialComments": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 4,
+                          "width": 150,
+                          "originalId": "SpecialComments",
+                          "id": "SpecialComments",
+                          "alias": "SpecialComments",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": "{{AssignInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow.Assigned))}}",
+                          "isEditable": true,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Special Comments",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{AssignInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"SpecialComments\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": "",
+                          "onSubmit": "{{Utils.addSpecialCommentInInformation()}}"
+                        },
+                        "EditActions1": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 5,
+                          "width": 150,
+                          "originalId": "EditActions1",
+                          "id": "EditActions1",
+                          "alias": "EditActions1",
+                          "columnType": "editActions",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": false,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": true,
+                          "label": "Save / Discard",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "",
+                          "sticky": "right",
+                          "validation": {},
+                          "buttonStyle": "rgb(3, 179, 101)",
+                          "saveIconAlign": "left",
+                          "discardIconAlign": "left",
+                          "saveActionLabel": "Save",
+                          "discardActionLabel": "Discard",
+                          "saveButtonColor": "{{AssignInformation.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.primaryColor)))}}",
+                          "discardButtonColor": "#F22B2B",
+                          "saveBorderRadius": "{{AssignInformation.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                          "discardBorderRadius": "{{AssignInformation.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                          "discardButtonVariant": "TERTIARY",
+                          "isSaveDisabled": "{{AssignInformation.processedTableData.map((currentRow, currentIndex) => ( !AssignInformation.updatedRowIndices.includes(currentIndex)))}}",
+                          "isDiscardDisabled": "{{AssignInformation.processedTableData.map((currentRow, currentIndex) => ( !AssignInformation.updatedRowIndices.includes(currentIndex)))}}"
                         }
                       },
                       "key": "40e44q3fqi",
@@ -3794,6 +3899,17 @@
               "timeoutInMillisecond": 10000
             },
             {
+              "id": "Handle Offline Types_GetSelectedCountriesOfInfo",
+              "name": "GetSelectedCountriesOfInfo",
+              "confirmBeforeExecute": false,
+              "pluginType": "API",
+              "jsonPathKeys": [
+                "this.params.type",
+                "this.params.id"
+              ],
+              "timeoutInMillisecond": 10000
+            },
+            {
               "id": "Handle Offline Types_OfflineDocumentTypes",
               "name": "OfflineDocumentTypes",
               "confirmBeforeExecute": false,
@@ -3816,20 +3932,7 @@
               "confirmBeforeExecute": false,
               "pluginType": "JS",
               "jsonPathKeys": [
-                "async id => {\n  if (!GetCountries.isLoading) {\n    storeValue(\"currentInformationId\", id);\n    await GetSelectedCountriesOfInfo.run({\n      id: id,\n      type: TypeOfInformation.selectedOptionValue\n    });\n    const countries = GetCountries.data.data.prod.Countries;\n    const finalResponse = countries.map(country => {\n      if (GetSelectedCountriesOfInfo.data.data.prod.missionctrl_track_missing_information.some(selectedCountry => selectedCountry.Country.Id === country.Id)) {\n        return {\n          Name: country.NameEN,\n          Assigned: true,\n          InformationId: id,\n          CountryId: country.Id\n        };\n      } else {\n        return {\n          Name: country.NameEN,\n          Assigned: false,\n          InformationId: id,\n          CountryId: country.Id\n        };\n      }\n    }).sort((a, b) => a.Assigned === b.Assigned ? 0 : a.Assigned ? -1 : 1);\n    showModal(\"CountryBindingsToInfoModal\");\n    return finalResponse;\n  }\n}"
-              ],
-              "timeoutInMillisecond": 10000
-            }
-          ],
-          [
-            {
-              "id": "Handle Offline Types_GetSelectedCountriesOfInfo",
-              "name": "GetSelectedCountriesOfInfo",
-              "confirmBeforeExecute": false,
-              "pluginType": "API",
-              "jsonPathKeys": [
-                "this.params.type",
-                "this.params.id"
+                "async id => {\n  if (GetCountries.isLoading) return;\n  storeValue(\"currentInformationId\", id);\n  await GetSelectedCountriesOfInfo.run({\n    id,\n    type: TypeOfInformation.selectedOptionValue\n  });\n  const selectedCountries = GetSelectedCountriesOfInfo.data.data.prod.missionctrl_track_missing_information;\n  const countries = GetCountries.data.data.prod.Countries;\n  const finalResponse = countries.map(country => {\n    const isAssigned = selectedCountries.some(selectedCountry => selectedCountry.Country.Id === country.Id);\n    const countryObject = {\n      Name: country.NameEN,\n      Assigned: isAssigned,\n      InformationId: id,\n      CountryId: country.Id\n    };\n    const specialComments = selectedCountries.find(selectedCountry => selectedCountry.Country.Id === country.Id)?.special_comments;\n    countryObject.SpecialComments = specialComments ?? \"\";\n    return countryObject;\n  }).sort((a, b) => a.Assigned === b.Assigned ? 0 : a.Assigned ? -1 : 1);\n  showModal(\"CountryBindingsToInfoModal\");\n  return finalResponse;\n}"
               ],
               "timeoutInMillisecond": 10000
             }

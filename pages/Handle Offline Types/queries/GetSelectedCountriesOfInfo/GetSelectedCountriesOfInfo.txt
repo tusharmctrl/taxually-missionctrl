@@ -9,6 +9,7 @@ query CurrentAssignedCountriesToInformation($id: Int, $type: String) {
 				id
 				information
 			}
+			special_comments
 		}
 	}
 }

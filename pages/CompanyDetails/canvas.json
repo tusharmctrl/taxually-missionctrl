@@ -2595,6 +2595,9 @@
                         },
                         {
                           "key": "primaryColumns.Filing.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.SpecialComments.computedValue"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -2635,7 +2638,7 @@
                         }
                       },
                       "borderRadius": "0.375rem",
-                      "columnUpdatedAt": 1696941986380,
+                      "columnUpdatedAt": 1697022105288,
                       "originalBottomRow": 37,
                       "defaultSelectedRowIndices": [
                         0
@@ -2655,6 +2658,7 @@
                         "information_id",
                         "Poa",
                         "Filing",
+                        "SpecialComments",
                         "EditActions1"
                       ],
                       "dynamicPropertyPathList": [
@@ -2699,7 +2703,9 @@
                         "customColumn4": 111,
                         "Value": 105.9912109375,
                         "Irrelevant": 111.5712890625,
-                        "customColumn3": 94
+                        "customColumn3": 94,
+                        "Filing": 68,
+                        "SpecialComments": 163
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
@@ -3096,6 +3102,36 @@
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
                           "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Filing\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "SpecialComments": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 4,
+                          "width": 150,
+                          "originalId": "SpecialComments",
+                          "id": "SpecialComments",
+                          "alias": "SpecialComments",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Special Comments",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"SpecialComments\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""

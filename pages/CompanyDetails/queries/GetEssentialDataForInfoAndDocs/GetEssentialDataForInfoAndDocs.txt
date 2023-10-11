@@ -25,6 +25,7 @@ query GetEssentialDataForInfoAndDocs($countryIds: [Int], $type: String, $company
 				Id
 				NameEN
 			}
+			special_comments
 		}
 	}
 }

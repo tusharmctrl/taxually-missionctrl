@@ -2,7 +2,7 @@
   "pluginType": "API",
   "pluginId": "graphql-plugin",
   "unpublishedAction": {
-    "name": "GetSelectedCountriesOfInfo",
+    "name": "UpdateInformationMatrix",
     "datasource": {
       "name": "Hasura",
       "pluginId": "graphql-plugin",
@@ -25,7 +25,7 @@
       ],
       "encodeParamsToggle": true,
       "queryParameters": [],
-      "body": "query CurrentAssignedCountriesToInformation($id: Int, $type: String) {\n\tprod {\n\t\tmissionctrl_track_missing_information(where: {information_type_id: {_eq: $id}, type: {_eq: $type}}) {\n\t\t\tCountry {\n\t\t\t\tId\n\t\t\t\tNameEN\n\t\t\t}\n\t\t\tInformation {\n\t\t\t\tid\n\t\t\t\tinformation\n\t\t\t}\n\t\t\tspecial_comments\n\t\t}\n\t}\n}\n",
+      "body": "mutation UpdateMatrix($whereObj:missionctrl_track_missing_information_bool_exp!, $setObj:missionctrl_track_missing_information_set_input){\n\tprod {\n\t\tupdate_missionctrl_track_missing_information(where:$whereObj, _set: $setObj) {\n\t\t\taffected_rows\n\t\t}\n\t}\n}",
       "httpMethod": "POST",
       "selfReferencingDataPaths": [],
       "pluginSpecifiedTemplates": [
@@ -33,7 +33,7 @@
           "value": true
         },
         {
-          "value": "{\n\t\"id\": {{this.params.id}},\n\t\"type\": {{this.params.type}}\n}"
+          "value": "{\n\t\"whereObj\": {{this.params.whereObj}}, \n\t\"setObj\": {{this.params.setObj}}\n}"
         },
         {
           "value": {}
@@ -43,7 +43,7 @@
         "apiContentType": "application/json"
       }
     },
-    "executeOnLoad": true,
+    "executeOnLoad": false,
     "dynamicBindingPathList": [
       {
         "key": "pluginSpecifiedTemplates[1].value"
@@ -53,16 +53,16 @@
     "invalids": [],
     "messages": [],
     "jsonPathKeys": [
-      "this.params.id",
-      "this.params.type"
+      "this.params.setObj",
+      "this.params.whereObj"
     ],
     "userSetOnLoad": false,
     "confirmBeforeExecute": false,
     "policies": [],
     "userPermissions": [],
-    "createdAt": "2023-10-05T05:57:10Z"
+    "createdAt": "2023-10-11T10:40:45Z"
   },
-  "id": "Handle Offline Types_GetSelectedCountriesOfInfo",
+  "id": "Handle Offline Types_UpdateInformationMatrix",
   "deleted": false,
-  "gitSyncId": "64ddbc9544dc506821b62c28_651e503644dc506821b63026"
+  "gitSyncId": "64ddbc9544dc506821b62c28_65267bad44dc506821b6317f"
 }

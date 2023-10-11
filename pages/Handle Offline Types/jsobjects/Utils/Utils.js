@@ -79,20 +79,25 @@ export default {
 		OfflineInformationTypes.run();
 	},
 	getSelectedCountriesOfInformation: async(id) => {
-		if(!GetCountries.isLoading){
-			storeValue("currentInformationId", id);
-			await GetSelectedCountriesOfInfo.run({id: id, type: TypeOfInformation.selectedOptionValue})
-			const countries = GetCountries.data.data.prod.Countries;
-			const finalResponse = countries.map((country) => {
-				if(GetSelectedCountriesOfInfo.data.data.prod.missionctrl_track_missing_information.some((selectedCountry) => selectedCountry.Country.Id === country.Id)) {
-					return {Name: country.NameEN, Assigned: true, InformationId:id, CountryId: country.Id}
-				} else {
-					return {Name: country.NameEN, Assigned: false, InformationId:id, CountryId: country.Id}
-				}
-			}).sort((a, b) => (a.Assigned === b.Assigned) ? 0 : a.Assigned ? -1 : 1);
-			showModal("CountryBindingsToInfoModal")
-			return finalResponse;
-		}
+		if (GetCountries.isLoading) return;
+		storeValue("currentInformationId", id);
+		await GetSelectedCountriesOfInfo.run({ id, type: TypeOfInformation.selectedOptionValue });
+		const selectedCountries = GetSelectedCountriesOfInfo.data.data.prod.missionctrl_track_missing_information;
+		const countries = GetCountries.data.data.prod.Countries;
+		const finalResponse = countries.map(country => {
+			const isAssigned = selectedCountries.some(selectedCountry => selectedCountry.Country.Id === country.Id);
+			const countryObject = {
+				Name: country.NameEN,
+				Assigned: isAssigned,
+				InformationId: id,
+				CountryId: country.Id,
+			};
+			const specialComments = selectedCountries.find(selectedCountry => selectedCountry.Country.Id === country.Id)?.special_comments;
+			countryObject.SpecialComments = specialComments ?? "";
+			return countryObject;
+		}).sort((a, b) => a.Assigned === b.Assigned ? 0 : a.Assigned ? -1 : 1);
+		showModal("CountryBindingsToInfoModal");
+		return finalResponse;
 	},
 	updateInformationMatrix: async(informationId, countryId, isAssigned) => {
 		if(isAssigned) {
@@ -137,5 +142,12 @@ export default {
 		const setObj = {special_comments: SpecialComments};
 		await UpdateDocumentMatrix.run({whereObj, setObj}).then((resp) => resp.data ? showAlert("Special Comment has been added", "success") : showAlert("Oh no! Something went wrong", "error"));
 		Utils.getSelectedCountriesOfDocument(DocumentId);
+	},
+	addSpecialCommentInInformation: async() => {
+		const  {CountryId, InformationId, SpecialComments} = AssignInformation.updatedRow;
+		const whereObj = {country_id: {_eq: CountryId}, information_type_id: {_eq: InformationId}};
+		const setObj = {special_comments: SpecialComments};
+		await UpdateInformationMatrix.run({whereObj, setObj}).then((resp) => resp.data ? showAlert("Special Comment has been added", "success") : showAlert("Oh no! Something went wrong", "error"));
+		Utils.getSelectedCountriesOfInformation(InformationId);
 	}
 }
