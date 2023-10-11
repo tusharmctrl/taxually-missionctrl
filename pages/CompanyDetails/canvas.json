@@ -5364,6 +5364,9 @@
                         },
                         {
                           "key": "primaryColumns.Signed.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.Irrelevant.computedValue"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -5401,7 +5404,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1697000849499,
+                      "columnUpdatedAt": 1697027418210,
                       "defaultSelectedRowIndices": [
                         0
                       ],
@@ -5419,7 +5422,8 @@
                         "PortalStatus",
                         "POA",
                         "Filing",
-                        "Signed"
+                        "Signed",
+                        "Irrelevant"
                       ],
                       "dynamicPropertyPathList": [
                         {
@@ -5756,6 +5760,36 @@
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
                           "computedValue": "{{SummaryTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Signed\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "Irrelevant": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 11,
+                          "width": 150,
+                          "originalId": "Irrelevant",
+                          "id": "Irrelevant",
+                          "alias": "Irrelevant",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Irrelevant",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{SummaryTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Irrelevant\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
