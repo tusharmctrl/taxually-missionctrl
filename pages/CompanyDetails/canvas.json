@@ -3721,6 +3721,9 @@
                         },
                         {
                           "key": "primaryColumns.DocumentName.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.SpecialComments.computedValue"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -3759,7 +3762,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1696918028078,
+                      "columnUpdatedAt": 1697001501027,
                       "originalBottomRow": 165,
                       "defaultSelectedRowIndices": [
                         0
@@ -3781,6 +3784,7 @@
                         "customColumn9",
                         "customColumn10",
                         "customColumn11",
+                        "SpecialComments",
                         "Irrelevant",
                         "missing",
                         "DocumentName",
@@ -4372,7 +4376,7 @@
                           "fontStyle": "",
                           "enableFilter": true,
                           "enableSort": true,
-                          "isVisible": true,
+                          "isVisible": false,
                           "isDisabled": false,
                           "isCellEditable": false,
                           "isEditable": false,
@@ -4382,6 +4386,36 @@
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
                           "computedValue": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"DocumentName\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "SpecialComments": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 6,
+                          "width": 150,
+                          "originalId": "SpecialComments",
+                          "id": "SpecialComments",
+                          "alias": "SpecialComments",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Special Comments",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{OfflineDocuments.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"SpecialComments\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
@@ -5285,6 +5319,15 @@
                         },
                         {
                           "key": "primaryColumns.PortalStatus.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.POA.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.Filing.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.Signed.computedValue"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -5322,7 +5365,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1696910923947,
+                      "columnUpdatedAt": 1697000849499,
                       "defaultSelectedRowIndices": [
                         0
                       ],
@@ -5337,7 +5380,10 @@
                         "type",
                         "Status",
                         "missing",
-                        "PortalStatus"
+                        "PortalStatus",
+                        "POA",
+                        "Filing",
+                        "Signed"
                       ],
                       "dynamicPropertyPathList": [
                         {
@@ -5584,6 +5630,96 @@
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
                           "computedValue": "{{SummaryTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"PortalStatus\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "POA": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 8,
+                          "width": 150,
+                          "originalId": "POA",
+                          "id": "POA",
+                          "alias": "POA",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "POA",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{SummaryTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"POA\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "Filing": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 9,
+                          "width": 150,
+                          "originalId": "Filing",
+                          "id": "Filing",
+                          "alias": "Filing",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Filing",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{SummaryTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Filing\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "Signed": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 10,
+                          "width": 150,
+                          "originalId": "Signed",
+                          "id": "Signed",
+                          "alias": "Signed",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Signed",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{SummaryTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Signed\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""

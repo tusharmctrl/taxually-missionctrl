@@ -1,0 +1,7 @@
+mutation UpdateMatrix($whereObj:missionctrl_map_offline_docs_to_country_bool_exp!, $setObj:missionctrl_map_offline_docs_to_country_set_input){
+	prod {
+		update_missionctrl_map_offline_docs_to_country(where:$whereObj, _set: $setObj) {
+			affected_rows
+		}
+	}
+}

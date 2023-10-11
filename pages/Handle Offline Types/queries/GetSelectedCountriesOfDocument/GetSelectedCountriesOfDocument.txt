@@ -9,6 +9,7 @@ query CurrentAssignedCountriesToDocument($id: Int, $type: String) {
 				id
 				NameEN
 			}
+			special_comments
 		}
 	}
 }

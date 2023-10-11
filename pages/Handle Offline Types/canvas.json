@@ -83,7 +83,7 @@
                       "displayName": "Tabs",
                       "iconSVG": "/static/media/icon.8a93874870bccee17fbcd02b950c3bcd.svg",
                       "topRow": 5,
-                      "bottomRow": 70,
+                      "bottomRow": 68,
                       "parentRowSpace": 10,
                       "type": "TABS_WIDGET",
                       "hideCard": false,
@@ -110,7 +110,7 @@
                           "mobileBottomRow": 150,
                           "widgetName": "Canvas2",
                           "displayName": "Canvas",
-                          "bottomRow": 610,
+                          "bottomRow": 590,
                           "topRow": 0,
                           "parentRowSpace": 1,
                           "type": "CANVAS_WIDGET",
@@ -762,7 +762,7 @@
                           "mobileBottomRow": 150,
                           "widgetName": "Canvas3",
                           "displayName": "Canvas",
-                          "bottomRow": 610,
+                          "bottomRow": 590,
                           "topRow": 0,
                           "parentRowSpace": 1,
                           "type": "CANVAS_WIDGET",
@@ -1674,6 +1674,27 @@
                         },
                         {
                           "key": "primaryColumns.CountryId.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.SpecialComments.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.EditActions1.saveButtonColor"
+                        },
+                        {
+                          "key": "primaryColumns.EditActions1.saveBorderRadius"
+                        },
+                        {
+                          "key": "primaryColumns.EditActions1.discardBorderRadius"
+                        },
+                        {
+                          "key": "primaryColumns.EditActions1.isSaveDisabled"
+                        },
+                        {
+                          "key": "primaryColumns.EditActions1.isDiscardDisabled"
+                        },
+                        {
+                          "key": "primaryColumns.SpecialComments.isCellEditable"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -1712,20 +1733,22 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1696225787603,
+                      "columnUpdatedAt": 1696999222319,
                       "originalBottomRow": 64,
                       "primaryColumnId": "Name",
                       "defaultSelectedRowIndices": [
                         0
                       ],
                       "mobileBottomRow": 43,
-                      "widgetName": "Table2",
+                      "widgetName": "DocumentMatrix",
                       "defaultPageSize": 0,
                       "columnOrder": [
                         "Name",
                         "Assigned",
                         "DocumentId",
-                        "CountryId"
+                        "CountryId",
+                        "SpecialComments",
+                        "EditActions1"
                       ],
                       "dynamicPropertyPathList": [
                         {
@@ -1736,6 +1759,18 @@
                         },
                         {
                           "key": "primaryColumns.Assigned.onClick"
+                        },
+                        {
+                          "key": "primaryColumns.EditActions1.isSaveDisabled"
+                        },
+                        {
+                          "key": "primaryColumns.EditActions1.isDiscardDisabled"
+                        },
+                        {
+                          "key": "primaryColumns.SpecialComments.onSubmit"
+                        },
+                        {
+                          "key": "primaryColumns.SpecialComments.isCellEditable"
                         }
                       ],
                       "displayName": "Table",
@@ -1753,6 +1788,9 @@
                       "dynamicTriggerPathList": [
                         {
                           "key": "primaryColumns.Assigned.onClick"
+                        },
+                        {
+                          "key": "primaryColumns.SpecialComments.onSubmit"
                         }
                       ],
                       "borderWidth": "1",
@@ -1782,7 +1820,7 @@
                           "label": "Name",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{Table2.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Name\"]))}}",
+                          "computedValue": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Name\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
@@ -1812,15 +1850,15 @@
                           "label": "Assigned",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{Table2.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Assigned\"]))}}",
+                          "computedValue": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Assigned\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": "",
-                          "buttonColor": "{{Table2.processedTableData.map((currentRow, currentIndex) => ( currentRow.Assigned ? \"red\" : appsmith.theme.colors.primaryColor))}}",
-                          "borderRadius": "{{Table2.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
-                          "boxShadow": "{{Table2.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
+                          "buttonColor": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( currentRow.Assigned ? \"red\" : appsmith.theme.colors.primaryColor))}}",
+                          "borderRadius": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                          "boxShadow": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
                           "customAlias": "",
-                          "iconName": "{{Table2.processedTableData.map((currentRow, currentIndex) => ( currentRow.Assigned ? \"cross\" : \"tick\"))}}",
+                          "iconName": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( currentRow.Assigned ? \"cross\" : \"tick\"))}}",
                           "onClick": "{{Utils.updateDocumentInformation(currentRow.DocumentId, currentRow.CountryId, currentRow.Assigned)}}"
                         },
                         "DocumentId": {
@@ -1848,7 +1886,7 @@
                           "label": "DocumentId",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{Table2.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"DocumentId\"]))}}",
+                          "computedValue": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"DocumentId\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
@@ -1878,10 +1916,77 @@
                           "label": "CountryId",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{Table2.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"CountryId\"]))}}",
+                          "computedValue": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"CountryId\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
+                        },
+                        "SpecialComments": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 4,
+                          "width": 150,
+                          "originalId": "SpecialComments",
+                          "id": "SpecialComments",
+                          "alias": "SpecialComments",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( currentRow.Assigned))}}",
+                          "isEditable": true,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Special Comments",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"SpecialComments\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": "",
+                          "onSubmit": "{{Utils.addSpecialCommentInDocument()}}"
+                        },
+                        "EditActions1": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 5,
+                          "width": 150,
+                          "originalId": "EditActions1",
+                          "id": "EditActions1",
+                          "alias": "EditActions1",
+                          "columnType": "editActions",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": false,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": true,
+                          "label": "Save / Discard",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "",
+                          "sticky": "right",
+                          "validation": {},
+                          "buttonStyle": "rgb(3, 179, 101)",
+                          "saveIconAlign": "left",
+                          "discardIconAlign": "left",
+                          "saveActionLabel": "Save",
+                          "discardActionLabel": "Discard",
+                          "saveButtonColor": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.primaryColor)))}}",
+                          "discardButtonColor": "#F22B2B",
+                          "saveBorderRadius": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                          "discardBorderRadius": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                          "discardButtonVariant": "TERTIARY",
+                          "isSaveDisabled": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( !DocumentMatrix.updatedRowIndices.includes(currentIndex)))}}",
+                          "isDiscardDisabled": "{{DocumentMatrix.processedTableData.map((currentRow, currentIndex) => ( !DocumentMatrix.updatedRowIndices.includes(currentIndex)))}}"
                         }
                       },
                       "key": "40e44q3fqi",
@@ -3678,6 +3783,17 @@
               "timeoutInMillisecond": 10000
             },
             {
+              "id": "Handle Offline Types_GetSelectedCountriesOfDocument",
+              "name": "GetSelectedCountriesOfDocument",
+              "confirmBeforeExecute": false,
+              "pluginType": "API",
+              "jsonPathKeys": [
+                "this.params.type",
+                "this.params.id"
+              ],
+              "timeoutInMillisecond": 10000
+            },
+            {
               "id": "Handle Offline Types_OfflineDocumentTypes",
               "name": "OfflineDocumentTypes",
               "confirmBeforeExecute": false,
@@ -3706,17 +3822,6 @@
             }
           ],
           [
-            {
-              "id": "Handle Offline Types_GetSelectedCountriesOfDocument",
-              "name": "GetSelectedCountriesOfDocument",
-              "confirmBeforeExecute": false,
-              "pluginType": "API",
-              "jsonPathKeys": [
-                "this.params.type",
-                "this.params.id"
-              ],
-              "timeoutInMillisecond": 10000
-            },
             {
               "id": "Handle Offline Types_GetSelectedCountriesOfInfo",
               "name": "GetSelectedCountriesOfInfo",

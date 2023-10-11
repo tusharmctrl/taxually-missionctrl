@@ -245,13 +245,16 @@ export default {
 			return {
 				Country: document.Country,
 				DocumentType: document.Document,
+				SpecialComments: document.special_comments
 			}
 		});
+		console
 		const finalOfflineData = requiredOfflineDocuments.map((requiredDoc) => {
 			const existingData = manuallyUpdatedDocs.find((doc) => doc.country_id === requiredDoc.Country.Id && doc.document_type_id === requiredDoc.DocumentType.id);
 			return {
 				Country: requiredDoc.Country,
 				DocumentType: requiredDoc.DocumentType,
+				SpecialComments: requiredDoc.SpecialComments,
 				missing: existingData?.document_name ? false : true,
 				type: "OFFLINE",
 				DocumentName: existingData ? existingData.document_name : "",
@@ -314,10 +317,10 @@ export default {
 			return {Country: doc.Country, missing: doc.missing, type: "ONLINE", Status: doc.missing ? "Missing on Portal" : "Uploaded on Portal", DataType: "Document", Property: doc.DocumentName, Value: doc.UploadedDocumentName ?? "", PortalStatus: doc.Status}
 		})
 		const offlineDocumentData = Utils.getMissingOfflineDocuments().map((doc) => {
-			return { missing: doc.missing, type: "OFFLINE", Status: doc.missing ? "Not Submitted Yet" : "Marked as Received", Country: doc.Country.NameEN, Property: doc.DocumentType.NameEN, DataType: "Document", Value: doc.DocumentName ?? ""}
+			return { missing: doc.missing, type: "OFFLINE", Status: doc.missing ? "Not Submitted Yet" : "Marked as Received", Country: doc.Country.NameEN, Property: doc.DocumentType.NameEN, DataType: "Document", Value: doc.DocumentName ?? "", POA: doc.DocumentType.poa ? "YES" : "NO", Filing: doc.DocumentType.filing ? "YES" : "NO", Signed: doc.DocumentType.signed ? "YES" : "NO"}
 		})
 		const offlineInformation = Utils.getMissingInformation().map((info) => {
-			return {Property: info.name, Country: info.jurisdiction_country, Status: info.missing ? "Not Submitted Yet" : "Marked as Received", DataType: "Information", type: "OFFLINE", missing: info.missing, Value: info.Value ?? ""}
+			return {Property: info.name, Country: info.jurisdiction_country, Status: info.missing ? "Not Submitted Yet" : "Marked as Received", DataType: "Information", type: "OFFLINE", missing: info.missing, Value: info.Value ?? "", POA: info.Poa, Filing: info.Filing}
 		})
 		const onlineInformation = Utils.getMissingQuestionnaireInformation().map((info) => {
 			return {Country: !info.fieldName.startsWith("VAT") ? "Account Level" : Const.getCountryNameByCode(info.fieldName.split(" ").slice(-1).join("")), Property: info.fieldName, DataType: "Information", type: "ONLINE", missing: info.isMissing, Status: info.isMissing ? "Not Submitted Yet" : "Submitted on Portal", Value: info.value ?? ""}
