@@ -441,6 +441,24 @@ export default {
 		const object = {note: NoteForm.data.NoteInput, company_id: parseInt(Utils.selectedCompanyId())};
 		await AddNote.run({object}).then((resp) => resp.data ? showAlert("Nore has been added successfully!", "success") : showAlert("Something went wrong!", "error"));
 		Company.run({ company_id: parseInt(Utils.selectedCompanyId()) })
+	},
+	getNote: () => {
+		const noteDataFromDB = Company.data.data.prod.missionctrl_company_notes;
+		const note = noteDataFromDB.length > 0 ? noteDataFromDB[0].note : "";
+		return note;
+	},
+	getAdditionalInformation: () => {
+		const additionalData = [];
+		const companyName = {"Name": "Company Name", "Value": Utils.selectedCompany().LegalNameOfBusiness}
+		const status = {"Name": "Company Status", "Value": Company.data.data.prod.missionctrl_track_company_status_wise[0].CompanyStatus.name}
+		const wave = {"Name": "Wave", "Value": Company.data.data.prod.missionctrl_track_company_status_wise[0].Wave.wave_name}
+		const comment = {"Name": "Comment", "Value": Utils.getNote()}
+		additionalData.push(companyName, status, wave, comment)
+		const jurisdictionData = Utils.getAllCompanyJurisdiction();
+		jurisdictionData.forEach((data) => {
+			additionalData.push({"Name": data.name, "Value": data.isReady ? "Ready" : "Not Ready"})
+		})
+		return additionalData;
 	}
 }
 

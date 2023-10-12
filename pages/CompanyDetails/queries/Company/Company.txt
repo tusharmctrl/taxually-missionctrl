@@ -77,6 +77,12 @@ query CompanyDetails($companyId: Int!) {
 			id
 			status_id
 			company_id
+			CompanyStatus {
+				name
+			}
+			Wave {
+				wave_name
+			}
 		}
 		missionctrl_track_pending_docs(where: {company_id: {_eq: $companyId}}) {
 			id
@@ -98,7 +104,7 @@ query CompanyDetails($companyId: Int!) {
 				information
 			}
 		}
-		missionctrl_company_notes {
+		missionctrl_company_notes(where: {company_id: {_eq: $companyId}}) {
 			note
 		}
 	}
