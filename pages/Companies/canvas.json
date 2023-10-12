@@ -30,7 +30,7 @@
             {
               "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
               "mobileBottomRow": 10,
-              "widgetName": "Container1",
+              "widgetName": "WrapperContainer",
               "borderColor": "#E0DEDE",
               "isCanvas": true,
               "displayName": "Container",

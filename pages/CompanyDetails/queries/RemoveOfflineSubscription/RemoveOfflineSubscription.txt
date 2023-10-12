@@ -1,0 +1,7 @@
+mutation RemoteOfflineSubscription($whereObj: missionctrl_offline_subscriptions_bool_exp!) {
+  prod {
+    delete_missionctrl_offline_subscriptions(where:$whereObj) {
+      affected_rows
+    }
+  }
+}

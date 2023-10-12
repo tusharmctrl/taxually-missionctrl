@@ -1,0 +1,7 @@
+mutation AddOfflineSubscription($object: missionctrl_offline_subscriptions_insert_input!) {
+  prod {
+    insert_missionctrl_offline_subscriptions_one(object: $object) {
+      id
+    }
+  }
+}

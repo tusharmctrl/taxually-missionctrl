@@ -34,15 +34,20 @@ export default {
 	necessaryThingsToRunOnLoad: async() => {
 		if (appsmith.URL.queryParams.companyId) {
 			const companyId = parseInt(appsmith.URL.queryParams.companyId);
+			GetOfflineSubscription.run();
 			const companyTask = Company.run({ company_id: companyId });
 			const jurisdictionsTask = companyTask.then(() => {
 				const jurisdictions = Company.data.data.prod.Companies_by_pk.current_orders;
-				return jurisdictions.map(jurisdiction => jurisdiction.country.Id);
+				return jurisdictions.map(jurisdiction => jurisdiction.country.Id)
 			});
 			Promise.all([companyTask, jurisdictionsTask]).then(([_, jurisdictioncountryIds]) => {
 				const type = Company.data.data.prod.Companies_by_pk.Country.EuVatArea ? "EU" : "NON-EU";
 				const companyType = Company.data.data.prod.Companies_by_pk.LegalStatus.NameEN === "Company" ? "COMPANY" : "INDIVIDUAL";
-				return GetEssentialDataForInfoAndDocs.run({ countryIds: jurisdictioncountryIds, type, companyType:companyType });
+				const offlineSubscribedCountriesIds = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions.map(data => data.country_id)
+				jurisdictioncountryIds.push(...offlineSubscribedCountriesIds)
+				console.log(jurisdictioncountryIds)
+				// jurisdictioncountryIds.push([...offlineSubscribedCountriesIds]);
+				return GetEssentialDataForInfoAndDocs.run({ countryIds: jurisdictioncountryIds, type: type, companyType:companyType });
 			});
 			CheckManuallyUpdatedDocs.run();
 			CheckManuallyUpdatedInfo.run();
@@ -244,7 +249,6 @@ export default {
 				SpecialComments: document.special_comments
 			}
 		});
-		console
 		const finalOfflineData = requiredOfflineDocuments.map((requiredDoc) => {
 			const existingData = manuallyUpdatedDocs.find((doc) => doc.country_id === requiredDoc.Country.Id && doc.document_type_id === requiredDoc.DocumentType.id);
 			return {
@@ -454,6 +458,46 @@ export default {
 			additionalData.push({"Name": data.name, "Value": data.isReady ? "Ready" : "Not Ready"})
 		})
 		return additionalData;
+	},
+	getCountriesForOfflineSubscription: () => {
+		const onlineSubscribedCountries = Company.data.data.prod.Companies_by_pk.current_orders.map(order => order.country.Id);
+		const assignedOfflineSubscriptions = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions;
+		const allCountries = GetCountries.data.data.prod.Countries;
+		const countriesEligibleForOffline = allCountries
+		.map(country => {
+			const isOnlineSubscribed = onlineSubscribedCountries.includes(country.Id);
+			if (isOnlineSubscribed) {
+				return null;
+			}
+			const matched = assignedOfflineSubscriptions.some(offlineCountry => (
+				country.Id === offlineCountry.country_id &&
+				offlineCountry.company_id === parseInt(Utils.selectedCompanyId())
+			));
+			return {
+				Id: country.Id,
+				Name: country.NameEN,
+				assigned: matched ? true : false
+			};
+		})
+		.filter(country => country !== null)
+		.sort((a, b) => {
+			if (a.assigned && !b.assigned) return -1;
+			if (!a.assigned && b.assigned) return 1;
+			return 0;
+		});
+		return countriesEligibleForOffline;
+	},
+	handleOfflineSubscriptionOperation: async(assigned, countryId) => {
+		const companyId = parseInt(Utils.selectedCompanyId());
+		if(assigned) {
+			const whereObj = {company_id: {_eq: companyId}, country_id: {_eq: countryId}}
+			await RemoveOfflineSubscription.run({whereObj})
+		} else {
+			const object = {company_id: companyId, country_id: countryId}
+			await AddOfflineSubscription.run({object: object})
+		}
+		Utils.necessaryThingsToRunOnLoad();
+		// closeModal("OfflineSubscription")
 	}
 }
 

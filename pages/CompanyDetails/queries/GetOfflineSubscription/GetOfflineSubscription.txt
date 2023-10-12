@@ -1,0 +1,8 @@
+query GetOfflineSubscription {
+	prod {
+		missionctrl_offline_subscriptions(where: {company_id: {_eq: {{Utils.selectedCompanyId()}}}}) {
+			company_id
+			country_id
+		}
+	}
+}
