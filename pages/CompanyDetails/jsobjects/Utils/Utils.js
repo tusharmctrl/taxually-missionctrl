@@ -75,24 +75,19 @@ export default {
 		])
 	},
 	getAllCompanyJurisdiction: () => {
-		const jurisdictions = Company.data.data.prod.Companies_by_pk.current_orders;
-		const statusOfJurisdiction = Company.data.data.prod.missionctrl_track_jurisdiction_status;
+		const { current_orders } = Company.data.data.prod.Companies_by_pk;
+		const { missionctrl_track_jurisdiction_status } = Company.data.data.prod;
 		const currentCompanyId = parseInt(Utils.selectedCompanyId());
-		const jurisdictionsValue = jurisdictions.map((jurisdiction) => {
-			if(statusOfJurisdiction.some((trackedJurisdiction) => trackedJurisdiction.country_id === jurisdiction.country.Id && trackedJurisdiction.company_id === currentCompanyId )){
-				return {
-					name: `${jurisdiction.status.name} - ${jurisdiction.country.NameEN} - ${jurisdiction.country.Code}`,
-					countryId: jurisdiction.country.Id,
-					isReady: true
-				}
-			} else {
-				return {
-					name: `${jurisdiction.status.name} - ${jurisdiction.country.NameEN} - ${jurisdiction.country.Code}`,
-					countryId: jurisdiction.country.Id,
-					isReady: false
-				}
-			}
-		})
+		const jurisdictionsValue = current_orders.map((jurisdiction) => {
+			const isReady = missionctrl_track_jurisdiction_status.some((trackedJurisdiction) => (
+				trackedJurisdiction.country_id === jurisdiction.country.Id && trackedJurisdiction.company_id === currentCompanyId
+			));
+			return {
+				name: `${jurisdiction.status.name} - ${jurisdiction.country.NameEN} - ${jurisdiction.country.Code}`,
+				countryId: jurisdiction.country.Id,
+				isReady,
+			};
+		});
 		return jurisdictionsValue;
 	},
 	getHistoryOfInformation: async(informationType, country_id) => {
