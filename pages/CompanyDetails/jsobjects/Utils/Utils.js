@@ -45,8 +45,6 @@ export default {
 				const companyType = Company.data.data.prod.Companies_by_pk.LegalStatus.NameEN === "Company" ? "COMPANY" : "INDIVIDUAL";
 				const offlineSubscribedCountriesIds = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions.map(data => data.country_id)
 				jurisdictioncountryIds.push(...offlineSubscribedCountriesIds)
-				console.log(jurisdictioncountryIds)
-				// jurisdictioncountryIds.push([...offlineSubscribedCountriesIds]);
 				return GetEssentialDataForInfoAndDocs.run({ countryIds: jurisdictioncountryIds, type: type, companyType:companyType });
 			});
 			CheckManuallyUpdatedDocs.run();
@@ -91,14 +89,18 @@ export default {
 				name: `${jurisdiction.status.name} - ${jurisdiction.country.NameEN} - ${jurisdiction.country.Code}`,
 				countryId: jurisdiction.country.Id,
 				isReady,
+				type: "ONLINE"
 			};
 		});
 		const offlineJurisdiction = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions.map(subscription => {
 			return {
-				name: `Offline - ${subscription.Country.NameEN}`
+				name: `Offline - ${subscription.Country.NameEN}`,
+				isReady: subscription.active ? true : false,
+				countryId: subscription.country_id,
+				type: "OFFLINE"
 			}
 		})
-		return [...jurisdictionsValue, ...offlineJurisdiction];
+		return [...offlineJurisdiction, ...jurisdictionsValue];
 	},
 	getHistoryOfInformation: async(informationType, country_id) => {
 		await GetHistoryOfInformation.run({company_id:parseInt(appsmith.URL.queryParams.companyId), information_id: informationType, country_id: country_id })
@@ -288,16 +290,26 @@ export default {
 		const resp = await DownloadDocumentAPI.run({id: id})
 		navigateTo(resp.url)
 	},
-	updateJurisdictionStatus: async(isReady, countryId) => {
-		if(!isReady){
-			const statusObject = {country_id: countryId, company_id: parseInt(Utils.selectedCompanyId())}
-			await UpdateJurisdictionStatus.run({status_object: statusObject})
-			showAlert("Jurisdiction is now in the Ready Mode!", "success")
-		} else {
-			await RemoveJurisdictionStatus.run({companyId: parseInt(Utils.selectedCompanyId()), countryId: countryId});
-			showAlert("Jurisdiction has been removed from ready state", "success")
+	updateJurisdictionStatus: async(isReady, countryId, type) => {
+		if(type === "ONLINE") {
+			if(!isReady){
+				const statusObject = {country_id: countryId, company_id: parseInt(Utils.selectedCompanyId())}
+				await UpdateJurisdictionStatus.run({status_object: statusObject})
+				showAlert("Jurisdiction is now in the Ready Mode!", "success")
+			} else {
+				await RemoveJurisdictionStatus.run({companyId: parseInt(Utils.selectedCompanyId()), countryId: countryId});
+				showAlert("Jurisdiction has been removed from ready state", "success")
+			}
+			await Company.run({company_id: parseInt(parseInt(Utils.selectedCompanyId())) });
+		} else if(type === "OFFLINE") {
+			const whereObj = {country_id: {_eq: countryId}, company_id: {_eq: parseInt(Utils.selectedCompanyId())}};
+			const setObj = {active : isReady ? 0 : 1};
+			await UpdateOfflineSubscription.run({whereObj, setObj}).then((res) => res.data ? showAlert("Updated Offline Jurisdiction", "success") : showAlert("Something went wrong!", "error"));
+			await Promise.all([
+				GetOfflineSubscription.run(),
+				Company.run({ company_id: parseInt(Utils.selectedCompanyId()) })
+			]);
 		}
-		await Company.run({company_id: parseInt(appsmith.URL.queryParams.companyId) });
 	},
 	checkDocumentsExistence: async(documentTypeId, countryId, companyId) => {
 		const doesDocumentExist = await CheckDocumentExistence.run({documentTypeId:documentTypeId, countryId:countryId, companyId:companyId })
@@ -322,10 +334,10 @@ export default {
 			return {Country: doc.Country, missing: doc.missing, type: "ONLINE", Status: doc.missing ? "Missing on Portal" : "Uploaded on Portal", DataType: "Document", Property: doc.DocumentName, Value: doc.UploadedDocumentName ?? "", PortalStatus: doc.Status}
 		})
 		const offlineDocumentData = Utils.getMissingOfflineDocuments().map((doc) => {
-			return { missing: doc.missing, type: "OFFLINE", Status: doc.missing ? "Not Submitted Yet" : "Marked as Received", Country: doc.Country.NameEN, Property: doc.DocumentType.NameEN, DataType: "Document", Value: doc.DocumentName ?? "", POA: doc.DocumentType.poa ? "YES" : "NO", Filing: doc.DocumentType.filing ? "YES" : "NO", Signed: doc.DocumentType.signed ? "YES" : "NO"}
+			return { missing: doc.missing, type: "OFFLINE", Status: doc.missing ? "Not Submitted Yet" : "Marked as Received", Country: doc.Country.NameEN, Property: doc.DocumentType.NameEN, DataType: "Document", Value: doc.DocumentName ?? "", POA: doc.DocumentType.poa ? "YES" : "NO", Filing: doc.DocumentType.filing ? "YES" : "NO", Signed: doc.DocumentType.signed ? "YES" : "NO", Irrelevant: doc.Irrelevant ? "YES" : "NO", SpecialComments: doc.SpecialComments}
 		})
 		const offlineInformation = Utils.getMissingInformation().map((info) => {
-			return {Property: info.name, Country: info.jurisdiction_country, Status: info.missing ? "Not Submitted Yet" : "Marked as Received", DataType: "Information", type: "OFFLINE", missing: info.missing, Value: info.Value ?? "", POA: info.Poa, Filing: info.Filing}
+			return {Property: info.name, Country: info.jurisdiction_country, Status: info.missing ? "Not Submitted Yet" : "Marked as Received", DataType: "Information", type: "OFFLINE", missing: info.missing, Value: info.Value ?? "", POA: info.Poa, Filing: info.Filing, Irrelevant: info.Irrelevant ? "YES" : "NO", SpecialComments: info.SpecialComments}
 		})
 		const onlineInformation = Utils.getMissingQuestionnaireInformation().map((info) => {
 			return {Country: !info.fieldName.startsWith("VAT") ? "Account Level" : Const.getCountryNameByCode(info.fieldName.split(" ").slice(-1).join("")), Property: info.fieldName, DataType: "Information", type: "ONLINE", missing: info.isMissing, Status: info.isMissing ? "Not Submitted Yet" : "Submitted on Portal", Value: info.value ?? ""}

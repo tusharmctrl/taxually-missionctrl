@@ -1,0 +1,7 @@
+mutation UpdateOfflieSubscription($whereObj:missionctrl_offline_subscriptions_bool_exp!, $setObj:missionctrl_offline_subscriptions_set_input) {
+	prod {
+		update_missionctrl_offline_subscriptions(where:$whereObj, _set:$setObj) {
+			affected_rows
+		}
+	}
+}

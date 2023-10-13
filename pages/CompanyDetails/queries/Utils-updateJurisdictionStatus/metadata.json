@@ -26,6 +26,9 @@
         },
         {
           "name": "countryId"
+        },
+        {
+          "name": "type"
         }
       ],
       "isAsync": true

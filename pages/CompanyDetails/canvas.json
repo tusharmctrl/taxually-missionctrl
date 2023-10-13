@@ -2120,7 +2120,7 @@
                                       "boxShadow": "none",
                                       "mobileBottomRow": 4,
                                       "widgetName": "IconButton3",
-                                      "onClick": "{{Utils.updateJurisdictionStatus(currentItem.isReady, currentItem.countryId)}}",
+                                      "onClick": "{{Utils.updateJurisdictionStatus(currentItem.isReady, currentItem.countryId, currentItem.type)}}",
                                       "buttonColor": "{{currentItem.isReady ? \"red\" : appsmith.theme.colors.primaryColor}}",
                                       "dynamicPropertyPathList": [
                                         {
@@ -2265,7 +2265,7 @@
                       "mobileBottomRow": 45,
                       "currentItemsView": "{{[]}}",
                       "triggeredItemView": "{{{}}}",
-                      "widgetName": "List1",
+                      "widgetName": "JurisdictionList",
                       "listData": "{{Utils.getAllCompanyJurisdiction()}}",
                       "dynamicPropertyPathList": [
                         {
@@ -2279,7 +2279,7 @@
                       "templateBottomRow": 16,
                       "mobileRightColumn": 3,
                       "mainContainerId": "qvjqyh9o40",
-                      "primaryKeys": "{{List1.listData.map((currentItem, currentIndex) => currentItem[\"name\"] )}}",
+                      "primaryKeys": "{{JurisdictionList.listData.map((currentItem, currentIndex) => currentItem[\"name\"] )}}",
                       "parentColumnSpace": 19.13818359375,
                       "dynamicTriggerPathList": [
                         {
@@ -2409,7 +2409,7 @@
             {
               "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
               "mobileBottomRow": 173,
-              "widgetName": "Tabs1",
+              "widgetName": "InformationTab",
               "borderColor": "#E0DEDE",
               "isCanvas": true,
               "displayName": "Tabs",
@@ -3537,7 +3537,7 @@
             {
               "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
               "mobileBottomRow": 95,
-              "widgetName": "Tabs2",
+              "widgetName": "DocumentTab",
               "borderColor": "#E0DEDE",
               "isCanvas": true,
               "displayName": "Tabs",
@@ -5306,6 +5306,12 @@
                         },
                         {
                           "key": "primaryColumns.Signed.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.Irrelevant.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.SpecialComments.computedValue"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -5343,7 +5349,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1697097976507,
+                      "columnUpdatedAt": 1697186344506,
                       "defaultSelectedRowIndices": [
                         0
                       ],
@@ -5361,7 +5367,9 @@
                         "PortalStatus",
                         "POA",
                         "Filing",
-                        "Signed"
+                        "Signed",
+                        "Irrelevant",
+                        "SpecialComments"
                       ],
                       "dynamicPropertyPathList": [
                         {
@@ -5698,6 +5706,66 @@
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
                           "computedValue": "{{SummaryTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Signed\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "Irrelevant": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 11,
+                          "width": 150,
+                          "originalId": "Irrelevant",
+                          "id": "Irrelevant",
+                          "alias": "Irrelevant",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Irrelevant",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{SummaryTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Irrelevant\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "SpecialComments": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 12,
+                          "width": 150,
+                          "originalId": "SpecialComments",
+                          "id": "SpecialComments",
+                          "alias": "SpecialComments",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "SpecialComments",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{SummaryTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"SpecialComments\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
@@ -7158,7 +7226,7 @@
               "confirmBeforeExecute": false,
               "pluginType": "JS",
               "jsonPathKeys": [
-                "async () => {\n  if (appsmith.URL.queryParams.companyId) {\n    const companyId = parseInt(appsmith.URL.queryParams.companyId);\n    GetOfflineSubscription.run();\n    const companyTask = Company.run({\n      company_id: companyId\n    });\n    const jurisdictionsTask = companyTask.then(() => {\n      const jurisdictions = Company.data.data.prod.Companies_by_pk.current_orders;\n      return jurisdictions.map(jurisdiction => jurisdiction.country.Id);\n    });\n    Promise.all([companyTask, jurisdictionsTask]).then(([_, jurisdictioncountryIds]) => {\n      const type = Company.data.data.prod.Companies_by_pk.Country.EuVatArea ? \"EU\" : \"NON-EU\";\n      const companyType = Company.data.data.prod.Companies_by_pk.LegalStatus.NameEN === \"Company\" ? \"COMPANY\" : \"INDIVIDUAL\";\n      const offlineSubscribedCountriesIds = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions.map(data => data.country_id);\n      jurisdictioncountryIds.push(...offlineSubscribedCountriesIds);\n      console.log(jurisdictioncountryIds);\n      return GetEssentialDataForInfoAndDocs.run({\n        countryIds: jurisdictioncountryIds,\n        type: type,\n        companyType: companyType\n      });\n    });\n    CheckManuallyUpdatedDocs.run();\n    CheckManuallyUpdatedInfo.run();\n    GetTokenFromDB.run();\n    QuestionnaireAPI.run();\n    AdditionalInformation.run();\n    DocumentAPI.run();\n  } else {\n    navigateTo(\"Companies\");\n  }\n}"
+                "async () => {\n  if (appsmith.URL.queryParams.companyId) {\n    const companyId = parseInt(appsmith.URL.queryParams.companyId);\n    GetOfflineSubscription.run();\n    const companyTask = Company.run({\n      company_id: companyId\n    });\n    const jurisdictionsTask = companyTask.then(() => {\n      const jurisdictions = Company.data.data.prod.Companies_by_pk.current_orders;\n      return jurisdictions.map(jurisdiction => jurisdiction.country.Id);\n    });\n    Promise.all([companyTask, jurisdictionsTask]).then(([_, jurisdictioncountryIds]) => {\n      const type = Company.data.data.prod.Companies_by_pk.Country.EuVatArea ? \"EU\" : \"NON-EU\";\n      const companyType = Company.data.data.prod.Companies_by_pk.LegalStatus.NameEN === \"Company\" ? \"COMPANY\" : \"INDIVIDUAL\";\n      const offlineSubscribedCountriesIds = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions.map(data => data.country_id);\n      jurisdictioncountryIds.push(...offlineSubscribedCountriesIds);\n      return GetEssentialDataForInfoAndDocs.run({\n        countryIds: jurisdictioncountryIds,\n        type: type,\n        companyType: companyType\n      });\n    });\n    CheckManuallyUpdatedDocs.run();\n    CheckManuallyUpdatedInfo.run();\n    GetTokenFromDB.run();\n    QuestionnaireAPI.run();\n    AdditionalInformation.run();\n    DocumentAPI.run();\n  } else {\n    navigateTo(\"Companies\");\n  }\n}"
               ],
               "timeoutInMillisecond": 10000
             }
