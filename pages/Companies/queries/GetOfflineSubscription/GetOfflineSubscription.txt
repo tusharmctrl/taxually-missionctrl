@@ -1,0 +1,12 @@
+query GetOfflineSubscription {
+	prod {
+		missionctrl_offline_subscriptions {
+			company_id
+			country_id
+			Country {
+				NameEN
+			}
+			active
+		}
+	}
+}

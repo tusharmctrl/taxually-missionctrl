@@ -47,12 +47,15 @@ export default {
 				jurisdictioncountryIds.push(...offlineSubscribedCountriesIds)
 				return GetEssentialDataForInfoAndDocs.run({ countryIds: jurisdictioncountryIds, type: type, companyType:companyType });
 			});
-			CheckManuallyUpdatedDocs.run();
-			CheckManuallyUpdatedInfo.run();
-			GetTokenFromDB.run();
-			QuestionnaireAPI.run();
-			AdditionalInformation.run();
-			DocumentAPI.run();
+			Promise.all([
+				CheckManuallyUpdatedDocs.run(),
+				CheckManuallyUpdatedInfo.run(),
+				GetTokenFromDB.run(),
+				QuestionnaireAPI.run(),
+				AdditionalInformation.run(),
+				DocumentAPI.run(),
+			])
+
 		} else {
 			navigateTo("Companies");
 		}

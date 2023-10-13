@@ -19,6 +19,23 @@ query CompanyDetails($limit: Int!, $offset: Int!, $searchText: String!, $statusF
 				LegalStatus {
 					NameEN
 				}
+				current_orders {
+					status {
+						name
+					}
+					subscription_status {
+						status {
+							name
+							description
+						}
+					}
+					country {
+						Id
+						NameEN
+						Code
+					}
+					LastEndDate
+				}
 			}
 			CompanyStatus {
 				id

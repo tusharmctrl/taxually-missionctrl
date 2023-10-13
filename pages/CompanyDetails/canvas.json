@@ -210,7 +210,7 @@
                     {
                       "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
                       "mobileBottomRow": 12,
-                      "widgetName": "Image1",
+                      "widgetName": "EstablishedCountryImage",
                       "displayName": "Image",
                       "iconSVG": "/static/media/icon.30c8cbd442cce232b01ba2d434c53a53.svg",
                       "topRow": 0,
@@ -3477,7 +3477,7 @@
               "resetFormOnClick": false,
               "boxShadow": "none",
               "mobileBottomRow": 6,
-              "widgetName": "Button2",
+              "widgetName": "CompanyPage",
               "onClick": "{{navigateTo(\"Companies\")}}",
               "buttonColor": "#3f3f46",
               "dynamicPropertyPathList": [
@@ -6682,7 +6682,7 @@
             {
               "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
               "mobileBottomRow": 6,
-              "widgetName": "ButtonGroup1",
+              "widgetName": "NavButtonGroup",
               "isCanvas": false,
               "dynamicPropertyPathList": [],
               "displayName": "Button Group",
@@ -7226,7 +7226,7 @@
               "confirmBeforeExecute": false,
               "pluginType": "JS",
               "jsonPathKeys": [
-                "async () => {\n  if (appsmith.URL.queryParams.companyId) {\n    const companyId = parseInt(appsmith.URL.queryParams.companyId);\n    GetOfflineSubscription.run();\n    const companyTask = Company.run({\n      company_id: companyId\n    });\n    const jurisdictionsTask = companyTask.then(() => {\n      const jurisdictions = Company.data.data.prod.Companies_by_pk.current_orders;\n      return jurisdictions.map(jurisdiction => jurisdiction.country.Id);\n    });\n    Promise.all([companyTask, jurisdictionsTask]).then(([_, jurisdictioncountryIds]) => {\n      const type = Company.data.data.prod.Companies_by_pk.Country.EuVatArea ? \"EU\" : \"NON-EU\";\n      const companyType = Company.data.data.prod.Companies_by_pk.LegalStatus.NameEN === \"Company\" ? \"COMPANY\" : \"INDIVIDUAL\";\n      const offlineSubscribedCountriesIds = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions.map(data => data.country_id);\n      jurisdictioncountryIds.push(...offlineSubscribedCountriesIds);\n      return GetEssentialDataForInfoAndDocs.run({\n        countryIds: jurisdictioncountryIds,\n        type: type,\n        companyType: companyType\n      });\n    });\n    CheckManuallyUpdatedDocs.run();\n    CheckManuallyUpdatedInfo.run();\n    GetTokenFromDB.run();\n    QuestionnaireAPI.run();\n    AdditionalInformation.run();\n    DocumentAPI.run();\n  } else {\n    navigateTo(\"Companies\");\n  }\n}"
+                "async () => {\n  if (appsmith.URL.queryParams.companyId) {\n    const companyId = parseInt(appsmith.URL.queryParams.companyId);\n    GetOfflineSubscription.run();\n    const companyTask = Company.run({\n      company_id: companyId\n    });\n    const jurisdictionsTask = companyTask.then(() => {\n      const jurisdictions = Company.data.data.prod.Companies_by_pk.current_orders;\n      return jurisdictions.map(jurisdiction => jurisdiction.country.Id);\n    });\n    Promise.all([companyTask, jurisdictionsTask]).then(([_, jurisdictioncountryIds]) => {\n      const type = Company.data.data.prod.Companies_by_pk.Country.EuVatArea ? \"EU\" : \"NON-EU\";\n      const companyType = Company.data.data.prod.Companies_by_pk.LegalStatus.NameEN === \"Company\" ? \"COMPANY\" : \"INDIVIDUAL\";\n      const offlineSubscribedCountriesIds = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions.map(data => data.country_id);\n      jurisdictioncountryIds.push(...offlineSubscribedCountriesIds);\n      return GetEssentialDataForInfoAndDocs.run({\n        countryIds: jurisdictioncountryIds,\n        type: type,\n        companyType: companyType\n      });\n    });\n    Promise.all([CheckManuallyUpdatedDocs.run(), CheckManuallyUpdatedInfo.run(), GetTokenFromDB.run(), QuestionnaireAPI.run(), AdditionalInformation.run(), DocumentAPI.run()]);\n  } else {\n    navigateTo(\"Companies\");\n  }\n}"
               ],
               "timeoutInMillisecond": 10000
             }

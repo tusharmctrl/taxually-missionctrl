@@ -1,4 +1,12 @@
 export default {
+	onLoad: async() => {
+		await Promise.all(
+			[
+				GetCompanyData.run(),
+				GetOfflineSubscription.run()
+			]
+		)
+	},
 	RedirectToCompanyDetailPage: () => {
 		navigateTo("CompanyDetails", {companyId: CompanyListing.selectedRow.Id, countryId: CompanyListing.selectedRow.Country})
 	},
@@ -75,5 +83,25 @@ export default {
 		} catch(error){
 			console.log(error);
 		}
+	},
+	getCompaniesData: () => {
+		if(!GetCompanyData.isLoading && !GetOfflineSubscription.isLoading) {
+			const companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise;
+			const formattedCompanyData = companyData.map((companyData) => {
+				const offlineSubscriptions = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions.filter(sub => sub.company_id === companyData.Company.Id).map(sub => sub.Country.NameEN)
+				const onlineSubscriptions = companyData.Company.current_orders.map(company => company.country.NameEN)
+				const allSubs = [...offlineSubscriptions, ...onlineSubscriptions].join(", ")
+				return {
+					Id: companyData.Company.Id,
+					Name: companyData.Company.LegalNameOfBusiness,
+					SubscribedCountries: allSubs,
+					Wave: companyData.Wave.wave_name,
+					Status: companyData.CompanyStatus.name,
+					Country: companyData.Company.Country.Id,
+					EstablishedCountry: companyData.Company.Country.NameEN
+				}
+			})
+			return formattedCompanyData;
+		} 
 	}
 }
