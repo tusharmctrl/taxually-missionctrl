@@ -677,7 +677,7 @@
                       "isCanvas": true,
                       "iconSVG": "/static/media/icon.35f3ec19dbc201b2b26e900b1eeb08a0.svg",
                       "topRow": 73,
-                      "pageSize": 5,
+                      "pageSize": 4,
                       "type": "LIST_WIDGET_V2",
                       "itemSpacing": "15",
                       "animateLoading": true,

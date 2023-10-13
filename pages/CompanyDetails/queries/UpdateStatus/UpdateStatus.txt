@@ -1,6 +1,6 @@
 mutation UpdateCompanyStatus {
 	prod{
-		update_missionctrl_map_company_to_status(where: {company_id: {_eq: {{Utils.selectedCompanyId()}}}}, _set: {status_id: {{Select1.selectedOptionValue}}}) {
+		update_missionctrl_track_company_status_wise(where: {company_id: {_eq: {{Utils.selectedCompanyId()}}}}, _set: {status_id: {{Select1.selectedOptionValue}}}) {
 			affected_rows
 		}
 	}

@@ -93,7 +93,12 @@ export default {
 				isReady,
 			};
 		});
-		return jurisdictionsValue;
+		const offlineJurisdiction = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions.map(subscription => {
+			return {
+				name: `Offline - ${subscription.Country.NameEN}`
+			}
+		})
+		return [...jurisdictionsValue, ...offlineJurisdiction];
 	},
 	getHistoryOfInformation: async(informationType, country_id) => {
 		await GetHistoryOfInformation.run({company_id:parseInt(appsmith.URL.queryParams.companyId), information_id: informationType, country_id: country_id })
