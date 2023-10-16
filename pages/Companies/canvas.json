@@ -82,7 +82,7 @@
                       "borderColor": "#71717a",
                       "isVisibleDownload": true,
                       "iconSVG": "/static/media/icon.24905525921dd6f5ff46d0dd843b9e12.svg",
-                      "topRow": 18,
+                      "topRow": 20,
                       "isSortable": true,
                       "onPageChange": "{{GetCompanyData.run()}}",
                       "type": "TABLE_WIDGET_V2",
@@ -162,7 +162,7 @@
                       },
                       "borderRadius": "0.375rem",
                       "columnUpdatedAt": 1697193041129,
-                      "originalBottomRow": 70,
+                      "originalBottomRow": 72,
                       "primaryColumnId": "Id",
                       "defaultSelectedRowIndices": "[]",
                       "mobileBottomRow": 39,
@@ -191,7 +191,7 @@
                       ],
                       "compactMode": "DEFAULT",
                       "displayName": "Table",
-                      "bottomRow": 70,
+                      "bottomRow": 72,
                       "columnWidthMap": {
                         "task": 245,
                         "step": 70,
@@ -211,7 +211,8 @@
                         "customColumn7": 108,
                         "Wave": 168.5,
                         "EstablishedCountry": 248,
-                        "SubscribedCountries": 218
+                        "SubscribedCountries": 218,
+                        "Name": 249
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
@@ -501,7 +502,7 @@
                       "horizontalAlignment": "LEFT",
                       "isVisibleSearch": true,
                       "responsiveBehavior": "fill",
-                      "originalTopRow": 18,
+                      "originalTopRow": 20,
                       "mobileLeftColumn": 0,
                       "isVisiblePagination": true,
                       "cellBackground": "transparent",
@@ -517,8 +518,8 @@
                         "paragraph",
                         "label"
                       ],
-                      "topRow": 3,
-                      "bottomRow": 8,
+                      "topRow": 1,
+                      "bottomRow": 6,
                       "parentRowSpace": 10,
                       "type": "TEXT_WIDGET",
                       "hideCard": false,
@@ -556,11 +557,11 @@
                       "isLoading": false,
                       "mobileTopRow": 0,
                       "responsiveBehavior": "fill",
-                      "originalTopRow": 3,
+                      "originalTopRow": 1,
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
                       "mobileLeftColumn": 0,
                       "maxDynamicHeight": 9000,
-                      "originalBottomRow": 8,
+                      "originalBottomRow": 6,
                       "fontSize": "1.875rem",
                       "minDynamicHeight": 4
                     },
@@ -622,7 +623,7 @@
                       "key": "2liezrc1yj",
                       "labelTextSize": "0.875rem",
                       "isDeprecated": false,
-                      "rightColumn": 18,
+                      "rightColumn": 15,
                       "widgetId": "beu104uc1k",
                       "minWidth": 450,
                       "parentId": "shexqzl2e0",
@@ -1275,7 +1276,7 @@
                       "serverSideFiltering": false,
                       "defaultOptionValue": "{{ ((options, serverSideFiltering) => ( \"\"))(GetCompanyStatusWise.options, GetCompanyStatusWise.serverSideFiltering) }}",
                       "animateLoading": true,
-                      "leftColumn": 18,
+                      "leftColumn": 15,
                       "dynamicBindingPathList": [
                         {
                           "key": "accentColor"
@@ -1328,7 +1329,7 @@
                       "key": "djmssncvq0",
                       "labelTextSize": "0.875rem",
                       "isDeprecated": false,
-                      "rightColumn": 37,
+                      "rightColumn": 28,
                       "widgetId": "mhd0mn8pa8",
                       "minWidth": 450,
                       "parentId": "shexqzl2e0",
@@ -1352,7 +1353,7 @@
                       "serverSideFiltering": false,
                       "defaultOptionValue": "{{ ((options, serverSideFiltering) => ( \"\"))(AssignWave.options, AssignWave.serverSideFiltering) }}",
                       "animateLoading": true,
-                      "leftColumn": 37,
+                      "leftColumn": 49,
                       "dynamicBindingPathList": [
                         {
                           "key": "accentColor"
@@ -1411,7 +1412,7 @@
                       "key": "djmssncvq0",
                       "labelTextSize": "0.875rem",
                       "isDeprecated": false,
-                      "rightColumn": 56,
+                      "rightColumn": 63,
                       "widgetId": "0yr0kzbquw",
                       "minWidth": 450,
                       "parentId": "shexqzl2e0",
@@ -1423,6 +1424,84 @@
                       "mobileLeftColumn": 19,
                       "maxDynamicHeight": 9000,
                       "onOptionChange": "{{Utils.assignCompaniesToWave()}}",
+                      "minDynamicHeight": 4
+                    },
+                    {
+                      "boxShadow": "none",
+                      "iconSVG": "/static/media/icon.16c864f46228416bf937ce5e688bf1eb.svg",
+                      "labelText": "Select Subscriptions",
+                      "topRow": 10,
+                      "labelWidth": 5,
+                      "type": "MULTI_SELECT_WIDGET_V2",
+                      "serverSideFiltering": false,
+                      "defaultOptionValue": "",
+                      "animateLoading": true,
+                      "leftColumn": 28,
+                      "dynamicBindingPathList": [
+                        {
+                          "key": "accentColor"
+                        },
+                        {
+                          "key": "borderRadius"
+                        },
+                        {
+                          "key": "options"
+                        }
+                      ],
+                      "options": "{{Utils.getCountriesLookup()}}",
+                      "placeholderText": "Select option(s)",
+                      "isDisabled": false,
+                      "isRequired": false,
+                      "dynamicHeight": "FIXED",
+                      "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+                      "isVisible": true,
+                      "version": 1,
+                      "isLoading": false,
+                      "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+                      "originalBottomRow": 17,
+                      "mobileBottomRow": 17,
+                      "widgetName": "SubscriptionCountries",
+                      "isFilterable": true,
+                      "dynamicPropertyPathList": [
+                        {
+                          "key": "onOptionChange"
+                        }
+                      ],
+                      "displayName": "MultiSelect",
+                      "searchTags": [
+                        "dropdown",
+                        "tags"
+                      ],
+                      "bottomRow": 17,
+                      "parentRowSpace": 10,
+                      "hideCard": false,
+                      "mobileRightColumn": 57,
+                      "parentColumnSpace": 19.5,
+                      "dynamicTriggerPathList": [
+                        {
+                          "key": "onOptionChange"
+                        },
+                        {
+                          "key": "onDropdownClose"
+                        }
+                      ],
+                      "labelPosition": "Top",
+                      "onDropdownClose": "{{GetCompanyData.run()}}",
+                      "key": "jw6m1q8hoz",
+                      "labelTextSize": "0.875rem",
+                      "isDeprecated": false,
+                      "rightColumn": 49,
+                      "widgetId": "okke9tzwx3",
+                      "minWidth": 450,
+                      "parentId": "shexqzl2e0",
+                      "labelAlignment": "left",
+                      "renderMode": "CANVAS",
+                      "mobileTopRow": 10,
+                      "responsiveBehavior": "fill",
+                      "originalTopRow": 10,
+                      "mobileLeftColumn": 37,
+                      "maxDynamicHeight": 9000,
+                      "onOptionChange": "{{Utils.createAQueryForSubscribedData()}}",
                       "minDynamicHeight": 4
                     }
                   ],
@@ -1495,6 +1574,14 @@
               "timeoutInMillisecond": 10000
             },
             {
+              "id": "Companies_GetCountries",
+              "name": "GetCountries",
+              "confirmBeforeExecute": false,
+              "pluginType": "API",
+              "jsonPathKeys": [],
+              "timeoutInMillisecond": 10000
+            },
+            {
               "id": "Companies_GetOfflineSubscription",
               "name": "GetOfflineSubscription",
               "confirmBeforeExecute": false,
@@ -1525,6 +1612,7 @@
                 "GetCompanyStatusWise.selectedOptionValue === \"\" ? {} : {_eq: GetCompanyStatusWise.selectedOptionValue}",
                 "CompanyListing.pageSize",
                 "CompanyStatus.selectedOptionValue === \"\" ? {} : {_eq: CompanyStatus.selectedOptionValue}",
+                "Utils.createAQueryForSubscribedData()",
                 "CompanyListing.pageOffset"
               ],
               "timeoutInMillisecond": 10000

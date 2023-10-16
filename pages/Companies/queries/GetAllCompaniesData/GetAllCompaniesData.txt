@@ -1,4 +1,4 @@
-query CompanyDetails($limit: Int, $offset: Int, $searchText: String, $statusId: Int) {
+query CompanyDetails($limit: Int, $offset: Int, $searchText: String, $statusId: Int, ) {
 	prod {
 		missionctrl_map_company_to_status(
 			limit: $limit

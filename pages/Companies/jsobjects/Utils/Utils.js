@@ -3,7 +3,7 @@ export default {
 		await Promise.all(
 			[
 				GetCompanyData.run(),
-				GetOfflineSubscription.run()
+				GetOfflineSubscription.run(),
 			]
 		)
 	},
@@ -18,6 +18,11 @@ export default {
 	wavesLookup: () => {
 		return GetAllWaves.data.data.prod.missionctrl_waves.map(l => {
 			return {value: l.id, label: Lib.waveLabel(l) }
+		})
+	},
+	getCountriesLookup: () => {
+		return GetCountries.data.data.prod.Countries.map(country => {
+			return {value: country.Id, label: country.NameEN }
 		})
 	},
 	handleShowMissingDataButton: async(id, country_id) => {
@@ -82,6 +87,14 @@ export default {
 			}
 		} catch(error){
 			console.log(error);
+		}
+	},
+	createAQueryForSubscribedData: () => {
+		const data = SubscriptionCountries.selectedOptionValues;
+		if(data.length) {
+			return { "Company": { "current_orders": { "CountryId": { "_in": data } } } }
+		} else {
+			return {}
 		}
 	},
 	getCompaniesData: () => {
