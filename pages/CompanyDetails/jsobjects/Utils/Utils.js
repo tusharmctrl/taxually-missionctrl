@@ -323,7 +323,7 @@ export default {
 		return doesInformationExist && doesInformationExist.data.prod.missionctrl_track_remaining_data_information.length ? true : false;
 	},
 	updateInformation: async() => {
-		const  {jurisdiction_country_id, Value, information_id} = InformationSummaryCopy.updatedRow;
+		const  {jurisdiction_country_id, Value, information_id} = OfflineInformation.updatedRow;
 		const companyId = parseInt(Utils.selectedCompanyId());
 		const checkExistence = await Utils.checkInformationExistence(information_id, jurisdiction_country_id, companyId);
 		const insertObject = {country_id:jurisdiction_country_id, value: Value, information_type_id: information_id, company_id: companyId, irrelevant: 0 }
@@ -448,7 +448,7 @@ export default {
 			await CheckManuallyUpdatedDocs.run({companyId: parseInt(Utils.selectedCompanyId())});
 			await Utils.getMissingOfflineDocuments();
 		} else if(dataType === "OFFLINE_INFORMATION") {
-			const  {jurisdiction_country_id, Value, information_id, Irrelevant} = InformationSummaryCopy.updatedRow;
+			const  {jurisdiction_country_id, Value, information_id, Irrelevant} = OfflineInformation.updatedRow;
 			const companyId = parseInt(Utils.selectedCompanyId());
 			const insertObject = {country_id:jurisdiction_country_id, value: Value ?? "", information_type_id: information_id, company_id: companyId, irrelevant:Irrelevant ? 1 : 0 };
 			await AddUserInformation.run({object: insertObject}).then((resp) => resp.data ? showAlert("Value has been added successfully!", "success") : showAlert("Something went wrong!", "error"));

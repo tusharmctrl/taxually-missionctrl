@@ -1428,6 +1428,7 @@
                     },
                     {
                       "boxShadow": "none",
+                      "allowSelectAll": false,
                       "iconSVG": "/static/media/icon.16c864f46228416bf937ce5e688bf1eb.svg",
                       "labelText": "Select Subscriptions",
                       "topRow": 10,

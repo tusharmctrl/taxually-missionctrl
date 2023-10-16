@@ -28,7 +28,7 @@
             {
               "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
               "mobileBottomRow": 23,
-              "widgetName": "Container1",
+              "widgetName": "BasicInfoCompany",
               "borderColor": "#E0DEDE",
               "isCanvas": true,
               "dynamicPropertyPathList": [
@@ -2586,7 +2586,7 @@
                         0
                       ],
                       "mobileBottomRow": 90,
-                      "widgetName": "InformationSummaryCopy",
+                      "widgetName": "OfflineInformation",
                       "defaultPageSize": 0,
                       "columnOrder": [
                         "jurisdiction_country",
@@ -2694,7 +2694,7 @@
                           "label": "Information Name",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"name\"]))}}",
+                          "computedValue": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"name\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
@@ -2724,7 +2724,7 @@
                           "label": "missing",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"missing\"]))}}",
+                          "computedValue": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"missing\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
@@ -2747,7 +2747,7 @@
                           "isDisabled": false,
                           "isCellEditable": false,
                           "isEditable": false,
-                          "isCellVisible": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow.missing ? false : true))}}",
+                          "isCellVisible": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow.missing ? false : true))}}",
                           "isDerived": true,
                           "label": "History",
                           "isSaveVisible": true,
@@ -2758,8 +2758,8 @@
                           "buttonStyle": "rgb(3, 179, 101)",
                           "labelColor": "#FFFFFF",
                           "buttonColor": "#d4d4d8",
-                          "borderRadius": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
-                          "boxShadow": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
+                          "borderRadius": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                          "boxShadow": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
                           "customAlias": "",
                           "iconName": "history",
                           "onClick": "{{Utils.getHistoryOfInformation(currentRow.information_id, currentRow.jurisdiction_country_id)}}",
@@ -2790,7 +2790,7 @@
                           "label": "Jurisdiction Country",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"jurisdiction_country\"]))}}",
+                          "computedValue": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"jurisdiction_country\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
@@ -2820,7 +2820,7 @@
                           "label": "jurisdiction_country_id",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"jurisdiction_country_id\"]))}}",
+                          "computedValue": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"jurisdiction_country_id\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
@@ -2850,7 +2850,7 @@
                           "label": "information_id",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"information_id\"]))}}",
+                          "computedValue": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"information_id\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
@@ -2879,12 +2879,12 @@
                           "label": "Status",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow.missing ? \"Missing\" : \"Submitted\"))}}",
+                          "computedValue": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow.missing ? \"Missing\" : \"Submitted\"))}}",
                           "sticky": "",
                           "validation": {},
                           "buttonStyle": "rgb(3, 179, 101)",
                           "labelColor": "#FFFFFF",
-                          "textColor": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow.missing ? \"red\" : \"green\"))}}"
+                          "textColor": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow.missing ? \"red\" : \"green\"))}}"
                         },
                         "EditActions1": {
                           "allowCellWrapping": false,
@@ -2918,13 +2918,13 @@
                           "discardIconAlign": "left",
                           "saveActionLabel": "Save",
                           "discardActionLabel": "Discard",
-                          "saveButtonColor": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.primaryColor)))}}",
+                          "saveButtonColor": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.primaryColor)))}}",
                           "discardButtonColor": "#F22B2B",
-                          "saveBorderRadius": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
-                          "discardBorderRadius": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                          "saveBorderRadius": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                          "discardBorderRadius": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
                           "discardButtonVariant": "TERTIARY",
-                          "isSaveDisabled": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( !InformationSummaryCopy.updatedRowIndices.includes(currentIndex)))}}",
-                          "isDiscardDisabled": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( !InformationSummaryCopy.updatedRowIndices.includes(currentIndex)))}}"
+                          "isSaveDisabled": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( !OfflineInformation.updatedRowIndices.includes(currentIndex)))}}",
+                          "isDiscardDisabled": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( !OfflineInformation.updatedRowIndices.includes(currentIndex)))}}"
                         },
                         "Value": {
                           "allowCellWrapping": false,
@@ -2951,7 +2951,7 @@
                           "label": "Value",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Value\"]))}}",
+                          "computedValue": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Value\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": "",
@@ -2982,7 +2982,7 @@
                           "label": "Irrelevant",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow.Irrelevant ? true : false))}}",
+                          "computedValue": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow.Irrelevant ? true : false))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": "",
@@ -3013,7 +3013,7 @@
                           "label": "Poa",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Poa\"]))}}",
+                          "computedValue": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Poa\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
@@ -3043,7 +3043,7 @@
                           "label": "Filing",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Filing\"]))}}",
+                          "computedValue": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Filing\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
@@ -3073,7 +3073,7 @@
                           "label": "Special Comments",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
-                          "computedValue": "{{InformationSummaryCopy.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"SpecialComments\"]))}}",
+                          "computedValue": "{{OfflineInformation.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"SpecialComments\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
