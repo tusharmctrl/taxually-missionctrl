@@ -23,7 +23,7 @@ query Company($limit: Int!, $offset: Int!, $whereObj: missionctrl_track_company_
 				}
 			}
 		}
-		missionctrl_track_company_status_wise_aggregate(where: {Company: {TenantId: {_eq: "BB2090DC-81C1-49ED-AE2E-5016C79464AB"}}}) {
+		missionctrl_track_company_status_wise_aggregate(where: $whereObj) {
 			aggregate {
 				count
 			}

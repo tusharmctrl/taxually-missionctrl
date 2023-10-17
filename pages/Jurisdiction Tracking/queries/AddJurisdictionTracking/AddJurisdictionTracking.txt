@@ -1,0 +1,7 @@
+mutation AddJurisdictionTracking($object: missionctrl_jurisdiction_tracking_insert_input!) {
+	prod {
+		insert_missionctrl_jurisdiction_tracking_one(object: $object, if_matched: {match_columns: [company_id, country_id], update_columns: [account_checked, agent, action, sheet_link, sales_call_made, outcome, modification_request, modification_done, modification_request, letter2_sent, latest_followup, comments, deregistration]}) {
+			id
+		}
+	}
+}
