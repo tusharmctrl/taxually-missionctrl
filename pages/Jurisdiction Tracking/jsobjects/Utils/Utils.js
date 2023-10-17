@@ -14,13 +14,12 @@ export default {
 		const optionsArray = [
 			"Letter to be sent",
 			"Question the price",
-			"Signed docs provided",
+			"Documents/info provided",
 			"PoA submitted to office",
-			"Modification request",
-			"Letter with update sent",
-			"Sales request"
+			"Ready for submission",
+			"Letter sent - waiting for client",
+			"Sales request" 
 		];
-
 		return optionsArray.map(option => ({value: option, label: option}))
 	},
 	getDataForAlreadyTrackedJurisdiction: (companyId, countryId) => {

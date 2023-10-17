@@ -558,7 +558,7 @@
                           "validation": {},
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
-                          "outputFormat": "YYYY-MM-DD hh:mm:ss"
+                          "outputFormat": "MM-DD-YYYY"
                         },
                         "sheet_link": {
                           "allowCellWrapping": false,
@@ -621,7 +621,7 @@
                           "validation": {},
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
-                          "outputFormat": "YYYY-MM-DD hh:mm:ss"
+                          "outputFormat": "MM-DD-YYYY"
                         },
                         "latest_followup": {
                           "allowCellWrapping": false,
@@ -653,7 +653,7 @@
                           "validation": {},
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
-                          "outputFormat": "YYYY-MM-DD hh:mm:ss"
+                          "outputFormat": "MM-DD-YYYY"
                         },
                         "action": {
                           "allowCellWrapping": false,
@@ -717,7 +717,7 @@
                           "validation": {},
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
-                          "outputFormat": "YYYY-MM-DD hh:mm:ss"
+                          "outputFormat": "MM-DD-YYYY"
                         },
                         "modification_request": {
                           "allowCellWrapping": false,
@@ -779,7 +779,7 @@
                           "validation": {},
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
-                          "outputFormat": "YYYY-MM-DD hh:mm:ss"
+                          "outputFormat": "MM-DD-YYYY"
                         },
                         "deregistration": {
                           "allowCellWrapping": false,
