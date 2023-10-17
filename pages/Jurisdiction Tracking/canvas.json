@@ -232,6 +232,15 @@
                         },
                         {
                           "key": "isVisiblePagination"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn1.buttonColor"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn1.borderRadius"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn1.boxShadow"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -271,7 +280,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1697530793053,
+                      "columnUpdatedAt": 1697540803252,
                       "originalBottomRow": 82,
                       "defaultSelectedRowIndices": [
                         0
@@ -280,11 +289,11 @@
                       "widgetName": "JurisdictionTrackingTable",
                       "defaultPageSize": 0,
                       "columnOrder": [
+                        "companyId",
                         "Name",
                         "JurisdictionCountry",
                         "type",
                         "countryId",
-                        "companyId",
                         "account_checked",
                         "sheet_link",
                         "letter2_sent",
@@ -297,6 +306,7 @@
                         "comments",
                         "outcome",
                         "agent",
+                        "customColumn1",
                         "EditActions1"
                       ],
                       "dynamicPropertyPathList": [
@@ -317,6 +327,9 @@
                         },
                         {
                           "key": "isVisiblePagination"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn1.onClick"
                         }
                       ],
                       "displayName": "Table",
@@ -334,7 +347,8 @@
                         "latest_followup": 201,
                         "modification_done": 214,
                         "modification_request": 211,
-                        "account_checked": 197
+                        "account_checked": 197,
+                        "companyId": 124
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
@@ -349,6 +363,9 @@
                         },
                         {
                           "key": "primaryColumns.EditActions1.onSave"
+                        },
+                        {
+                          "key": "primaryColumns.customColumn1.onClick"
                         }
                       ],
                       "borderWidth": "1",
@@ -477,13 +494,13 @@
                           "fontStyle": "",
                           "enableFilter": true,
                           "enableSort": true,
-                          "isVisible": false,
+                          "isVisible": true,
                           "isDisabled": false,
                           "isCellEditable": false,
                           "isEditable": false,
                           "isCellVisible": true,
                           "isDerived": false,
-                          "label": "companyId",
+                          "label": "Company ID",
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
                           "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"companyId\"]))}}",
@@ -900,6 +917,41 @@
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
+                        },
+                        "customColumn1": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 10,
+                          "width": 150,
+                          "originalId": "customColumn1",
+                          "id": "customColumn1",
+                          "alias": "View",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "iconButton",
+                          "textSize": "0.875rem",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": true,
+                          "label": "View",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "",
+                          "sticky": "",
+                          "validation": {},
+                          "buttonStyle": "rgb(3, 179, 101)",
+                          "labelColor": "#FFFFFF",
+                          "buttonColor": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.primaryColor)))}}",
+                          "borderRadius": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+                          "boxShadow": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
+                          "customAlias": "",
+                          "iconName": "eye-open",
+                          "onClick": "{{navigateTo(\"CompanyDetails\", {companyId: currentRow.companyId, countryId: currentRow.countryId})}}"
                         }
                       },
                       "key": "pp9q4kf3sj",
