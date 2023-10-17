@@ -97,6 +97,12 @@ export default {
 			return {}
 		}
 	},
+	executeDataForSubscibedData: () => {
+		// const data = SubscriptionCountries.selectedOptionValues;
+		// if(data.length) { 
+		GetCompanyData.run()
+		// }
+	},
 	getCompaniesData: () => {
 		if(!GetCompanyData.isLoading && !GetOfflineSubscription.isLoading) {
 			const companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise;

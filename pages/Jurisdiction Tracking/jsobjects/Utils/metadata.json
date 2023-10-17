@@ -1,0 +1,15 @@
+{
+  "unpublishedCollection": {
+    "name": "Utils",
+    "pageId": "Jurisdiction Tracking",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "actions": [],
+    "archivedActions": [],
+    "variables": [],
+    "userPermissions": []
+  },
+  "id": "Jurisdiction Tracking_Utils",
+  "deleted": false,
+  "gitSyncId": "64ddbc9544dc506821b62c28_652d314644dc506821b63248"
+}

@@ -1466,6 +1466,9 @@
                       "dynamicPropertyPathList": [
                         {
                           "key": "onOptionChange"
+                        },
+                        {
+                          "key": "onDropdownClose"
                         }
                       ],
                       "displayName": "MultiSelect",
@@ -1487,7 +1490,7 @@
                         }
                       ],
                       "labelPosition": "Top",
-                      "onDropdownClose": "{{GetCompanyData.run()}}",
+                      "onDropdownClose": "{{Utils.executeDataForSubscibedData()}}",
                       "key": "jw6m1q8hoz",
                       "labelTextSize": "0.875rem",
                       "isDeprecated": false,

@@ -1,0 +1,32 @@
+query Company($limit: Int!, $offset: Int!, $whereObj: missionctrl_track_company_status_wise_bool_exp!) {
+	prod {
+		missionctrl_track_company_status_wise(limit: $limit, offset: $offset, where: $whereObj) {
+			Company {
+				Id
+				LegalNameOfBusiness
+				current_orders {
+					status {
+						name
+					}
+					subscription_status {
+						status {
+							name
+							description
+						}
+					}
+					country {
+						Id
+						NameEN
+						Code
+					}
+					LastEndDate
+				}
+			}
+		}
+		missionctrl_track_company_status_wise_aggregate(where: {Company: {TenantId: {_eq: "BB2090DC-81C1-49ED-AE2E-5016C79464AB"}}}) {
+			aggregate {
+				count
+			}
+		}
+	}
+}
