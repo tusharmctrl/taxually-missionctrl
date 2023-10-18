@@ -1118,7 +1118,7 @@
               "jsonPathKeys": [
                 "JurisdictionTrackingTable.pageOffset",
                 " FullMode.isSwitchedOn ? 1000 : JurisdictionTrackingTable.pageSize",
-                "\"%\" + JurisdictionTrackingTable.searchText + \"%\""
+                "FullMode.isSwitchedOn ? \"%\" + JurisdictionTrackingTable.searchText + \"%\": \"%%\""
               ],
               "timeoutInMillisecond": 10000
             }

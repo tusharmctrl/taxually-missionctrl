@@ -1613,11 +1613,11 @@
               "pluginType": "API",
               "jsonPathKeys": [
                 "\"%\" +CompanyListing.searchText + \"%\"",
-                "GetCompanyStatusWise.selectedOptionValue === \"\" ? {} : {_eq: GetCompanyStatusWise.selectedOptionValue}",
+                "CompanyListing.pageOffset",
                 "CompanyListing.pageSize",
                 "CompanyStatus.selectedOptionValue === \"\" ? {} : {_eq: CompanyStatus.selectedOptionValue}",
-                "Utils.createAQueryForSubscribedData()",
-                "CompanyListing.pageOffset"
+                "GetCompanyStatusWise.selectedOptionValue === \"\" ? {} : {_eq: GetCompanyStatusWise.selectedOptionValue}",
+                "Utils.createAQueryForSubscribedData()"
               ],
               "timeoutInMillisecond": 10000
             }
