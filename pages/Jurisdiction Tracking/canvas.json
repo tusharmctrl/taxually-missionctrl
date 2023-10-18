@@ -1116,9 +1116,9 @@
               "confirmBeforeExecute": false,
               "pluginType": "API",
               "jsonPathKeys": [
-                "JurisdictionTrackingTable.pageOffset",
                 " FullMode.isSwitchedOn ? 1000 : JurisdictionTrackingTable.pageSize",
-                "FullMode.isSwitchedOn ? \"%\" + JurisdictionTrackingTable.searchText + \"%\": \"%%\""
+                "FullMode.isSwitchedOn ? \"%\" + JurisdictionTrackingTable.searchText + \"%\": \"%%\"",
+                "JurisdictionTrackingTable.pageOffset"
               ],
               "timeoutInMillisecond": 10000
             }

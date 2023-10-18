@@ -18,7 +18,8 @@ export default {
 			"PoA submitted to office",
 			"Ready for submission",
 			"Letter sent - waiting for client",
-			"Sales request" 
+			"Sales request",
+			"Waiting for original documents"
 		];
 		return optionsArray.map(option => ({value: option, label: option}))
 	},
