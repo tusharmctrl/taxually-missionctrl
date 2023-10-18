@@ -84,8 +84,8 @@
                         "paragraph",
                         "label"
                       ],
-                      "topRow": 1,
-                      "bottomRow": 6,
+                      "topRow": 2,
+                      "bottomRow": 7,
                       "parentRowSpace": 10,
                       "type": "TEXT_WIDGET",
                       "hideCard": false,
@@ -126,11 +126,11 @@
                       "isLoading": false,
                       "mobileTopRow": 1,
                       "responsiveBehavior": "fill",
-                      "originalTopRow": 1,
+                      "originalTopRow": 2,
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
                       "mobileLeftColumn": 26,
                       "maxDynamicHeight": 9000,
-                      "originalBottomRow": 6,
+                      "originalBottomRow": 7,
                       "fontSize": "1.875rem",
                       "minDynamicHeight": 4
                     },
@@ -342,9 +342,9 @@
                         "JurisdictionCountry": 191,
                         "comment": 134,
                         "type": 96,
-                        "action": 114,
+                        "action": 188,
                         "letter2_sent": 177,
-                        "latest_followup": 201,
+                        "latest_followup": 126,
                         "modification_done": 214,
                         "modification_request": 211,
                         "account_checked": 197,
@@ -990,8 +990,8 @@
                       "searchTags": [
                         "boolean"
                       ],
-                      "topRow": 1,
-                      "bottomRow": 5,
+                      "topRow": 2,
+                      "bottomRow": 6,
                       "parentRowSpace": 10,
                       "type": "SWITCH_WIDGET",
                       "alignWidget": "LEFT",
@@ -1028,8 +1028,10 @@
                       "isLoading": false,
                       "mobileTopRow": 1,
                       "responsiveBehavior": "fill",
+                      "originalTopRow": 1,
                       "mobileLeftColumn": 51,
                       "maxDynamicHeight": 9000,
+                      "originalBottomRow": 5,
                       "minDynamicHeight": 4
                     }
                   ],

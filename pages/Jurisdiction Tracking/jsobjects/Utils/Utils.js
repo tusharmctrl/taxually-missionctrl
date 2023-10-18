@@ -75,21 +75,57 @@ export default {
 					const getOtherDataFromDB = Utils.getDataForAlreadyTrackedJurisdiction(Id, subscribed.country?.Id);
 					return { Name: LegalNameOfBusiness, JurisdictionCountry: subscribed.country?.NameEN, countryId: subscribed.country?.Id, companyId: Id, type: "ONLINE", ...getOtherDataFromDB }
 				});
-
-				console.log(onlineSubscriptions)
-
 				return [...offlineSubscriptions, ...onlineSubscriptions];
 			});
 			return jurisdictionWiseData;
 		}
 	},
 	mutateJurisdictionTracker: async() => {
-		const {account_checked, action, comments, companyId, countryId, deregistration, latest_followup, letter2_sent, modification_done, modification_request, sales_call_made, sheet_link, outcome, agent} = JurisdictionTrackingTable.updatedRow;
-		console.log(letter2_sent)
+		const {
+			account_checked,
+			action,
+			comments,
+			companyId,
+			countryId,
+			deregistration,
+			latest_followup,
+			letter2_sent,
+			modification_done,
+			modification_request,
+			sales_call_made,
+			sheet_link,
+			outcome,
+			agent
+		} = JurisdictionTrackingTable.updatedRow;
 		const convertToInt = deregistration ? 1 : 0;
-		const mutationObject = {account_checked, action, comments, company_id: companyId, country_id: countryId, deregistration: convertToInt, latest_followup, letter2_sent, modification_done, modification_request, sales_call_made, sheet_link, outcome, agent}
-		await AddJurisdictionTracking.run({object: mutationObject}).then((resp) => resp.data ? showAlert("Updated Jurisdiction Successfully!", "success") : showAlert("Something Went Wrong!", "error"));
-		await Utils.onLoad();
-		Utils.getCompaniesData();
+		const mutationObject = {
+			account_checked: account_checked || null,
+			action,
+			comments,
+			company_id: companyId,
+			country_id: countryId,
+			deregistration: convertToInt,
+			latest_followup: latest_followup || null,
+			letter2_sent: letter2_sent || null,
+			modification_done: modification_done || null,
+			modification_request,
+			sales_call_made: sales_call_made || null,
+			sheet_link,
+			outcome,
+			agent
+		};
+		console.log(mutationObject);
+		try {
+			const response = await AddJurisdictionTracking.run({object: mutationObject});
+			if (response.data) {
+				showAlert("Updated Jurisdiction Successfully!", "success");
+			} else {
+				showAlert("Something Went Wrong!", "error");
+			}
+			await Utils.onLoad();
+			Utils.getCompaniesData();
+		} catch (error) {
+			console.error("An error occurred:", error);
+		}
 	}
 }
