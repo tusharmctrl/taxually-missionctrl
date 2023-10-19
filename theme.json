@@ -39,7 +39,7 @@
   "properties": {
     "colors": {
       "primaryColor": "#3b82f6",
-      "backgroundColor": "#f4f4f5"
+      "backgroundColor": "#eff6ff"
     },
     "borderRadius": {
       "appBorderRadius": "0.375rem"

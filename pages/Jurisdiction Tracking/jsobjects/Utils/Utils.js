@@ -19,7 +19,8 @@ export default {
 			"Ready for submission",
 			"Letter sent - waiting for client",
 			"Sales request",
-			"Waiting for original documents"
+			"Waiting for original documents",
+			"Modification request"
 		];
 		return optionsArray.map(option => ({value: option, label: option}))
 	},
