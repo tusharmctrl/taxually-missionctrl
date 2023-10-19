@@ -2,8 +2,8 @@
   "pluginType": "JS",
   "pluginId": "js-plugin",
   "unpublishedAction": {
-    "name": "handleShowMissingDataButton",
-    "fullyQualifiedName": "Utils.handleShowMissingDataButton",
+    "name": "getLastIdOfCompanyFromTrackingTable",
+    "fullyQualifiedName": "Utils.getLastIdOfCompanyFromTrackingTable",
     "datasource": {
       "name": "UNUSED_DATASOURCE",
       "pluginId": "js-plugin",
@@ -20,15 +20,8 @@
       "paginationType": "NONE",
       "encodeParamsToggle": true,
       "selfReferencingDataPaths": [],
-      "jsArguments": [
-        {
-          "name": "id"
-        },
-        {
-          "name": "country_id"
-        }
-      ],
-      "isAsync": true
+      "jsArguments": [],
+      "isAsync": false
     },
     "executeOnLoad": false,
     "dynamicBindingPathList": [
@@ -42,9 +35,10 @@
     "userSetOnLoad": false,
     "confirmBeforeExecute": false,
     "policies": [],
-    "userPermissions": []
+    "userPermissions": [],
+    "createdAt": "2023-10-19T05:54:48Z"
   },
-  "id": "Companies_Utils.handleShowMissingDataButton",
+  "id": "Companies_Utils.getLastIdOfCompanyFromTrackingTable",
   "deleted": false,
-  "gitSyncId": "64ddbc9544dc506821b62c28_64e4666944dc506821b62cd2"
+  "gitSyncId": "64ddbc9544dc506821b62c28_6530c4a844dc506821b632ea"
 }

@@ -1,0 +1,7 @@
+query GetRestOfCompanies {
+  prod {
+    Companies(where: {TenantId: {_eq: "BB2090DC-81C1-49ED-AE2E-5016C79464AB"}, Id: {_gt: {{Utils.getLastIdOfCompanyFromTrackingTable()}}}}) {
+      Id
+    }
+  }
+}

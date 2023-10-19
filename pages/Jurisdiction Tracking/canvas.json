@@ -28,7 +28,7 @@
             {
               "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
               "mobileBottomRow": 14,
-              "widgetName": "Container1",
+              "widgetName": "TrackerContainer",
               "borderColor": "#E0DEDE",
               "isCanvas": true,
               "displayName": "Container",

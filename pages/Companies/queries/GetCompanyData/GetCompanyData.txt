@@ -51,5 +51,4 @@ query CompanyDetails($limit: Int!, $offset: Int!, $searchText: String!, $statusF
 			}
 		}
 	}
-
 }

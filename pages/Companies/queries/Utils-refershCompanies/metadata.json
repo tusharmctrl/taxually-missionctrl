@@ -2,8 +2,8 @@
   "pluginType": "JS",
   "pluginId": "js-plugin",
   "unpublishedAction": {
-    "name": "getMissingDocuments",
-    "fullyQualifiedName": "Utils.getMissingDocuments",
+    "name": "refershCompanies",
+    "fullyQualifiedName": "Utils.refershCompanies",
     "datasource": {
       "name": "UNUSED_DATASOURCE",
       "pluginId": "js-plugin",
@@ -21,7 +21,7 @@
       "encodeParamsToggle": true,
       "selfReferencingDataPaths": [],
       "jsArguments": [],
-      "isAsync": false
+      "isAsync": true
     },
     "executeOnLoad": false,
     "dynamicBindingPathList": [
@@ -37,7 +37,7 @@
     "policies": [],
     "userPermissions": []
   },
-  "id": "Companies_Utils.getMissingDocuments",
+  "id": "Companies_Utils.refershCompanies",
   "deleted": false,
-  "gitSyncId": "64ddbc9544dc506821b62c28_64e4978544dc506821b62ce0"
+  "gitSyncId": "64ddbc9544dc506821b62c28_6530c44f44dc506821b632e8"
 }

@@ -1,0 +1,9 @@
+mutation AddNewCompaniesTracking($objects: [missionctrl_track_company_status_wise_insert_input!]!) {
+  prod {
+    insert_missionctrl_track_company_status_wise(objects: $objects) {
+      returning {
+        id
+      }
+    }
+  }
+}

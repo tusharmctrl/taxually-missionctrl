@@ -1,0 +1,7 @@
+query GetLastRecordOfTrackingTable{
+  prod {
+    missionctrl_track_company_status_wise(order_by:{company_id:desc}, limit: 1) {
+      company_id
+    }
+  }
+}

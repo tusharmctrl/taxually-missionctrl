@@ -4,6 +4,7 @@ export default {
 			[
 				GetCompanyData.run(),
 				GetOfflineSubscription.run(),
+				GetLastRecord.run()
 			]
 		)
 	},
@@ -25,10 +26,6 @@ export default {
 			return {value: country.Id, label: country.NameEN }
 		})
 	},
-	handleShowMissingDataButton: async(id, country_id) => {
-		await GetMissingDocsInformation.run({id:id, country_id:country_id}).then(resp => console.log(resp))
-		showModal("Modal1")
-	},
 	getCountOfCompaniesStatusWise: () => {
 		const statusWiseCompanyData = GetCountOfCompaniesStatusWise.data.data.prod.missionctrl_track_company_status_wise.map(item => item.CompanyStatus.name);;
 		const statusCounts = statusWiseCompanyData.reduce((counts, statusName) => {
@@ -42,24 +39,6 @@ export default {
 		}));
 
 		return statusWiseCompanyCountList;
-	},
-	getMissingDocuments: () => {
-		const allDocTypes = [];
-		const getCurrentDocs = GetMissingDocsInformation.data.data.prod.Companies_by_pk.Documents
-		getCurrentDocs.forEach((documents) => {
-			if(!allDocTypes.some(doc => doc.documentType === documents.DocumentType.NameEN)){
-				allDocTypes.push({id: documents.Id, documentType: documents.DocumentType.NameEN, missing: false})
-			}
-		})
-		const requiredDocs = GetMissingDocsInformation.data.data.prod.missionctrl_track_missing_docs
-		const missingDocs = [];
-		requiredDocs.forEach((doc) => {
-			const hasAlreadyBeenAdded = allDocTypes.some(existingDoc => existingDoc.documentType === doc.DocumentType.NameEN)
-			if(!hasAlreadyBeenAdded){
-				missingDocs.push({id: doc.DocumentType.Id, documentType: doc.DocumentType.NameEN, missing: true})
-			}
-		})
-		return missingDocs
 	},
 	createANewWave: async() => {
 		try{
@@ -97,11 +76,29 @@ export default {
 			return {}
 		}
 	},
-	executeDataForSubscibedData: () => {
-		// const data = SubscriptionCountries.selectedOptionValues;
-		// if(data.length) { 
-		GetCompanyData.run()
-		// }
+	executeDataForSubscibedData: async() => {
+		await GetCompanyData.run()
+	},
+	refershCompanies: async() => {
+		await GetRestOfTheCompanies.run();
+		const companies = GetRestOfTheCompanies.data.data.prod.Companies;
+		if(companies.length) {
+			const newObjects = companies.map(company => {
+				return {
+					company_id: company.Id,
+					status_id: 3,
+					wave_id: 5
+				}
+			})
+			await AddNewCompaniesTracking.run({objects: newObjects}).then(res => res.data ? showAlert("Companies are now synced!", "success") : showAlert("Something went wrong", "error"))
+			await GetLastRecord.run()
+		} else {
+			showAlert("Companies are already synced!", "info")
+		}
+	},
+	getLastIdOfCompanyFromTrackingTable: () => {
+		const lastCompanyId = GetLastRecord.data.data.prod.missionctrl_track_company_status_wise;
+		return lastCompanyId[0].company_id
 	},
 	getCompaniesData: () => {
 		if(!GetCompanyData.isLoading && !GetOfflineSubscription.isLoading) {

@@ -7266,9 +7266,9 @@
               "confirmBeforeExecute": false,
               "pluginType": "API",
               "jsonPathKeys": [
+                "this.params.company_id",
                 "this.params.country_id",
-                "this.params.document_id",
-                "this.params.company_id"
+                "this.params.document_id"
               ],
               "timeoutInMillisecond": 10000
             },
