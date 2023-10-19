@@ -42,7 +42,7 @@ export default {
 				modification_done: checkExistingRecord.modification_done,
 				modification_request: checkExistingRecord.modification_request,
 				sales_call_made: checkExistingRecord.sales_call_made,
-				deregistration: checkExistingRecord.deregistration ? true : false,
+				deregistration: checkExistingRecord.deregistration,
 				outcome: checkExistingRecord.outcome,
 				agent: checkExistingRecord.agent
 			}
@@ -102,14 +102,13 @@ export default {
 			outcome,
 			agent
 		} = JurisdictionTrackingTable.updatedRow;
-		const convertToInt = deregistration ? 1 : 0;
 		const mutationObject = {
 			account_checked: account_checked || null,
 			action,
 			comments,
 			company_id: companyId,
 			country_id: countryId,
-			deregistration: convertToInt,
+			deregistration,
 			latest_followup: latest_followup || null,
 			letter2_sent: letter2_sent || null,
 			modification_done: modification_done || null,
