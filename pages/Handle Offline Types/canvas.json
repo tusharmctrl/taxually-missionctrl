@@ -3893,8 +3893,8 @@
               "confirmBeforeExecute": false,
               "pluginType": "API",
               "jsonPathKeys": [
-                "this.params.type",
-                "this.params.id"
+                "this.params.id",
+                "this.params.type"
               ],
               "timeoutInMillisecond": 10000
             },
@@ -3904,8 +3904,8 @@
               "confirmBeforeExecute": false,
               "pluginType": "API",
               "jsonPathKeys": [
-                "this.params.type",
-                "this.params.id"
+                "this.params.id",
+                "this.params.type"
               ],
               "timeoutInMillisecond": 10000
             },
