@@ -241,6 +241,9 @@
                         },
                         {
                           "key": "primaryColumns.customColumn1.boxShadow"
+                        },
+                        {
+                          "key": "primaryColumns.deregistration.selectOptions"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -808,7 +811,7 @@
                           "alias": "deregistration",
                           "horizontalAlignment": "LEFT",
                           "verticalAlignment": "CENTER",
-                          "columnType": "checkbox",
+                          "columnType": "select",
                           "textColor": "",
                           "textSize": "0.875rem",
                           "fontStyle": "",
@@ -826,7 +829,8 @@
                           "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"deregistration\"]))}}",
                           "sticky": "",
                           "validation": {},
-                          "cellBackground": ""
+                          "cellBackground": "",
+                          "selectOptions": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( Utils.getOptionsForDeregistration()))}}"
                         },
                         "comments": {
                           "allowCellWrapping": false,
@@ -1116,9 +1120,9 @@
               "confirmBeforeExecute": false,
               "pluginType": "API",
               "jsonPathKeys": [
-                " FullMode.isSwitchedOn ? 1000 : JurisdictionTrackingTable.pageSize",
-                "FullMode.isSwitchedOn ? \"%\" + JurisdictionTrackingTable.searchText + \"%\": \"%%\"",
-                "JurisdictionTrackingTable.pageOffset"
+                "!FullMode.isSwitchedOn ? \"%\" + JurisdictionTrackingTable.searchText + \"%\": \"%%\"",
+                "JurisdictionTrackingTable.pageOffset",
+                " FullMode.isSwitchedOn ? 1000 : JurisdictionTrackingTable.pageSize"
               ],
               "timeoutInMillisecond": 10000
             }

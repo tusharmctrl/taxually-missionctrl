@@ -23,6 +23,10 @@ export default {
 		];
 		return optionsArray.map(option => ({value: option, label: option}))
 	},
+	getOptionsForDeregistration: () => {
+		const optionsArray = ["Unsubscription", "Deregistration"];
+		return optionsArray.map((option, index) => ({value: option, label: option}))
+	},
 	getDataForAlreadyTrackedJurisdiction: (companyId, countryId) => {
 		const allTrackedJurisdictions = GetTrackingSubscriptionData.data.data.prod.missionctrl_jurisdiction_tracking;
 		const checkExistingRecord = allTrackedJurisdictions.find((jurisdiction) => jurisdiction.company_id == companyId && jurisdiction.country_id == countryId)
