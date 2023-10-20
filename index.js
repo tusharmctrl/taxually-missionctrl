@@ -3,13 +3,14 @@ const data = require("./JurisdictionData.json")
 const axios = require('axios');
 const fs = require("fs")
 const convertToDate = (dateString) => {
-    if(dateString) {
-        var parts = dateString.split('/');
-        var formattedDate = new Date(parts[2], parts[1] - 1, parts[0]);
-        return formattedDate
-    }
-    return null;
+  if(dateString) {
+      var parts = dateString.split('/');
+      var formattedDate = new Date(Date.UTC(parts[2], parts[1] - 1, parts[0]));
+      return formattedDate;
+  }
+  return null;
 }
+
 
 const dataToBeInserted = data.map(element => {
     return {
