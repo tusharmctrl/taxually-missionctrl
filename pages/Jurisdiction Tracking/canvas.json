@@ -244,6 +244,12 @@
                         },
                         {
                           "key": "primaryColumns.deregistration.selectOptions"
+                        },
+                        {
+                          "key": "primaryColumns.application_submitted_to_ta.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.poa_received_date.computedValue"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -283,7 +289,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1697540803252,
+                      "columnUpdatedAt": 1697792508581,
                       "originalBottomRow": 82,
                       "defaultSelectedRowIndices": [
                         0
@@ -300,6 +306,7 @@
                         "account_checked",
                         "sheet_link",
                         "letter2_sent",
+                        "poa_received_date",
                         "latest_followup",
                         "action",
                         "modification_done",
@@ -309,6 +316,7 @@
                         "comments",
                         "outcome",
                         "agent",
+                        "application_submitted_to_ta",
                         "customColumn1",
                         "EditActions1"
                       ],
@@ -350,7 +358,7 @@
                         "latest_followup": 126,
                         "modification_done": 214,
                         "modification_request": 211,
-                        "account_checked": 197,
+                        "account_checked": 132,
                         "companyId": 124
                       },
                       "parentRowSpace": 10,
@@ -956,6 +964,70 @@
                           "customAlias": "",
                           "iconName": "eye-open",
                           "onClick": "{{navigateTo(\"CompanyDetails\", {companyId: currentRow.companyId, countryId: currentRow.countryId})}}"
+                        },
+                        "application_submitted_to_ta": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 17,
+                          "width": 150,
+                          "originalId": "application_submitted_to_ta",
+                          "id": "application_submitted_to_ta",
+                          "alias": "application_submitted_to_ta",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "date",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": true,
+                          "isEditable": true,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Application Submitted to TA",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"application_submitted_to_ta\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": "",
+                          "outputFormat": "MM-DD-YYYY",
+                          "inputFormat": "YYYY-MM-DDTHH:mm:ss"
+                        },
+                        "poa_received_date": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 19,
+                          "width": 150,
+                          "originalId": "poa_received_date",
+                          "id": "poa_received_date",
+                          "alias": "poa_received_date",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "date",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": true,
+                          "isEditable": true,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "POA Received Date",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"poa_received_date\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": "",
+                          "inputFormat": "YYYY-MM-DDTHH:mm:ss",
+                          "outputFormat": "MM-DD-YYYY"
                         }
                       },
                       "key": "pp9q4kf3sj",

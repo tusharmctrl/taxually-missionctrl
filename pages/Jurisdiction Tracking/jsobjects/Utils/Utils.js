@@ -45,7 +45,9 @@ export default {
 				sales_call_made: checkExistingRecord.sales_call_made,
 				deregistration: checkExistingRecord.deregistration,
 				outcome: checkExistingRecord.outcome,
-				agent: checkExistingRecord.agent
+				agent: checkExistingRecord.agent,
+				application_submitted_to_ta: checkExistingRecord.application_submitted_to_ta,
+				poa_received_date: checkExistingRecord.poa_received_date
 			}
 		} else {
 			return {
@@ -60,7 +62,9 @@ export default {
 				sales_call_made: "",
 				deregistration: "",
 				outcome: "",
-				agent: ""
+				agent: "",
+				application_submitted: "",
+				poa_received_date: ""
 			}
 		}
 	},
@@ -101,7 +105,9 @@ export default {
 			sales_call_made,
 			sheet_link,
 			outcome,
-			agent
+			agent,
+			application_submitted_to_ta,
+			poa_received_date
 		} = JurisdictionTrackingTable.updatedRow;
 		const mutationObject = {
 			account_checked: account_checked || null,
@@ -117,7 +123,9 @@ export default {
 			sales_call_made: sales_call_made || null,
 			sheet_link,
 			outcome,
-			agent
+			agent,
+			application_submitted_to_ta: application_submitted_to_ta || null,
+			poa_received_date: poa_received_date || null
 		};
 		console.log(mutationObject);
 		try {
