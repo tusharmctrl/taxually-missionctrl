@@ -63,7 +63,7 @@ export default {
 				deregistration: "",
 				outcome: "",
 				agent: "",
-				application_submitted: "",
+				application_submitted_to_ta: "",
 				poa_received_date: ""
 			}
 		}

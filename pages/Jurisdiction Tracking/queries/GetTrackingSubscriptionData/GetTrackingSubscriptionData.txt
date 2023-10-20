@@ -17,7 +17,7 @@ query GetJurisdictionData {
 			deregistration
 			sheet_link
 			outcome
-			application_submitted
+			application_submitted_to_ta
 			poa_received_date
 		}
 	}
