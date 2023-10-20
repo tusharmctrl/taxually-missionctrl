@@ -127,7 +127,7 @@ export default {
 			application_submitted_to_ta: application_submitted_to_ta || null,
 			poa_received_date: poa_received_date || null
 		};
-		console.log(mutationObject);
+		console.log(JSON.stringify(mutationObject));
 		try {
 			const response = await AddJurisdictionTracking.run({object: mutationObject});
 			if (response.data) {
