@@ -6,10 +6,6 @@ export default {
 		])
 		// Utils.getCompaniesData();
 	},
-	executeCompaniesOnChange: async() => {
-		await GetCompanyData.run();
-		Utils.getCompaniesData();
-	},
 	getOptionsForAction: () => {
 		const optionsArray = [
 			"Letter to be sent",
@@ -88,7 +84,8 @@ export default {
 	getCompaniesData: async() => {
 		await GetTrackingSubscriptionData.run();
 		if(!Utils.isFilterActive()) {
-			if(!GetCompanyData.isLoading && !GetOfflineSubscription.isLoading && !GetTrackingSubscriptionData.isLoading) {
+			await GetCompanyData.run();
+			if(!GetOfflineSubscription.isLoading && !GetTrackingSubscriptionData.isLoading) {
 				const companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise;
 				const jurisdictionWiseData = companyData.flatMap((company) => {
 					const { LegalNameOfBusiness } = company.Company;
