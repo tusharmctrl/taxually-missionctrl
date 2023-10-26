@@ -136,6 +136,7 @@
                     },
                     {
                       "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
+                      "multiRowSelection": true,
                       "borderColor": "#E0DEDE",
                       "isVisibleDownload": true,
                       "iconSVG": "/static/media/icon.24905525921dd6f5ff46d0dd843b9e12.svg",
@@ -283,12 +284,10 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1698311340273,
+                      "columnUpdatedAt": 1698318094530,
                       "originalBottomRow": 106,
                       "primaryColumnId": "id",
-                      "defaultSelectedRowIndices": [
-                        0
-                      ],
+                      "defaultSelectedRowIndices": "[]",
                       "mobileBottomRow": 45,
                       "widgetName": "JurisdictionTrackingTable",
                       "defaultPageSize": 0,
@@ -993,7 +992,7 @@
                         "id": {
                           "allowCellWrapping": false,
                           "allowSameOptionsInNewRow": true,
-                          "index": 19,
+                          "index": 3,
                           "width": 150,
                           "originalId": "id",
                           "id": "id",
@@ -1006,7 +1005,7 @@
                           "fontStyle": "",
                           "enableFilter": true,
                           "enableSort": true,
-                          "isVisible": false,
+                          "isVisible": true,
                           "isDisabled": false,
                           "isCellEditable": false,
                           "isEditable": false,
@@ -1023,7 +1022,7 @@
                         "created_at": {
                           "allowCellWrapping": false,
                           "allowSameOptionsInNewRow": true,
-                          "index": 20,
+                          "index": 11,
                           "width": 150,
                           "originalId": "created_at",
                           "id": "created_at",
@@ -1053,7 +1052,7 @@
                         "Company": {
                           "allowCellWrapping": false,
                           "allowSameOptionsInNewRow": true,
-                          "index": 21,
+                          "index": 18,
                           "width": 150,
                           "originalId": "Company",
                           "id": "Company",
@@ -1066,7 +1065,7 @@
                           "fontStyle": "",
                           "enableFilter": true,
                           "enableSort": true,
-                          "isVisible": false,
+                          "isVisible": true,
                           "isDisabled": false,
                           "isCellEditable": false,
                           "isEditable": false,
@@ -1083,7 +1082,7 @@
                         "Country": {
                           "allowCellWrapping": false,
                           "allowSameOptionsInNewRow": true,
-                          "index": 22,
+                          "index": 19,
                           "width": 150,
                           "originalId": "Country",
                           "id": "Country",
@@ -1096,7 +1095,7 @@
                           "fontStyle": "",
                           "enableFilter": true,
                           "enableSort": true,
-                          "isVisible": false,
+                          "isVisible": true,
                           "isDisabled": false,
                           "isCellEditable": false,
                           "isEditable": false,

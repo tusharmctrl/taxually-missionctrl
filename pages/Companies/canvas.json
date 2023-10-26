@@ -187,6 +187,9 @@
                         },
                         {
                           "key": "onSearchTextChanged"
+                        },
+                        {
+                          "key": "onPageChange"
                         }
                       ],
                       "compactMode": "DEFAULT",

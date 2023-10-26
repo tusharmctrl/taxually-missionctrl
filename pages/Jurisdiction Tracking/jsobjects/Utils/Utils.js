@@ -204,29 +204,72 @@ export default {
 			console.error("An error occurred:", error);
 		}
 	},
+	convertUpdateDataToJurisdictionForm: (data, action="UPDATE") => {
+		if(action === "UPDATE") {
+			const dataToBeUpdated = data.map(data => {
+				console.log(data, "UP IN FUNC")
+				delete data["allFields"]["JurisdictionCountry"];
+				delete data["allFields"]["Name"];
+				delete data["allFields"]["type"];
+				delete data["allFields"]["id"];
+				if(data["allFields"]["Company"]) delete data["allFields"]["Company"];
+				if(data["allFields"]["Country"]) delete data["allFields"]["Country"];
+				return {
+					...data["allFields"],
+					account_checked: data.allFields.account_checked || null,
+					latest_followup: data.allFields.latest_followup || null,
+					letter2_sent: data.allFields.letter2_sent || null,
+					modification_done: data.allFields.modification_done || null,
+					application_submitted_to_ta: data.allFields.application_submitted_to_ta || null,
+					poa_received_date: data.allFields.poa_received_date || null,
+					sales_call_made: data.allFields.sales_call_made || null,
+				}
+			})
+			return dataToBeUpdated
+		} else {
+			const dataToBeUpdated = data.map(data => {
+				delete data["JurisdictionCountry"];
+				delete data["Name"];
+				delete data["type"];
+				delete data["id"];
+				if(data["Company"]) delete data["Company"];
+				if(data["Country"]) delete data["Country"];
+				return {
+					...data,
+					account_checked: data.account_checked || null,
+					latest_followup: data.latest_followup || null,
+					letter2_sent: data.letter2_sent || null,
+					modification_done: data.modification_done || null,
+					application_submitted_to_ta: data.application_submitted_to_ta || null,
+					poa_received_date: data.poa_received_date || null,
+					sales_call_made: data.sales_call_made || null,
+				}
+			})
+			return dataToBeUpdated
+		}
+
+	},
 	multipleUpdate: async() => {
 		const tableUpdateData = JurisdictionTrackingTable.updatedRows;
-		const dataToBeUpdated = tableUpdateData.map(data => {
-			console.log(data.allFields)
-			delete data["allFields"]["JurisdictionCountry"];
-			delete data["allFields"]["Name"];
-			delete data["allFields"]["type"];
-			delete data["allFields"]["id"];
-			if(data["allFields"]["Company"]) delete data["allFields"]["Company"];
-			if(data["allFields"]["Country"]) delete data["allFields"]["Country"];
-			return {
-				...data["allFields"],
-				account_checked: data.allFields.account_checked || null,
-				latest_followup: data.allFields.latest_followup || null,
-				letter2_sent: data.allFields.letter2_sent || null,
-				modification_done: data.allFields.modification_done || null,
-				application_submitted_to_ta: data.allFields.application_submitted_to_ta || null,
-				poa_received_date: data.allFields.poa_received_date || null,
-				sales_call_made: data.allFields.sales_call_made || null,
-			}
-		})
-		console.log(dataToBeUpdated)
-		const response = await MultipleJurisdictionTracking.run({objects: dataToBeUpdated});
+		console.log(tableUpdateData.length)
+		const finalDataToBeUpdated = Utils.convertUpdateDataToJurisdictionForm(tableUpdateData);
+		if(JurisdictionTrackingTable.selectedRows.length) {
+			const updatableFormat = Utils.convertUpdateDataToJurisdictionForm(JurisdictionTrackingTable.selectedRows, "SELECTED");
+			const firstData = {...finalDataToBeUpdated[0]};
+			delete firstData["company_id"];
+			delete firstData["country_id"];
+			updatableFormat.filter((data) => {
+				console.log(data, "*****")
+				finalDataToBeUpdated.push({
+					...firstData,
+					company_id: data.company_id,
+					country_id: data.country_id
+				})
+			})
+		}
+		console.log({finalDataToBeUpdated})
+		// return finalDataToBeUpdated
+		const response = await MultipleJurisdictionTracking.run({objects: finalDataToBeUpdated});
 		if (response.data) {
 			Utils.getCompaniesData();
 			showAlert("Updated Jurisdiction Successfully!", "success");
