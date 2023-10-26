@@ -1,6 +1,6 @@
-query GetJurisdictionData {
+query GetJurisdictionData($whereObj: missionctrl_jurisdiction_tracking_bool_exp!) {
 	prod {
-		missionctrl_jurisdiction_tracking {
+		missionctrl_jurisdiction_tracking(where: $whereObj) {
 			account_checked
 			action
 			agent
@@ -19,6 +19,12 @@ query GetJurisdictionData {
 			outcome
 			application_submitted_to_ta
 			poa_received_date
+			Company {
+				LegalNameOfBusiness
+			}
+			Country {
+				NameEN
+			}
 		}
 	}
 }

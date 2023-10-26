@@ -1,10 +1,10 @@
 export default {
 	onLoad: async() => {
 		await Promise.all([
-			GetCompanyData.run(),
 			GetOfflineSubscription.run(),
 			GetTrackingSubscriptionData.run()
 		])
+		// Utils.getCompaniesData();
 	},
 	executeCompaniesOnChange: async() => {
 		await GetCompanyData.run();
@@ -24,14 +24,31 @@ export default {
 		];
 		return optionsArray.map(option => ({value: option, label: option}))
 	},
+	getOptionsForAgent: () => {
+		const optionsArray = [
+			'Moraka Thoka',
+			'Lara Henrickson',
+			'Johnne Ramsay',
+			'Ingrid Swart',
+			'Amber Hobson',
+			'Lerato Kgaladi',
+			'Emile Brandt',
+			'Elizabeth Weyer-Henderson',
+			'El Mahdi'
+		];
+		return optionsArray.map(option => ({value: option, label: option}))
+	},
+	getOptionsForCheckedOn: () => {
+		return [{"label": "empty", value: true}, {"label": "not empty", value: false}];
+	},
 	getOptionsForDeregistration: () => {
-		const optionsArray = ["Unsubscription", "Deregistration"];
+		const optionsArray = ["", "Unsubscription", "Deregistration"];
 		return optionsArray.map((option, index) => ({value: option, label: option}))
 	},
+
 	getDataForAlreadyTrackedJurisdiction: (companyId, countryId) => {
 		const allTrackedJurisdictions = GetTrackingSubscriptionData.data.data.prod.missionctrl_jurisdiction_tracking;
 		const checkExistingRecord = allTrackedJurisdictions.find((jurisdiction) => jurisdiction.company_id == companyId && jurisdiction.country_id == countryId)
-		// console.log(checkExistingRecord, "****")
 		if(checkExistingRecord) {
 			return {
 				comments: checkExistingRecord.comments,
@@ -68,35 +85,78 @@ export default {
 			}
 		}
 	},
-	getCompaniesData: () => {
-		if(!GetCompanyData.isLoading && !GetOfflineSubscription.isLoading && !GetTrackingSubscriptionData.isLoading) {
-			const companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise;
-			const jurisdictionWiseData = companyData.flatMap((company) => {
-				const { LegalNameOfBusiness } = company.Company;
-				const { Id } = company.Company;
-				const offlineSubscriptions = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions
-				.filter(sub => sub.company_id === Id)
-				.map(subscribed => {
-					const getOtherDataFromDB = Utils.getDataForAlreadyTrackedJurisdiction(Id, subscribed.country?.Id);
-					return { Name: LegalNameOfBusiness, JurisdictionCountry: subscribed.Country.NameEN, countryId: subscribed.country_id, companyId: Id, type: "OFFLINE", ...getOtherDataFromDB }
-				})
-				const onlineSubscriptions = company.Company.current_orders
-				.map(subscribed => {
-					const getOtherDataFromDB = Utils.getDataForAlreadyTrackedJurisdiction(Id, subscribed.country?.Id);
-					return { Name: LegalNameOfBusiness, JurisdictionCountry: subscribed.country?.NameEN, countryId: subscribed.country?.Id, companyId: Id, type: "ONLINE", ...getOtherDataFromDB }
+	getCompaniesData: async() => {
+		await GetTrackingSubscriptionData.run();
+		if(!Utils.isFilterActive()) {
+			if(!GetCompanyData.isLoading && !GetOfflineSubscription.isLoading && !GetTrackingSubscriptionData.isLoading) {
+				const companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise;
+				const jurisdictionWiseData = companyData.flatMap((company) => {
+					const { LegalNameOfBusiness } = company.Company;
+					const { Id } = company.Company;
+					const offlineSubscriptions = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions
+					.filter(sub => sub.company_id === Id)
+					.map(subscribed => {
+						const getOtherDataFromDB = Utils.getDataForAlreadyTrackedJurisdiction(Id, subscribed.country?.Id);
+						return { Name: LegalNameOfBusiness, JurisdictionCountry: subscribed.Country.NameEN, countryId: subscribed.country_id, companyId: Id, type: "OFFLINE", ...getOtherDataFromDB }
+					})
+					const onlineSubscriptions = company.Company.current_orders
+					.map(subscribed => {
+						const getOtherDataFromDB = Utils.getDataForAlreadyTrackedJurisdiction(Id, subscribed.country?.Id);
+						return { Name: LegalNameOfBusiness, JurisdictionCountry: subscribed.country?.NameEN, countryId: subscribed.country?.Id, companyId: Id, type: "ONLINE", ...getOtherDataFromDB }
+					});
+					return [...offlineSubscriptions, ...onlineSubscriptions];
 				});
-				return [...offlineSubscriptions, ...onlineSubscriptions];
-			});
-			return jurisdictionWiseData;
+				return jurisdictionWiseData;
+			}
+		} else {
+			const filteredData = GetTrackingSubscriptionData.data.data.prod.missionctrl_jurisdiction_tracking
+			const refinedData = filteredData.map(element => {
+				return {
+					...element,
+					Name: element.Company.LegalNameOfBusiness,
+					JurisdictionCountry: element.Country.NameEN,
+					type: "ONLINE",
+					companyId: element.compnay_id,
+					countryId: element.country_id,
+				}
+			})
+			return refinedData;
 		}
+	},
+	isFilterActive: () => {
+		if(AgentFilterSelect.selectedOptionValue || ActionSelect.selectedOptionValue || CheckedOnSelect.selectedOptionValue || CheckedOnSelect.selectedOptionValue !== "" || PoASentSelect.selectedOptionValue !== "" || ModificationDoneSelect.selectedOptionValue !== "" || CommentSelect.selectedOptionValue !== "" ) return true;
+		return false;
+	},
+	constructWhereObject: () => {
+		const where = {"Company": {"LegalNameOfBusiness": {_like: !FullMode.isSwitchedOn ? "%" + JurisdictionTrackingTable.searchText + "%": "%%"}}, "_and": [{"Company": {"TenantId": {"_eq": "BB2090DC-81C1-49ED-AE2E-5016C79464AB"}}}]}
+		return where;
+	},
+	constructWhereObjectForFilter: () => {
+		const whereObject = {};
+		whereObject.agent = {_like: "%" + AgentFilterSelect.selectedOptionValue +"%"};
+		whereObject.action = {_like: "%" + ActionSelect.selectedOptionValue +"%"};
+		if(CheckedOnSelect.selectedOptionValue !== "") {
+			whereObject.account_checked = {_is_null: CheckedOnSelect.selectedOptionValue};
+		} 
+		if(PoASentSelect.selectedOptionValue !== "") {
+			whereObject.letter2_sent = {_is_null: PoASentSelect.selectedOptionValue};
+		} 
+		if(ModificationDoneSelect.selectedOptionValue !== "") {
+			whereObject.modification_done = {_is_null: ModificationDoneSelect.selectedOptionValue};
+		}
+		if(CommentSelect.selectedOptionValue !== "") {
+			whereObject._or = CommentSelect.selectedOptionValue ? {"comments": {_eq: ""}} : {"comments": {_neq: ""}}
+		}
+		const where = Utils.isFilterActive() ? whereObject : {}
+		return where;
 	},
 	mutateJurisdictionTracker: async() => {
 		const {
 			account_checked,
 			action,
 			comments,
-			companyId,
-			countryId,
+			company_id,
+			country_id,
 			deregistration,
 			latest_followup,
 			letter2_sent,
@@ -113,8 +173,8 @@ export default {
 			account_checked: account_checked || null,
 			action,
 			comments,
-			company_id: companyId,
-			country_id: countryId,
+			company_id,
+			country_id,
 			deregistration,
 			latest_followup: latest_followup || null,
 			letter2_sent: letter2_sent || null,
@@ -127,7 +187,7 @@ export default {
 			application_submitted_to_ta: application_submitted_to_ta || null,
 			poa_received_date: poa_received_date || null
 		};
-		console.log(JSON.stringify(mutationObject));
+
 		try {
 			const response = await AddJurisdictionTracking.run({object: mutationObject});
 			if (response.data) {

@@ -34,7 +34,7 @@
           "value": true
         },
         {
-          "value": "{\n\t\"limit\": {{ FullMode.isSwitchedOn ? 1000 : JurisdictionTrackingTable.pageSize}}, \n\t\"offset\": {{JurisdictionTrackingTable.pageOffset}}, \n\t\"whereObj\": {\"Company\": {\"LegalNameOfBusiness\": {_like: {{!FullMode.isSwitchedOn ? \"%\" + JurisdictionTrackingTable.searchText + \"%\": \"%%\"}}}}, \"_and\": [{\"Company\": {\"TenantId\": {\"_eq\": \"BB2090DC-81C1-49ED-AE2E-5016C79464AB\"}}}]}\n}"
+          "value": "{\n\t\"limit\": {{ FullMode.isSwitchedOn ? 1000 : JurisdictionTrackingTable.pageSize}}, \n\t\"offset\": {{JurisdictionTrackingTable.pageOffset}}, \n\t\"whereObj\": {{Utils.constructWhereObject()}}\n}"
         },
         {
           "value": {}
@@ -55,8 +55,8 @@
     "messages": [],
     "jsonPathKeys": [
       " FullMode.isSwitchedOn ? 1000 : JurisdictionTrackingTable.pageSize",
-      "!FullMode.isSwitchedOn ? \"%\" + JurisdictionTrackingTable.searchText + \"%\": \"%%\"",
-      "JurisdictionTrackingTable.pageOffset"
+      "JurisdictionTrackingTable.pageOffset",
+      "Utils.constructWhereObject()"
     ],
     "userSetOnLoad": false,
     "confirmBeforeExecute": false,

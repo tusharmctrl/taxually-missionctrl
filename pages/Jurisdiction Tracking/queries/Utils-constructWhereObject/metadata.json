@@ -2,8 +2,8 @@
   "pluginType": "JS",
   "pluginId": "js-plugin",
   "unpublishedAction": {
-    "name": "getCompaniesData",
-    "fullyQualifiedName": "Utils.getCompaniesData",
+    "name": "constructWhereObject",
+    "fullyQualifiedName": "Utils.constructWhereObject",
     "datasource": {
       "name": "UNUSED_DATASOURCE",
       "pluginId": "js-plugin",
@@ -21,9 +21,9 @@
       "encodeParamsToggle": true,
       "selfReferencingDataPaths": [],
       "jsArguments": [],
-      "isAsync": true
+      "isAsync": false
     },
-    "executeOnLoad": true,
+    "executeOnLoad": false,
     "dynamicBindingPathList": [
       {
         "key": "body"
@@ -35,10 +35,9 @@
     "userSetOnLoad": false,
     "confirmBeforeExecute": false,
     "policies": [],
-    "userPermissions": [],
-    "createdAt": "2023-10-16T12:50:02Z"
+    "userPermissions": []
   },
-  "id": "Jurisdiction Tracking_Utils.getCompaniesData",
+  "id": "Jurisdiction Tracking_Utils.constructWhereObject",
   "deleted": false,
-  "gitSyncId": "64ddbc9544dc506821b62c28_652d317a44dc506821b6324a"
+  "gitSyncId": "64ddbc9544dc506821b62c28_6538e14444dc506821b6340a"
 }
