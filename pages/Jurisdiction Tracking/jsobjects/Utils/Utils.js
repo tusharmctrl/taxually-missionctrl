@@ -6,6 +6,9 @@ export default {
 		])
 		// Utils.getCompaniesData();
 	},
+	executeCompaniesOnChange: async() => {
+		Utils.getCompaniesData();
+	},
 	getOptionsForAction: () => {
 		const optionsArray = [
 			"Letter to be sent",
@@ -112,7 +115,7 @@ export default {
 					...element,
 					Name: element.Company.LegalNameOfBusiness,
 					JurisdictionCountry: element.Country.NameEN,
-					type: "ONLINE",
+					type: Utils.isOfflineSubscribed(element.company_id, element.country_id),
 					companyId: element.compnay_id,
 					countryId: element.country_id,
 				}
@@ -144,8 +147,14 @@ export default {
 		if(CommentSelect.selectedOptionValue !== "") {
 			whereObject._or = CommentSelect.selectedOptionValue ? {"comments": {_eq: ""}} : {"comments": {_neq: ""}}
 		}
+		whereObject.Company = {"LegalNameOfBusiness": {"_like": "%" + JurisdictionTrackingTable.searchText +"%"}}
 		const where = Utils.isFilterActive() ? whereObject : {}
 		return where;
+	},
+	isOfflineSubscribed: (companyId, countryId) => {
+		const allOfflineSubsriptionData = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions;
+		const isOffline = allOfflineSubsriptionData.some(data => data.company_id === companyId && data.country_id === countryId);
+		return isOffline ? "OFFLINE" : "ONLINE";
 	},
 	mutateJurisdictionTracker: async() => {
 		const {

@@ -1,6 +1,6 @@
-query GetJurisdictionData($whereObj: missionctrl_jurisdiction_tracking_bool_exp!) {
+query GetJurisdictionData($whereObj: missionctrl_jurisdiction_tracking_bool_exp!, $limit: Int!, $offset: Int!) {
 	prod {
-		missionctrl_jurisdiction_tracking(where: $whereObj) {
+		missionctrl_jurisdiction_tracking(where: $whereObj, limit: $limit, offset: $offset) {
 			account_checked
 			action
 			agent
