@@ -116,8 +116,6 @@ export default {
 					Name: element.Company.LegalNameOfBusiness,
 					JurisdictionCountry: element.Country.NameEN,
 					type: Utils.isOfflineSubscribed(element.company_id, element.country_id),
-					companyId: element.compnay_id,
-					countryId: element.country_id,
 				}
 			})
 			return refinedData;
@@ -214,6 +212,8 @@ export default {
 			delete data["allFields"]["Name"];
 			delete data["allFields"]["type"];
 			delete data["allFields"]["id"];
+			if(data["allFields"]["Company"]) delete data["allFields"]["Company"];
+			if(data["allFields"]["Country"]) delete data["allFields"]["Country"];
 			return {
 				...data["allFields"],
 				account_checked: data.allFields.account_checked || null,
