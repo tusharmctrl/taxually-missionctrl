@@ -2,6 +2,9 @@ export default {
 	executeCompaniesOnChange: async() => {
 		Utils.getCompaniesData();
 	},
+	onLoad: async() => {
+		await GetOfflineSubscription.run();		
+	},
 	getOptionsForAction: () => {
 		const optionsArray = [
 			"Letter to be sent",
@@ -78,31 +81,28 @@ export default {
 		}
 	},
 	getCompaniesData: async() => {
-		await Promise.allSettled([GetTrackingSubscriptionData.run(),GetCompanyData.run(), GetOfflineSubscription.run()]);
-		// Utils.loadNecessaryFunctionsForCompanyData();
-		if(!Utils.isFilterActive()) {
-			await AllTrackingJurisdiction.run();
-			if(!AllTrackingJurisdiction.isLoading) {
-				const companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise;
-				const jurisdictionWiseData = companyData.flatMap((company) => {
-					const { LegalNameOfBusiness } = company.Company;
-					const { Id } = company.Company;
-					const offlineSubscriptions = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions
-					.filter(sub => sub.company_id === Id)
-					.map(subscribed => {
-						const getOtherDataFromDB = Utils.getDataForAlreadyTrackedJurisdiction(Id, subscribed.country?.Id);
-						return { Name: LegalNameOfBusiness, JurisdictionCountry: subscribed.Country.NameEN, country_id: subscribed.country_id, company_id: Id, type: "OFFLINE", ...getOtherDataFromDB }
-					})
-					const onlineSubscriptions = company.Company.current_orders
-					.map(subscribed => {
-						const getOtherDataFromDB = Utils.getDataForAlreadyTrackedJurisdiction(Id, subscribed.country?.Id);
-						return { Name: LegalNameOfBusiness, JurisdictionCountry: subscribed.country?.NameEN, country_id: subscribed.country?.Id, company_id: Id, type: "ONLINE", ...getOtherDataFromDB }
-					});
-					return [...offlineSubscriptions, ...onlineSubscriptions];
+		if(!Utils.isFilterActive() && !GetOfflineSubscription.isLoading) {
+			await Promise.allSettled([GetCompanyData.run(), AllTrackingJurisdiction.run()]);
+			const companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise;
+			const jurisdictionWiseData = companyData.flatMap((company) => {
+				const { LegalNameOfBusiness } = company.Company;
+				const { Id } = company.Company;
+				const offlineSubscriptions = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions
+				.filter(sub => sub.company_id === Id)
+				.map(subscribed => {
+					const getOtherDataFromDB = Utils.getDataForAlreadyTrackedJurisdiction(Id, subscribed.country?.Id);
+					return { Name: LegalNameOfBusiness, JurisdictionCountry: subscribed.Country.NameEN, country_id: subscribed.country_id, company_id: Id, type: "OFFLINE", ...getOtherDataFromDB }
+				})
+				const onlineSubscriptions = company.Company.current_orders
+				.map(subscribed => {
+					const getOtherDataFromDB = Utils.getDataForAlreadyTrackedJurisdiction(Id, subscribed.country?.Id);
+					return { Name: LegalNameOfBusiness, JurisdictionCountry: subscribed.country?.NameEN, country_id: subscribed.country?.Id, company_id: Id, type: "ONLINE", ...getOtherDataFromDB }
 				});
-				return jurisdictionWiseData;
-			}
+				return [...offlineSubscriptions, ...onlineSubscriptions];
+			});
+			return jurisdictionWiseData;
 		} else {
+			await GetTrackingSubscriptionData.run();
 			const filteredData = GetTrackingSubscriptionData.data.data.prod.missionctrl_jurisdiction_tracking
 			const refinedData = filteredData.map(element => {
 				return {

@@ -1715,6 +1715,17 @@
               "pluginType": "API",
               "jsonPathKeys": [],
               "timeoutInMillisecond": 10000
+            },
+            {
+              "id": "Jurisdiction Tracking_Utils.onLoad",
+              "name": "Utils.onLoad",
+              "collectionId": "Jurisdiction Tracking_Utils",
+              "confirmBeforeExecute": false,
+              "pluginType": "JS",
+              "jsonPathKeys": [
+                "async () => {\n  await GetOfflineSubscription.run();\n}"
+              ],
+              "timeoutInMillisecond": 10000
             }
           ],
           [
