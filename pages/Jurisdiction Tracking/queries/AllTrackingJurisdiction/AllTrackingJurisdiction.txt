@@ -1,0 +1,30 @@
+query GetJurisdictionData {
+	prod {
+		missionctrl_jurisdiction_tracking(where: {Company: {LegalNameOfBusiness:{_like: {{"%" + JurisdictionTrackingTable.searchText + "%"}}}}}) {
+			account_checked
+			action
+			agent
+			id
+			comments
+			company_id
+			country_id
+			latest_followup
+			letter2_sent
+			modification_done
+			modification_request
+			created_at
+			sales_call_made
+			deregistration
+			sheet_link
+			outcome
+			application_submitted_to_ta
+			poa_received_date
+			Company {
+				LegalNameOfBusiness
+			}
+			Country {
+				NameEN
+			}
+		}
+	}
+}

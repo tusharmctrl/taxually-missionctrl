@@ -4,6 +4,7 @@ mutation AddMultipleJurisdictionTracking($objects: [missionctrl_jurisdiction_tra
 			returning {
 				id
 				account_checked
+				letter2_sent
 			}
 		}
 	}

@@ -157,9 +157,6 @@
                           "key": "boxShadow"
                         },
                         {
-                          "key": "tableData"
-                        },
-                        {
                           "key": "primaryColumns.account_checked.computedValue"
                         },
                         {
@@ -235,16 +232,7 @@
                           "key": "primaryColumns.company_id.computedValue"
                         },
                         {
-                          "key": "primaryColumns.id.computedValue"
-                        },
-                        {
-                          "key": "primaryColumns.created_at.computedValue"
-                        },
-                        {
-                          "key": "primaryColumns.Company.computedValue"
-                        },
-                        {
-                          "key": "primaryColumns.Country.computedValue"
+                          "key": "tableData"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -284,7 +272,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1698318094530,
+                      "columnUpdatedAt": 1698380487482,
                       "originalBottomRow": 106,
                       "primaryColumnId": "id",
                       "defaultSelectedRowIndices": "[]",
@@ -311,11 +299,7 @@
                         "application_submitted_to_ta",
                         "customColumn1",
                         "type",
-                        "country_id",
-                        "id",
-                        "created_at",
-                        "Company",
-                        "Country"
+                        "country_id"
                       ],
                       "dynamicPropertyPathList": [
                         {
@@ -988,126 +972,6 @@
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
-                        },
-                        "id": {
-                          "allowCellWrapping": false,
-                          "allowSameOptionsInNewRow": true,
-                          "index": 3,
-                          "width": 150,
-                          "originalId": "id",
-                          "id": "id",
-                          "alias": "id",
-                          "horizontalAlignment": "LEFT",
-                          "verticalAlignment": "CENTER",
-                          "columnType": "number",
-                          "textColor": "",
-                          "textSize": "0.875rem",
-                          "fontStyle": "",
-                          "enableFilter": true,
-                          "enableSort": true,
-                          "isVisible": true,
-                          "isDisabled": false,
-                          "isCellEditable": false,
-                          "isEditable": false,
-                          "isCellVisible": true,
-                          "isDerived": false,
-                          "label": "id",
-                          "isSaveVisible": true,
-                          "isDiscardVisible": true,
-                          "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"id\"]))}}",
-                          "sticky": "",
-                          "validation": {},
-                          "cellBackground": ""
-                        },
-                        "created_at": {
-                          "allowCellWrapping": false,
-                          "allowSameOptionsInNewRow": true,
-                          "index": 11,
-                          "width": 150,
-                          "originalId": "created_at",
-                          "id": "created_at",
-                          "alias": "created_at",
-                          "horizontalAlignment": "LEFT",
-                          "verticalAlignment": "CENTER",
-                          "columnType": "text",
-                          "textColor": "",
-                          "textSize": "0.875rem",
-                          "fontStyle": "",
-                          "enableFilter": true,
-                          "enableSort": true,
-                          "isVisible": true,
-                          "isDisabled": false,
-                          "isCellEditable": false,
-                          "isEditable": false,
-                          "isCellVisible": true,
-                          "isDerived": false,
-                          "label": "created_at",
-                          "isSaveVisible": true,
-                          "isDiscardVisible": true,
-                          "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"created_at\"]))}}",
-                          "sticky": "",
-                          "validation": {},
-                          "cellBackground": ""
-                        },
-                        "Company": {
-                          "allowCellWrapping": false,
-                          "allowSameOptionsInNewRow": true,
-                          "index": 18,
-                          "width": 150,
-                          "originalId": "Company",
-                          "id": "Company",
-                          "alias": "Company",
-                          "horizontalAlignment": "LEFT",
-                          "verticalAlignment": "CENTER",
-                          "columnType": "text",
-                          "textColor": "",
-                          "textSize": "0.875rem",
-                          "fontStyle": "",
-                          "enableFilter": true,
-                          "enableSort": true,
-                          "isVisible": true,
-                          "isDisabled": false,
-                          "isCellEditable": false,
-                          "isEditable": false,
-                          "isCellVisible": true,
-                          "isDerived": false,
-                          "label": "Company",
-                          "isSaveVisible": true,
-                          "isDiscardVisible": true,
-                          "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Company\"]))}}",
-                          "sticky": "",
-                          "validation": {},
-                          "cellBackground": ""
-                        },
-                        "Country": {
-                          "allowCellWrapping": false,
-                          "allowSameOptionsInNewRow": true,
-                          "index": 19,
-                          "width": 150,
-                          "originalId": "Country",
-                          "id": "Country",
-                          "alias": "Country",
-                          "horizontalAlignment": "LEFT",
-                          "verticalAlignment": "CENTER",
-                          "columnType": "text",
-                          "textColor": "",
-                          "textSize": "0.875rem",
-                          "fontStyle": "",
-                          "enableFilter": true,
-                          "enableSort": true,
-                          "isVisible": true,
-                          "isDisabled": false,
-                          "isCellEditable": false,
-                          "isEditable": false,
-                          "isCellVisible": true,
-                          "isDerived": false,
-                          "label": "Country",
-                          "isSaveVisible": true,
-                          "isDiscardVisible": true,
-                          "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Country\"]))}}",
-                          "sticky": "",
-                          "validation": {},
-                          "cellBackground": ""
                         }
                       },
                       "key": "pp9q4kf3sj",
@@ -1166,7 +1030,7 @@
                           "key": "accentColor"
                         }
                       ],
-                      "labelPosition": "Left",
+                      "labelPosition": "Right",
                       "isDisabled": false,
                       "key": "zl5urpz84f",
                       "isDeprecated": false,
@@ -1699,6 +1563,7 @@
                       ],
                       "topRow": 13,
                       "bottomRow": 17,
+                      "tooltip": "Click here after selecting filters",
                       "parentRowSpace": 10,
                       "type": "ICON_BUTTON_WIDGET",
                       "hideCard": false,
@@ -1756,6 +1621,7 @@
                       ],
                       "topRow": 13,
                       "bottomRow": 17,
+                      "tooltip": "Save multiple records",
                       "parentRowSpace": 10,
                       "type": "ICON_BUTTON_WIDGET",
                       "hideCard": false,
@@ -1849,26 +1715,16 @@
               "pluginType": "API",
               "jsonPathKeys": [],
               "timeoutInMillisecond": 10000
-            },
+            }
+          ],
+          [
             {
-              "id": "Jurisdiction Tracking_Utils.getCompaniesData",
-              "name": "Utils.getCompaniesData",
-              "collectionId": "Jurisdiction Tracking_Utils",
+              "id": "Jurisdiction Tracking_AllTrackingJurisdiction",
+              "name": "AllTrackingJurisdiction",
               "confirmBeforeExecute": false,
-              "pluginType": "JS",
+              "pluginType": "API",
               "jsonPathKeys": [
-                "async () => {\n  await GetTrackingSubscriptionData.run();\n  if (!Utils.isFilterActive()) {\n    await GetCompanyData.run();\n    if (!GetOfflineSubscription.isLoading && !GetTrackingSubscriptionData.isLoading) {\n      const companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise;\n      const jurisdictionWiseData = companyData.flatMap(company => {\n        const {LegalNameOfBusiness} = company.Company;\n        const {Id} = company.Company;\n        const offlineSubscriptions = GetOfflineSubscription.data.data.prod.missionctrl_offline_subscriptions.filter(sub => sub.company_id === Id).map(subscribed => {\n          const getOtherDataFromDB = Utils.getDataForAlreadyTrackedJurisdiction(Id, subscribed.country?.Id);\n          return {\n            Name: LegalNameOfBusiness,\n            JurisdictionCountry: subscribed.Country.NameEN,\n            country_id: subscribed.country_id,\n            company_id: Id,\n            type: \"OFFLINE\",\n            ...getOtherDataFromDB\n          };\n        });\n        const onlineSubscriptions = company.Company.current_orders.map(subscribed => {\n          const getOtherDataFromDB = Utils.getDataForAlreadyTrackedJurisdiction(Id, subscribed.country?.Id);\n          return {\n            Name: LegalNameOfBusiness,\n            JurisdictionCountry: subscribed.country?.NameEN,\n            country_id: subscribed.country?.Id,\n            company_id: Id,\n            type: \"ONLINE\",\n            ...getOtherDataFromDB\n          };\n        });\n        return [...offlineSubscriptions, ...onlineSubscriptions];\n      });\n      return jurisdictionWiseData;\n    }\n  } else {\n    const filteredData = GetTrackingSubscriptionData.data.data.prod.missionctrl_jurisdiction_tracking;\n    const refinedData = filteredData.map(element => {\n      return {\n        ...element,\n        Name: element.Company.LegalNameOfBusiness,\n        JurisdictionCountry: element.Country.NameEN,\n        type: Utils.isOfflineSubscribed(element.company_id, element.country_id)\n      };\n    });\n    return refinedData;\n  }\n}"
-              ],
-              "timeoutInMillisecond": 10000
-            },
-            {
-              "id": "Jurisdiction Tracking_Utils.onLoad",
-              "name": "Utils.onLoad",
-              "collectionId": "Jurisdiction Tracking_Utils",
-              "confirmBeforeExecute": false,
-              "pluginType": "JS",
-              "jsonPathKeys": [
-                "async () => {\n  await Promise.all([GetOfflineSubscription.run()]);\n}"
+                "\"%\" + JurisdictionTrackingTable.searchText + \"%\""
               ],
               "timeoutInMillisecond": 10000
             }

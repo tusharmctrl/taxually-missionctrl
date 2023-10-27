@@ -1,11 +1,4 @@
 export default {
-	onLoad: async() => {
-		await Promise.all([
-			GetOfflineSubscription.run(),
-			// GetTrackingSubscriptionData.run()
-		])
-		// Utils.getCompaniesData();
-	},
 	executeCompaniesOnChange: async() => {
 		Utils.getCompaniesData();
 	},
@@ -46,7 +39,7 @@ export default {
 	},
 
 	getDataForAlreadyTrackedJurisdiction: (companyId, countryId) => {
-		const allTrackedJurisdictions = GetTrackingSubscriptionData.data.data.prod.missionctrl_jurisdiction_tracking;
+		const allTrackedJurisdictions = AllTrackingJurisdiction.data.data.prod.missionctrl_jurisdiction_tracking;
 		const checkExistingRecord = allTrackedJurisdictions.find((jurisdiction) => jurisdiction.company_id == companyId && jurisdiction.country_id == countryId)
 		if(checkExistingRecord) {
 			return {
@@ -85,10 +78,11 @@ export default {
 		}
 	},
 	getCompaniesData: async() => {
-		await GetTrackingSubscriptionData.run();
+		await Promise.allSettled([GetTrackingSubscriptionData.run(),GetCompanyData.run(), GetOfflineSubscription.run()]);
+		// Utils.loadNecessaryFunctionsForCompanyData();
 		if(!Utils.isFilterActive()) {
-			await GetCompanyData.run();
-			if(!GetOfflineSubscription.isLoading && !GetTrackingSubscriptionData.isLoading) {
+			await AllTrackingJurisdiction.run();
+			if(!AllTrackingJurisdiction.isLoading) {
 				const companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise;
 				const jurisdictionWiseData = companyData.flatMap((company) => {
 					const { LegalNameOfBusiness } = company.Company;
@@ -154,56 +148,55 @@ export default {
 		const isOffline = allOfflineSubsriptionData.some(data => data.company_id === companyId && data.country_id === countryId);
 		return isOffline ? "OFFLINE" : "ONLINE";
 	},
-	mutateJurisdictionTracker: async() => {
-		const {
-			account_checked,
-			action,
-			comments,
-			company_id,
-			country_id,
-			deregistration,
-			latest_followup,
-			letter2_sent,
-			modification_done,
-			modification_request,
-			sales_call_made,
-			sheet_link,
-			outcome,
-			agent,
-			application_submitted_to_ta,
-			poa_received_date
-		} = JurisdictionTrackingTable.updatedRow;
-		const mutationObject = {
-			account_checked: account_checked || null,
-			action,
-			comments,
-			company_id,
-			country_id,
-			deregistration,
-			latest_followup: latest_followup || null,
-			letter2_sent: letter2_sent || null,
-			modification_done: modification_done || null,
-			modification_request,
-			sales_call_made: sales_call_made || null,
-			sheet_link,
-			outcome,
-			agent,
-			application_submitted_to_ta: application_submitted_to_ta || null,
-			poa_received_date: poa_received_date || null
-		};
-		try {
-			const response = await AddJurisdictionTracking.run({object: mutationObject});
-			if (response.data) {
-				showAlert("Updated Jurisdiction Successfully!", "success");
-			} else {
-				showAlert("Something Went Wrong!", "error");
-			}
-			await Utils.onLoad();
-			Utils.getCompaniesData();
-		} catch (error) {
-			console.error("An error occurred:", error);
-		}
-	},
+	// mutateJurisdictionTracker: async() => {
+	// const {
+	// account_checked,
+	// action,
+	// comments,
+	// company_id,
+	// country_id,
+	// deregistration,
+	// latest_followup,
+	// letter2_sent,
+	// modification_done,
+	// modification_request,
+	// sales_call_made,
+	// sheet_link,
+	// outcome,
+	// agent,
+	// application_submitted_to_ta,
+	// poa_received_date
+	// } = JurisdictionTrackingTable.updatedRow;
+	// const mutationObject = {
+	// account_checked: account_checked || null,
+	// action,
+	// comments,
+	// company_id,
+	// country_id,
+	// deregistration,
+	// latest_followup: latest_followup || null,
+	// letter2_sent: letter2_sent || null,
+	// modification_done: modification_done || null,
+	// modification_request,
+	// sales_call_made: sales_call_made || null,
+	// sheet_link,
+	// outcome,
+	// agent,
+	// application_submitted_to_ta: application_submitted_to_ta || null,
+	// poa_received_date: poa_received_date || null
+	// };
+	// try {
+	// const response = await AddJurisdictionTracking.run({object: mutationObject});
+	// if (response.data) {
+	// showAlert("Updated Jurisdiction Successfully!", "success");
+	// } else {
+	// showAlert("Something Went Wrong!", "error");
+	// }
+	// Utils.getCompaniesData();
+	// } catch (error) {
+	// console.error("An error occurred:", error);
+	// }
+	// },
 	convertUpdateDataToJurisdictionForm: (data, action="UPDATE") => {
 		if(action === "UPDATE") {
 			const dataToBeUpdated = data.map(data => {
@@ -251,7 +244,6 @@ export default {
 	},
 	multipleUpdate: async() => {
 		const tableUpdateData = JurisdictionTrackingTable.updatedRows;
-		console.log(tableUpdateData.length)
 		const finalDataToBeUpdated = Utils.convertUpdateDataToJurisdictionForm(tableUpdateData);
 		if(JurisdictionTrackingTable.selectedRows.length) {
 			const updatableFormat = Utils.convertUpdateDataToJurisdictionForm(JurisdictionTrackingTable.selectedRows, "SELECTED");
@@ -259,7 +251,6 @@ export default {
 			delete firstData["company_id"];
 			delete firstData["country_id"];
 			updatableFormat.filter((data) => {
-				console.log(data, "*****")
 				finalDataToBeUpdated.push({
 					...firstData,
 					company_id: data.company_id,
@@ -267,8 +258,6 @@ export default {
 				})
 			})
 		}
-		console.log({finalDataToBeUpdated})
-		// return finalDataToBeUpdated
 		const response = await MultipleJurisdictionTracking.run({objects: finalDataToBeUpdated});
 		if (response.data) {
 			Utils.getCompaniesData();
