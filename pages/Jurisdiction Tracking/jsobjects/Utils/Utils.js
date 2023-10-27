@@ -1,9 +1,12 @@
 export default {
 	executeCompaniesOnChange: async() => {
-		Utils.getCompaniesData();
+		await Utils.getCompaniesData();
 	},
 	onLoad: async() => {
+		storeValue("firstTimeExecution", true)
 		await GetOfflineSubscription.run();		
+		await Utils.getCompaniesData();
+		storeValue("firstTimeExecution", false)
 	},
 	getOptionsForAction: () => {
 		const optionsArray = [
@@ -82,7 +85,9 @@ export default {
 	},
 	getCompaniesData: async() => {
 		if(!Utils.isFilterActive() && !GetOfflineSubscription.isLoading) {
-			await Promise.allSettled([GetCompanyData.run(), AllTrackingJurisdiction.run()]);
+			await GetCompanyData.run();
+			const companyIds = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise.map(company => company.Company.Id);
+			await AllTrackingJurisdiction.run({companies: companyIds})
 			const companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise;
 			const jurisdictionWiseData = companyData.flatMap((company) => {
 				const { LegalNameOfBusiness } = company.Company;

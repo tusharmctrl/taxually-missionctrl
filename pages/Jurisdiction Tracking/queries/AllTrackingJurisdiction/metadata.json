@@ -25,7 +25,7 @@
       ],
       "encodeParamsToggle": true,
       "queryParameters": [],
-      "body": "query GetJurisdictionData {\n\tprod {\n\t\tmissionctrl_jurisdiction_tracking(where: {Company: {LegalNameOfBusiness:{_like: {{\"%\" + JurisdictionTrackingTable.searchText + \"%\"}}}}}) {\n\t\t\taccount_checked\n\t\t\taction\n\t\t\tagent\n\t\t\tid\n\t\t\tcomments\n\t\t\tcompany_id\n\t\t\tcountry_id\n\t\t\tlatest_followup\n\t\t\tletter2_sent\n\t\t\tmodification_done\n\t\t\tmodification_request\n\t\t\tcreated_at\n\t\t\tsales_call_made\n\t\t\tderegistration\n\t\t\tsheet_link\n\t\t\toutcome\n\t\t\tapplication_submitted_to_ta\n\t\t\tpoa_received_date\n\t\t\tCompany {\n\t\t\t\tLegalNameOfBusiness\n\t\t\t}\n\t\t\tCountry {\n\t\t\t\tNameEN\n\t\t\t}\n\t\t}\n\t}\n}\n",
+      "body": "query GetJurisdictionData($companies: [Int!]!) {\n\tprod {\n\t\tmissionctrl_jurisdiction_tracking(where: {\n\t\t\tCompany: {\n\t\t\t\tLegalNameOfBusiness: {_like: {{\"%\" + JurisdictionTrackingTable.searchText + \"%\"}}},\n\t\t\t\tId: {_in: $companies}\n\t\t\t}\n\t\t}) {\n\t\t\taccount_checked\n\t\t\taction\n\t\t\tagent\n\t\t\tid\n\t\t\tcomments\n\t\t\tcompany_id\n\t\t\tcountry_id\n\t\t\tlatest_followup\n\t\t\tletter2_sent\n\t\t\tmodification_done\n\t\t\tmodification_request\n\t\t\tcreated_at\n\t\t\tsales_call_made\n\t\t\tderegistration\n\t\t\tsheet_link\n\t\t\toutcome\n\t\t\tapplication_submitted_to_ta\n\t\t\tpoa_received_date\n\t\t\tCompany {\n\t\t\t\tLegalNameOfBusiness\n\t\t\t}\n\t\t\tCountry {\n\t\t\t\tNameEN\n\t\t\t}\n\t\t}\n\t}\n}\n",
       "httpMethod": "POST",
       "selfReferencingDataPaths": [],
       "pluginSpecifiedTemplates": [
@@ -33,7 +33,7 @@
           "value": true
         },
         {
-          "value": ""
+          "value": "{\n\tcompanies: {{this.params.companies}}\n}"
         },
         {
           "value": {}
@@ -47,13 +47,17 @@
     "dynamicBindingPathList": [
       {
         "key": "body"
+      },
+      {
+        "key": "pluginSpecifiedTemplates[1].value"
       }
     ],
     "isValid": true,
     "invalids": [],
     "messages": [],
     "jsonPathKeys": [
-      "\"%\" + JurisdictionTrackingTable.searchText + \"%\""
+      "\"%\" + JurisdictionTrackingTable.searchText + \"%\"",
+      "this.params.companies"
     ],
     "userSetOnLoad": false,
     "confirmBeforeExecute": false,

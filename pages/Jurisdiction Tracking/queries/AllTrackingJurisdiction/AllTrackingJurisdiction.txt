@@ -1,6 +1,11 @@
-query GetJurisdictionData {
+query GetJurisdictionData($companies: [Int!]!) {
 	prod {
-		missionctrl_jurisdiction_tracking(where: {Company: {LegalNameOfBusiness:{_like: {{"%" + JurisdictionTrackingTable.searchText + "%"}}}}}) {
+		missionctrl_jurisdiction_tracking(where: {
+			Company: {
+				LegalNameOfBusiness: {_like: {{"%" + JurisdictionTrackingTable.searchText + "%"}}},
+				Id: {_in: $companies}
+			}
+		}) {
 			account_checked
 			action
 			agent
