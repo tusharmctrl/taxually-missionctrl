@@ -13,7 +13,7 @@
           "detachFromLayout": true,
           "widgetId": "0",
           "topRow": 0,
-          "bottomRow": 830,
+          "bottomRow": 910,
           "containerStyle": "none",
           "snapRows": 72,
           "parentRowSpace": 1,
@@ -145,7 +145,7 @@
                       "onPageChange": "{{Utils.executeCompaniesOnChange()}}",
                       "type": "TABLE_WIDGET_V2",
                       "inlineEditingSaveOption": "CUSTOM",
-                      "animateLoading": "{{appsmith.store.firstTimeExecution ? false : true}}",
+                      "animateLoading": false,
                       "dynamicBindingPathList": [
                         {
                           "key": "accentColor"
@@ -233,21 +233,6 @@
                         },
                         {
                           "key": "tableData"
-                        },
-                        {
-                          "key": "animateLoading"
-                        },
-                        {
-                          "key": "primaryColumns.id.computedValue"
-                        },
-                        {
-                          "key": "primaryColumns.created_at.computedValue"
-                        },
-                        {
-                          "key": "primaryColumns.Company.computedValue"
-                        },
-                        {
-                          "key": "primaryColumns.Country.computedValue"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -287,7 +272,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1698646648522,
+                      "columnUpdatedAt": 1698663085562,
                       "originalBottomRow": 125,
                       "primaryColumnId": "id",
                       "defaultSelectedRowIndices": "[]",
@@ -314,11 +299,7 @@
                         "application_submitted_to_ta",
                         "customColumn1",
                         "type",
-                        "country_id",
-                        "id",
-                        "created_at",
-                        "Company",
-                        "Country"
+                        "country_id"
                       ],
                       "dynamicPropertyPathList": [
                         {
@@ -334,7 +315,46 @@
                           "key": "primaryColumns.customColumn1.onClick"
                         },
                         {
-                          "key": "animateLoading"
+                          "key": "primaryColumns.account_checked.onDateSelected"
+                        },
+                        {
+                          "key": "primaryColumns.sheet_link.onSubmit"
+                        },
+                        {
+                          "key": "primaryColumns.letter2_sent.onDateSelected"
+                        },
+                        {
+                          "key": "primaryColumns.comments.onSubmit"
+                        },
+                        {
+                          "key": "primaryColumns.poa_received_date.onDateSelected"
+                        },
+                        {
+                          "key": "primaryColumns.latest_followup.onDateSelected"
+                        },
+                        {
+                          "key": "primaryColumns.action.onOptionChange"
+                        },
+                        {
+                          "key": "primaryColumns.deregistration.onOptionChange"
+                        },
+                        {
+                          "key": "primaryColumns.modification_done.onDateSelected"
+                        },
+                        {
+                          "key": "primaryColumns.modification_request.onSubmit"
+                        },
+                        {
+                          "key": "primaryColumns.sales_call_made.onDateSelected"
+                        },
+                        {
+                          "key": "primaryColumns.outcome.onSubmit"
+                        },
+                        {
+                          "key": "primaryColumns.agent.onSubmit"
+                        },
+                        {
+                          "key": "primaryColumns.application_submitted_to_ta.onDateSelected"
                         }
                       ],
                       "displayName": "Table",
@@ -371,6 +391,48 @@
                         },
                         {
                           "key": "primaryColumns.customColumn1.onClick"
+                        },
+                        {
+                          "key": "primaryColumns.agent.onSubmit"
+                        },
+                        {
+                          "key": "primaryColumns.sheet_link.onSubmit"
+                        },
+                        {
+                          "key": "primaryColumns.account_checked.onDateSelected"
+                        },
+                        {
+                          "key": "primaryColumns.letter2_sent.onDateSelected"
+                        },
+                        {
+                          "key": "primaryColumns.comments.onSubmit"
+                        },
+                        {
+                          "key": "primaryColumns.poa_received_date.onDateSelected"
+                        },
+                        {
+                          "key": "primaryColumns.latest_followup.onDateSelected"
+                        },
+                        {
+                          "key": "primaryColumns.action.onOptionChange"
+                        },
+                        {
+                          "key": "primaryColumns.deregistration.onOptionChange"
+                        },
+                        {
+                          "key": "primaryColumns.modification_done.onDateSelected"
+                        },
+                        {
+                          "key": "primaryColumns.modification_request.onSubmit"
+                        },
+                        {
+                          "key": "primaryColumns.sales_call_made.onDateSelected"
+                        },
+                        {
+                          "key": "primaryColumns.outcome.onSubmit"
+                        },
+                        {
+                          "key": "primaryColumns.application_submitted_to_ta.onDateSelected"
                         }
                       ],
                       "borderWidth": "1",
@@ -405,7 +467,8 @@
                           "validation": {},
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
-                          "outputFormat": "MM-DD-YYYY"
+                          "outputFormat": "MM-DD-YYYY",
+                          "onDateSelected": "{{Utils.mutateJurisdictionTracker()}}"
                         },
                         "sheet_link": {
                           "allowCellWrapping": false,
@@ -436,7 +499,8 @@
                           "sticky": "",
                           "validation": {},
                           "cellBackground": "",
-                          "displayText": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"sheet_link\"]))}}"
+                          "displayText": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"sheet_link\"]))}}",
+                          "onSubmit": "{{Utils.mutateJurisdictionTracker()}}"
                         },
                         "letter2_sent": {
                           "allowCellWrapping": false,
@@ -468,7 +532,8 @@
                           "validation": {},
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
-                          "outputFormat": "MM-DD-YYYY"
+                          "outputFormat": "MM-DD-YYYY",
+                          "onDateSelected": "{{Utils.mutateJurisdictionTracker()}}"
                         },
                         "latest_followup": {
                           "allowCellWrapping": false,
@@ -500,7 +565,8 @@
                           "validation": {},
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
-                          "outputFormat": "MM-DD-YYYY"
+                          "outputFormat": "MM-DD-YYYY",
+                          "onDateSelected": "{{Utils.mutateJurisdictionTracker()}}"
                         },
                         "action": {
                           "allowCellWrapping": false,
@@ -532,7 +598,8 @@
                           "validation": {},
                           "cellBackground": "",
                           "selectOptions": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( Utils.getOptionsForAction()))}}",
-                          "placeholderText": ""
+                          "placeholderText": "",
+                          "onOptionChange": "{{Utils.mutateJurisdictionTracker()}}"
                         },
                         "modification_done": {
                           "allowCellWrapping": false,
@@ -564,7 +631,8 @@
                           "validation": {},
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
-                          "outputFormat": "MM-DD-YYYY"
+                          "outputFormat": "MM-DD-YYYY",
+                          "onDateSelected": "{{Utils.mutateJurisdictionTracker()}}"
                         },
                         "modification_request": {
                           "allowCellWrapping": false,
@@ -594,7 +662,8 @@
                           "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"modification_request\"]))}}",
                           "sticky": "",
                           "validation": {},
-                          "cellBackground": ""
+                          "cellBackground": "",
+                          "onSubmit": "{{Utils.mutateJurisdictionTracker()}}"
                         },
                         "sales_call_made": {
                           "allowCellWrapping": false,
@@ -626,7 +695,8 @@
                           "validation": {},
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
-                          "outputFormat": "MM-DD-YYYY"
+                          "outputFormat": "MM-DD-YYYY",
+                          "onDateSelected": "{{Utils.mutateJurisdictionTracker()}}"
                         },
                         "deregistration": {
                           "allowCellWrapping": false,
@@ -657,7 +727,8 @@
                           "sticky": "",
                           "validation": {},
                           "cellBackground": "",
-                          "selectOptions": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( Utils.getOptionsForDeregistration()))}}"
+                          "selectOptions": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( Utils.getOptionsForDeregistration()))}}",
+                          "onOptionChange": "{{Utils.mutateJurisdictionTracker()}}"
                         },
                         "comments": {
                           "allowCellWrapping": false,
@@ -687,7 +758,8 @@
                           "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"comments\"]))}}",
                           "sticky": "",
                           "validation": {},
-                          "cellBackground": ""
+                          "cellBackground": "",
+                          "onSubmit": "{{Utils.mutateJurisdictionTracker()}}"
                         },
                         "outcome": {
                           "allowCellWrapping": false,
@@ -717,7 +789,8 @@
                           "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"outcome\"]))}}",
                           "sticky": "",
                           "validation": {},
-                          "cellBackground": ""
+                          "cellBackground": "",
+                          "onSubmit": "{{Utils.mutateJurisdictionTracker()}}"
                         },
                         "agent": {
                           "allowCellWrapping": false,
@@ -747,7 +820,8 @@
                           "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"agent\"]))}}",
                           "sticky": "",
                           "validation": {},
-                          "cellBackground": ""
+                          "cellBackground": "",
+                          "onSubmit": "{{Utils.mutateJurisdictionTracker()}}"
                         },
                         "customColumn1": {
                           "allowCellWrapping": false,
@@ -814,7 +888,8 @@
                           "validation": {},
                           "cellBackground": "",
                           "outputFormat": "MM-DD-YYYY",
-                          "inputFormat": "YYYY-MM-DDTHH:mm:ss"
+                          "inputFormat": "YYYY-MM-DDTHH:mm:ss",
+                          "onDateSelected": "{{Utils.mutateJurisdictionTracker()}}"
                         },
                         "poa_received_date": {
                           "allowCellWrapping": false,
@@ -846,7 +921,8 @@
                           "validation": {},
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
-                          "outputFormat": "MM-DD-YYYY"
+                          "outputFormat": "MM-DD-YYYY",
+                          "onDateSelected": "{{Utils.mutateJurisdictionTracker()}}"
                         },
                         "Name": {
                           "allowCellWrapping": false,
@@ -994,126 +1070,6 @@
                           "isSaveVisible": true,
                           "isDiscardVisible": true,
                           "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"company_id\"]))}}",
-                          "sticky": "",
-                          "validation": {},
-                          "cellBackground": ""
-                        },
-                        "id": {
-                          "allowCellWrapping": false,
-                          "allowSameOptionsInNewRow": true,
-                          "index": 3,
-                          "width": 150,
-                          "originalId": "id",
-                          "id": "id",
-                          "alias": "id",
-                          "horizontalAlignment": "LEFT",
-                          "verticalAlignment": "CENTER",
-                          "columnType": "number",
-                          "textColor": "",
-                          "textSize": "0.875rem",
-                          "fontStyle": "",
-                          "enableFilter": true,
-                          "enableSort": true,
-                          "isVisible": true,
-                          "isDisabled": false,
-                          "isCellEditable": false,
-                          "isEditable": false,
-                          "isCellVisible": true,
-                          "isDerived": false,
-                          "label": "id",
-                          "isSaveVisible": true,
-                          "isDiscardVisible": true,
-                          "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"id\"]))}}",
-                          "sticky": "",
-                          "validation": {},
-                          "cellBackground": ""
-                        },
-                        "created_at": {
-                          "allowCellWrapping": false,
-                          "allowSameOptionsInNewRow": true,
-                          "index": 11,
-                          "width": 150,
-                          "originalId": "created_at",
-                          "id": "created_at",
-                          "alias": "created_at",
-                          "horizontalAlignment": "LEFT",
-                          "verticalAlignment": "CENTER",
-                          "columnType": "text",
-                          "textColor": "",
-                          "textSize": "0.875rem",
-                          "fontStyle": "",
-                          "enableFilter": true,
-                          "enableSort": true,
-                          "isVisible": true,
-                          "isDisabled": false,
-                          "isCellEditable": false,
-                          "isEditable": false,
-                          "isCellVisible": true,
-                          "isDerived": false,
-                          "label": "created_at",
-                          "isSaveVisible": true,
-                          "isDiscardVisible": true,
-                          "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"created_at\"]))}}",
-                          "sticky": "",
-                          "validation": {},
-                          "cellBackground": ""
-                        },
-                        "Company": {
-                          "allowCellWrapping": false,
-                          "allowSameOptionsInNewRow": true,
-                          "index": 18,
-                          "width": 150,
-                          "originalId": "Company",
-                          "id": "Company",
-                          "alias": "Company",
-                          "horizontalAlignment": "LEFT",
-                          "verticalAlignment": "CENTER",
-                          "columnType": "text",
-                          "textColor": "",
-                          "textSize": "0.875rem",
-                          "fontStyle": "",
-                          "enableFilter": true,
-                          "enableSort": true,
-                          "isVisible": true,
-                          "isDisabled": false,
-                          "isCellEditable": false,
-                          "isEditable": false,
-                          "isCellVisible": true,
-                          "isDerived": false,
-                          "label": "Company",
-                          "isSaveVisible": true,
-                          "isDiscardVisible": true,
-                          "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Company\"]))}}",
-                          "sticky": "",
-                          "validation": {},
-                          "cellBackground": ""
-                        },
-                        "Country": {
-                          "allowCellWrapping": false,
-                          "allowSameOptionsInNewRow": true,
-                          "index": 19,
-                          "width": 150,
-                          "originalId": "Country",
-                          "id": "Country",
-                          "alias": "Country",
-                          "horizontalAlignment": "LEFT",
-                          "verticalAlignment": "CENTER",
-                          "columnType": "text",
-                          "textColor": "",
-                          "textSize": "0.875rem",
-                          "fontStyle": "",
-                          "enableFilter": true,
-                          "enableSort": true,
-                          "isVisible": true,
-                          "isDisabled": false,
-                          "isCellEditable": false,
-                          "isEditable": false,
-                          "isCellVisible": true,
-                          "isDerived": false,
-                          "label": "Country",
-                          "isSaveVisible": true,
-                          "isDiscardVisible": true,
-                          "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Country\"]))}}",
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
@@ -1447,7 +1403,7 @@
                       "serverSideFiltering": false,
                       "defaultOptionValue": "",
                       "animateLoading": true,
-                      "leftColumn": 18,
+                      "leftColumn": 10,
                       "dynamicBindingPathList": [
                         {
                           "key": "accentColor"
@@ -1505,7 +1461,7 @@
                       "key": "fxmpm76qeh",
                       "labelTextSize": "0.875rem",
                       "isDeprecated": false,
-                      "rightColumn": 27,
+                      "rightColumn": 19,
                       "widgetId": "yvoq7vflq3",
                       "minWidth": 450,
                       "parentId": "soy0euu8dl",
@@ -1530,7 +1486,7 @@
                       "serverSideFiltering": false,
                       "defaultOptionValue": "",
                       "animateLoading": true,
-                      "leftColumn": 27,
+                      "leftColumn": 20,
                       "dynamicBindingPathList": [
                         {
                           "key": "accentColor"
@@ -1588,7 +1544,7 @@
                       "key": "fxmpm76qeh",
                       "labelTextSize": "0.875rem",
                       "isDeprecated": false,
-                      "rightColumn": 35,
+                      "rightColumn": 28,
                       "widgetId": "7ttzta78yq",
                       "minWidth": 450,
                       "parentId": "soy0euu8dl",
@@ -1613,7 +1569,7 @@
                       "serverSideFiltering": false,
                       "defaultOptionValue": "",
                       "animateLoading": true,
-                      "leftColumn": 35,
+                      "leftColumn": 29,
                       "dynamicBindingPathList": [
                         {
                           "key": "accentColor"
@@ -1671,7 +1627,7 @@
                       "key": "fxmpm76qeh",
                       "labelTextSize": "0.875rem",
                       "isDeprecated": false,
-                      "rightColumn": 43,
+                      "rightColumn": 37,
                       "widgetId": "19yxuv4tzd",
                       "minWidth": 450,
                       "parentId": "soy0euu8dl",
@@ -1696,7 +1652,7 @@
                       "serverSideFiltering": false,
                       "defaultOptionValue": "",
                       "animateLoading": true,
-                      "leftColumn": 43,
+                      "leftColumn": 38,
                       "dynamicBindingPathList": [
                         {
                           "key": "accentColor"
@@ -1754,7 +1710,7 @@
                       "key": "fxmpm76qeh",
                       "labelTextSize": "0.875rem",
                       "isDeprecated": false,
-                      "rightColumn": 51,
+                      "rightColumn": 46,
                       "widgetId": "ja20row9g9",
                       "minWidth": 450,
                       "parentId": "soy0euu8dl",
@@ -2222,80 +2178,6 @@
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
                       "mobileLeftColumn": 57,
                       "buttonVariant": "PRIMARY"
-                    },
-                    {
-                      "boxShadow": "none",
-                      "iconSVG": "/static/media/icon.16c864f46228416bf937ce5e688bf1eb.svg",
-                      "labelText": "Jurisdictions (Not Working For Now)\n",
-                      "topRow": 20,
-                      "labelWidth": 5,
-                      "type": "MULTI_SELECT_WIDGET_V2",
-                      "serverSideFiltering": false,
-                      "defaultOptionValue": "",
-                      "animateLoading": true,
-                      "leftColumn": 9,
-                      "dynamicBindingPathList": [
-                        {
-                          "key": "accentColor"
-                        },
-                        {
-                          "key": "borderRadius"
-                        },
-                        {
-                          "key": "options"
-                        }
-                      ],
-                      "options": "{{Utils.getCountriesLookup()}}",
-                      "placeholderText": "Select option(s)",
-                      "isDisabled": false,
-                      "isRequired": false,
-                      "dynamicHeight": "FIXED",
-                      "accentColor": "{{appsmith.theme.colors.primaryColor}}",
-                      "isVisible": true,
-                      "version": 1,
-                      "isLoading": false,
-                      "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "originalBottomRow": 27,
-                      "mobileBottomRow": 27,
-                      "widgetName": "JurisdictionSelect",
-                      "isFilterable": true,
-                      "dynamicPropertyPathList": [
-                        {
-                          "key": "onDropdownClose"
-                        }
-                      ],
-                      "displayName": "MultiSelect",
-                      "searchTags": [
-                        "dropdown",
-                        "tags"
-                      ],
-                      "bottomRow": 27,
-                      "parentRowSpace": 10,
-                      "hideCard": false,
-                      "mobileRightColumn": 29,
-                      "parentColumnSpace": 19.765625,
-                      "dynamicTriggerPathList": [
-                        {
-                          "key": "onDropdownClose"
-                        }
-                      ],
-                      "labelPosition": "Top",
-                      "onDropdownClose": "{{Utils.getCompaniesData()}}",
-                      "key": "gd3g07reic",
-                      "labelTextSize": "0.875rem",
-                      "isDeprecated": false,
-                      "rightColumn": 18,
-                      "widgetId": "6vy9ayj4lj",
-                      "minWidth": 450,
-                      "parentId": "soy0euu8dl",
-                      "labelAlignment": "left",
-                      "renderMode": "CANVAS",
-                      "mobileTopRow": 20,
-                      "responsiveBehavior": "fill",
-                      "originalTopRow": 20,
-                      "mobileLeftColumn": 9,
-                      "maxDynamicHeight": 9000,
-                      "minDynamicHeight": 4
                     }
                   ],
                   "key": "kgvhrafln5",
@@ -2345,16 +2227,6 @@
             {
               "id": "Jurisdiction Tracking_GetOfflineSubscription",
               "name": "GetOfflineSubscription",
-              "confirmBeforeExecute": false,
-              "pluginType": "API",
-              "jsonPathKeys": [],
-              "timeoutInMillisecond": 10000
-            }
-          ],
-          [
-            {
-              "id": "Jurisdiction Tracking_GetCountries",
-              "name": "GetCountries",
               "confirmBeforeExecute": false,
               "pluginType": "API",
               "jsonPathKeys": [],

@@ -95,17 +95,17 @@ export default {
 				return AllTrackingJurisdiction.run({companies: companyIds});
 			})
 			await Promise.all([runGetCompanyData, runAllTrackingJurisdiction]);
-			if(!JurisdictionSelect.selectedOptionValues.length) {
-				companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise;
-				// } else {
-				// companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise.map((company) => {
-				// const currentJurisdictions = company.Company.current_orders.map(jurisdiciton => jurisdiciton.country.Id);
-				// console.log(company.Company.current_orders, "****")
-				// const doesExistInCurrentSelection = currentJurisdictions.some(item => JurisdictionSelect.selectedOptionValues.includes(item))
-				// if(doesExistInCurrentSelection) return company
-				// })
-				// console.log(companyData)
-			}
+			// if(!JurisdictionSelect.selectedOptionValues.length) {
+			companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise;
+			// } else {
+			// companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise.map((company) => {
+			// const currentJurisdictions = company.Company.current_orders.map(jurisdiciton => jurisdiciton.country.Id);
+			// console.log(company.Company.current_orders, "****")
+			// const doesExistInCurrentSelection = currentJurisdictions.some(item => JurisdictionSelect.selectedOptionValues.includes(item))
+			// if(doesExistInCurrentSelection) return company
+			// })
+			// console.log(companyData)
+			// }
 			const jurisdictionWiseData = companyData.flatMap((company) => {
 				const { LegalNameOfBusiness } = company.Company;
 				const { Id } = company.Company;
@@ -142,7 +142,7 @@ export default {
 		return false;
 	},
 	constructWhereObject: () => {
-		const where = {"Company": {"LegalNameOfBusiness": {_like: !FullMode.isSwitchedOn ? "%" + JurisdictionTrackingTable.searchText + "%": "%%"}, "current_orders": { "CountryId": { "_in": JurisdictionSelect.selectedOptionValues } } }, "_and": [{"Company": {"TenantId": {"_eq": "BB2090DC-81C1-49ED-AE2E-5016C79464AB"}}}]}
+		const where = {"Company": {"LegalNameOfBusiness": {_like: !FullMode.isSwitchedOn ? "%" + JurisdictionTrackingTable.searchText + "%": "%%"}}, "_and": [{"Company": {"TenantId": {"_eq": "BB2090DC-81C1-49ED-AE2E-5016C79464AB"}}}]}
 		return where;
 	},
 	constructWhereObjectForFilter: () => {
@@ -232,6 +232,52 @@ export default {
 		return GetCountries.data.data.prod.Countries.map(country => {
 			return {value: country.Id, label: country.NameEN }
 		})
+	},
+	mutateJurisdictionTracker: async() => {
+		const {
+			account_checked,
+			action,
+			comments,
+			company_id,
+			country_id,
+			deregistration,
+			latest_followup,
+			letter2_sent,
+			modification_done,
+			modification_request,
+			sales_call_made,
+			sheet_link,
+			outcome,
+			agent,
+			application_submitted_to_ta,
+			poa_received_date
+		} = JurisdictionTrackingTable.triggeredRow;
+		console.log("CAME HERE")
+		const mutationObject = {
+			account_checked: account_checked || null,
+			action,
+			comments,
+			company_id,
+			country_id,
+			deregistration,
+			latest_followup: latest_followup || null,
+			letter2_sent: letter2_sent || null,
+			modification_done: modification_done || null,
+			modification_request,
+			sales_call_made: sales_call_made || null,
+			sheet_link,
+			outcome,
+			agent,
+			application_submitted_to_ta: application_submitted_to_ta || null,
+			poa_received_date: poa_received_date || null
+		};
+
+		try {
+			await AddJurisdictionTracking.run({object: mutationObject});
+			Utils.getCompaniesData();
+		} catch (error) {
+			console.error("An error occurred:", error);
+		}
 	},
 	multipleUpdate: async() => {
 		const tableUpdateData = JurisdictionTrackingTable.updatedRows;

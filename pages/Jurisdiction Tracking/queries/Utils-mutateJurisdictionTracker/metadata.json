@@ -2,8 +2,8 @@
   "pluginType": "JS",
   "pluginId": "js-plugin",
   "unpublishedAction": {
-    "name": "RedirectToCompanyDetailPage",
-    "fullyQualifiedName": "Utils.RedirectToCompanyDetailPage",
+    "name": "mutateJurisdictionTracker",
+    "fullyQualifiedName": "Utils.mutateJurisdictionTracker",
     "datasource": {
       "name": "UNUSED_DATASOURCE",
       "pluginId": "js-plugin",
@@ -13,15 +13,15 @@
       "policies": [],
       "userPermissions": []
     },
-    "pageId": "Companies",
-    "collectionId": "Companies_Utils",
+    "pageId": "Jurisdiction Tracking",
+    "collectionId": "Jurisdiction Tracking_Utils",
     "actionConfiguration": {
       "timeoutInMillisecond": 10000,
       "paginationType": "NONE",
       "encodeParamsToggle": true,
       "selfReferencingDataPaths": [],
       "jsArguments": [],
-      "isAsync": false
+      "isAsync": true
     },
     "executeOnLoad": false,
     "dynamicBindingPathList": [
@@ -35,10 +35,9 @@
     "userSetOnLoad": false,
     "confirmBeforeExecute": false,
     "policies": [],
-    "userPermissions": [],
-    "createdAt": "2023-08-17T08:47:29Z"
+    "userPermissions": []
   },
-  "id": "Companies_Utils.RedirectToCompanyDetailPage",
+  "id": "Jurisdiction Tracking_Utils.mutateJurisdictionTracker",
   "deleted": false,
-  "gitSyncId": "64ddbc9544dc506821b62c28_64dddea144dc506821b62c44"
+  "gitSyncId": "64ddbc9544dc506821b62c28_653f876644dc506821b63561"
 }
