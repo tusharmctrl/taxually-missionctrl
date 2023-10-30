@@ -1,0 +1,8 @@
+query GetCountries {
+	prod {
+		Countries {
+			Id
+			NameEN
+		}
+	}
+}

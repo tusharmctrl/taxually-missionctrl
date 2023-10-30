@@ -13,7 +13,7 @@
           "detachFromLayout": true,
           "widgetId": "0",
           "topRow": 0,
-          "bottomRow": 910,
+          "bottomRow": 830,
           "containerStyle": "none",
           "snapRows": 72,
           "parentRowSpace": 1,
@@ -63,7 +63,7 @@
                   "widgetName": "Canvas1",
                   "displayName": "Canvas",
                   "topRow": 0,
-                  "bottomRow": 1060,
+                  "bottomRow": 1250,
                   "parentRowSpace": 1,
                   "type": "CANVAS_WIDGET",
                   "canExtend": false,
@@ -140,7 +140,7 @@
                       "borderColor": "#E0DEDE",
                       "isVisibleDownload": true,
                       "iconSVG": "/static/media/icon.24905525921dd6f5ff46d0dd843b9e12.svg",
-                      "topRow": 20,
+                      "topRow": 34,
                       "isSortable": true,
                       "onPageChange": "{{Utils.executeCompaniesOnChange()}}",
                       "type": "TABLE_WIDGET_V2",
@@ -236,6 +236,18 @@
                         },
                         {
                           "key": "animateLoading"
+                        },
+                        {
+                          "key": "primaryColumns.id.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.created_at.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.Company.computedValue"
+                        },
+                        {
+                          "key": "primaryColumns.Country.computedValue"
                         }
                       ],
                       "needsHeightForContent": true,
@@ -275,19 +287,21 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1698640675725,
-                      "originalBottomRow": 106,
+                      "columnUpdatedAt": 1698646648522,
+                      "originalBottomRow": 125,
                       "primaryColumnId": "id",
                       "defaultSelectedRowIndices": "[]",
                       "mobileBottomRow": 45,
                       "widgetName": "JurisdictionTrackingTable",
                       "defaultPageSize": 0,
                       "columnOrder": [
+                        "company_id",
                         "Name",
                         "JurisdictionCountry",
                         "account_checked",
                         "sheet_link",
                         "letter2_sent",
+                        "comments",
                         "poa_received_date",
                         "latest_followup",
                         "action",
@@ -295,14 +309,16 @@
                         "modification_done",
                         "modification_request",
                         "sales_call_made",
-                        "comments",
-                        "company_id",
                         "outcome",
                         "agent",
                         "application_submitted_to_ta",
                         "customColumn1",
                         "type",
-                        "country_id"
+                        "country_id",
+                        "id",
+                        "created_at",
+                        "Company",
+                        "Country"
                       ],
                       "dynamicPropertyPathList": [
                         {
@@ -322,7 +338,7 @@
                         }
                       ],
                       "displayName": "Table",
-                      "bottomRow": 106,
+                      "bottomRow": 125,
                       "columnWidthMap": {
                         "task": 245,
                         "step": 70,
@@ -337,7 +353,10 @@
                         "modification_done": 214,
                         "modification_request": 211,
                         "account_checked": 132,
-                        "companyId": 124
+                        "companyId": 124,
+                        "comments": 113,
+                        "poa_received_date": 188,
+                        "outcome": 149
                       },
                       "parentRowSpace": 10,
                       "hideCard": false,
@@ -978,6 +997,126 @@
                           "sticky": "",
                           "validation": {},
                           "cellBackground": ""
+                        },
+                        "id": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 3,
+                          "width": 150,
+                          "originalId": "id",
+                          "id": "id",
+                          "alias": "id",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "number",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "id",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"id\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "created_at": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 11,
+                          "width": 150,
+                          "originalId": "created_at",
+                          "id": "created_at",
+                          "alias": "created_at",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "created_at",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"created_at\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "Company": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 18,
+                          "width": 150,
+                          "originalId": "Company",
+                          "id": "Company",
+                          "alias": "Company",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Company",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Company\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
+                        },
+                        "Country": {
+                          "allowCellWrapping": false,
+                          "allowSameOptionsInNewRow": true,
+                          "index": 19,
+                          "width": 150,
+                          "originalId": "Country",
+                          "id": "Country",
+                          "alias": "Country",
+                          "horizontalAlignment": "LEFT",
+                          "verticalAlignment": "CENTER",
+                          "columnType": "text",
+                          "textColor": "",
+                          "textSize": "0.875rem",
+                          "fontStyle": "",
+                          "enableFilter": true,
+                          "enableSort": true,
+                          "isVisible": true,
+                          "isDisabled": false,
+                          "isCellEditable": false,
+                          "isEditable": false,
+                          "isCellVisible": true,
+                          "isDerived": false,
+                          "label": "Country",
+                          "isSaveVisible": true,
+                          "isDiscardVisible": true,
+                          "computedValue": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"Country\"]))}}",
+                          "sticky": "",
+                          "validation": {},
+                          "cellBackground": ""
                         }
                       },
                       "key": "pp9q4kf3sj",
@@ -997,7 +1136,7 @@
                       "horizontalAlignment": "LEFT",
                       "isVisibleSearch": true,
                       "responsiveBehavior": "fill",
-                      "originalTopRow": 20,
+                      "originalTopRow": 34,
                       "mobileLeftColumn": 0,
                       "isVisiblePagination": "true",
                       "verticalAlignment": "CENTER"
@@ -1301,6 +1440,338 @@
                     {
                       "boxShadow": "none",
                       "iconSVG": "/static/media/icon.1a5defb3c19b4cac4a27829d1f979e4c.svg",
+                      "labelText": "Sales Calls Made",
+                      "topRow": 20,
+                      "labelWidth": 5,
+                      "type": "SELECT_WIDGET",
+                      "serverSideFiltering": false,
+                      "defaultOptionValue": "",
+                      "animateLoading": true,
+                      "leftColumn": 18,
+                      "dynamicBindingPathList": [
+                        {
+                          "key": "accentColor"
+                        },
+                        {
+                          "key": "borderRadius"
+                        },
+                        {
+                          "key": "options"
+                        }
+                      ],
+                      "options": "{{Utils.getOptionsForCheckedOn()}}",
+                      "placeholderText": "Select option",
+                      "isDisabled": "",
+                      "isRequired": false,
+                      "dynamicHeight": "FIXED",
+                      "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+                      "isVisible": true,
+                      "version": 1,
+                      "isLoading": false,
+                      "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+                      "originalBottomRow": 27,
+                      "mobileBottomRow": 18,
+                      "widgetName": "SalesCallSelect",
+                      "isFilterable": false,
+                      "dynamicPropertyPathList": [
+                        {
+                          "key": "isDisabled"
+                        },
+                        {
+                          "key": "onOptionChange"
+                        },
+                        {
+                          "key": "onFilterUpdate"
+                        }
+                      ],
+                      "displayName": "Select",
+                      "searchTags": [
+                        "dropdown"
+                      ],
+                      "bottomRow": 27,
+                      "parentRowSpace": 10,
+                      "hideCard": false,
+                      "mobileRightColumn": 16,
+                      "parentColumnSpace": 19.765625,
+                      "dynamicTriggerPathList": [
+                        {
+                          "key": "onOptionChange"
+                        },
+                        {
+                          "key": "onFilterUpdate"
+                        }
+                      ],
+                      "labelPosition": "Top",
+                      "key": "fxmpm76qeh",
+                      "labelTextSize": "0.875rem",
+                      "isDeprecated": false,
+                      "rightColumn": 27,
+                      "widgetId": "yvoq7vflq3",
+                      "minWidth": 450,
+                      "parentId": "soy0euu8dl",
+                      "labelAlignment": "left",
+                      "renderMode": "CANVAS",
+                      "mobileTopRow": 11,
+                      "responsiveBehavior": "fill",
+                      "originalTopRow": 20,
+                      "mobileLeftColumn": 0,
+                      "maxDynamicHeight": 9000,
+                      "onOptionChange": "",
+                      "onFilterUpdate": "{{console.log(\"updated\")}}",
+                      "minDynamicHeight": 4
+                    },
+                    {
+                      "boxShadow": "none",
+                      "iconSVG": "/static/media/icon.1a5defb3c19b4cac4a27829d1f979e4c.svg",
+                      "labelText": "PoA Received",
+                      "topRow": 20,
+                      "labelWidth": 5,
+                      "type": "SELECT_WIDGET",
+                      "serverSideFiltering": false,
+                      "defaultOptionValue": "",
+                      "animateLoading": true,
+                      "leftColumn": 27,
+                      "dynamicBindingPathList": [
+                        {
+                          "key": "accentColor"
+                        },
+                        {
+                          "key": "borderRadius"
+                        },
+                        {
+                          "key": "options"
+                        }
+                      ],
+                      "options": "{{Utils.getOptionsForCheckedOn()}}",
+                      "placeholderText": "Select option",
+                      "isDisabled": "",
+                      "isRequired": false,
+                      "dynamicHeight": "FIXED",
+                      "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+                      "isVisible": true,
+                      "version": 1,
+                      "isLoading": false,
+                      "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+                      "originalBottomRow": 27,
+                      "mobileBottomRow": 18,
+                      "widgetName": "PoAReceivedSelect",
+                      "isFilterable": false,
+                      "dynamicPropertyPathList": [
+                        {
+                          "key": "isDisabled"
+                        },
+                        {
+                          "key": "onOptionChange"
+                        },
+                        {
+                          "key": "onFilterUpdate"
+                        }
+                      ],
+                      "displayName": "Select",
+                      "searchTags": [
+                        "dropdown"
+                      ],
+                      "bottomRow": 27,
+                      "parentRowSpace": 10,
+                      "hideCard": false,
+                      "mobileRightColumn": 16,
+                      "parentColumnSpace": 19.765625,
+                      "dynamicTriggerPathList": [
+                        {
+                          "key": "onOptionChange"
+                        },
+                        {
+                          "key": "onFilterUpdate"
+                        }
+                      ],
+                      "labelPosition": "Top",
+                      "key": "fxmpm76qeh",
+                      "labelTextSize": "0.875rem",
+                      "isDeprecated": false,
+                      "rightColumn": 35,
+                      "widgetId": "7ttzta78yq",
+                      "minWidth": 450,
+                      "parentId": "soy0euu8dl",
+                      "labelAlignment": "left",
+                      "renderMode": "CANVAS",
+                      "mobileTopRow": 11,
+                      "responsiveBehavior": "fill",
+                      "originalTopRow": 20,
+                      "mobileLeftColumn": 0,
+                      "maxDynamicHeight": 9000,
+                      "onOptionChange": "",
+                      "onFilterUpdate": "{{console.log(\"updated\")}}",
+                      "minDynamicHeight": 4
+                    },
+                    {
+                      "boxShadow": "none",
+                      "iconSVG": "/static/media/icon.1a5defb3c19b4cac4a27829d1f979e4c.svg",
+                      "labelText": "Application Submitted to TA",
+                      "topRow": 20,
+                      "labelWidth": 5,
+                      "type": "SELECT_WIDGET",
+                      "serverSideFiltering": false,
+                      "defaultOptionValue": "",
+                      "animateLoading": true,
+                      "leftColumn": 35,
+                      "dynamicBindingPathList": [
+                        {
+                          "key": "accentColor"
+                        },
+                        {
+                          "key": "borderRadius"
+                        },
+                        {
+                          "key": "options"
+                        }
+                      ],
+                      "options": "{{Utils.getOptionsForCheckedOn()}}",
+                      "placeholderText": "Select option",
+                      "isDisabled": "",
+                      "isRequired": false,
+                      "dynamicHeight": "FIXED",
+                      "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+                      "isVisible": true,
+                      "version": 1,
+                      "isLoading": false,
+                      "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+                      "originalBottomRow": 27,
+                      "mobileBottomRow": 18,
+                      "widgetName": "ApplicationSubmittedSelect",
+                      "isFilterable": false,
+                      "dynamicPropertyPathList": [
+                        {
+                          "key": "isDisabled"
+                        },
+                        {
+                          "key": "onOptionChange"
+                        },
+                        {
+                          "key": "onFilterUpdate"
+                        }
+                      ],
+                      "displayName": "Select",
+                      "searchTags": [
+                        "dropdown"
+                      ],
+                      "bottomRow": 27,
+                      "parentRowSpace": 10,
+                      "hideCard": false,
+                      "mobileRightColumn": 16,
+                      "parentColumnSpace": 19.765625,
+                      "dynamicTriggerPathList": [
+                        {
+                          "key": "onOptionChange"
+                        },
+                        {
+                          "key": "onFilterUpdate"
+                        }
+                      ],
+                      "labelPosition": "Top",
+                      "key": "fxmpm76qeh",
+                      "labelTextSize": "0.875rem",
+                      "isDeprecated": false,
+                      "rightColumn": 43,
+                      "widgetId": "19yxuv4tzd",
+                      "minWidth": 450,
+                      "parentId": "soy0euu8dl",
+                      "labelAlignment": "left",
+                      "renderMode": "CANVAS",
+                      "mobileTopRow": 11,
+                      "responsiveBehavior": "fill",
+                      "originalTopRow": 20,
+                      "mobileLeftColumn": 0,
+                      "maxDynamicHeight": 9000,
+                      "onOptionChange": "",
+                      "onFilterUpdate": "{{console.log(\"updated\")}}",
+                      "minDynamicHeight": 4
+                    },
+                    {
+                      "boxShadow": "none",
+                      "iconSVG": "/static/media/icon.1a5defb3c19b4cac4a27829d1f979e4c.svg",
+                      "labelText": "Latest Follow Up Select",
+                      "topRow": 20,
+                      "labelWidth": 5,
+                      "type": "SELECT_WIDGET",
+                      "serverSideFiltering": false,
+                      "defaultOptionValue": "",
+                      "animateLoading": true,
+                      "leftColumn": 43,
+                      "dynamicBindingPathList": [
+                        {
+                          "key": "accentColor"
+                        },
+                        {
+                          "key": "borderRadius"
+                        },
+                        {
+                          "key": "options"
+                        }
+                      ],
+                      "options": "{{Utils.getOptionsForCheckedOn()}}",
+                      "placeholderText": "Select option",
+                      "isDisabled": "",
+                      "isRequired": false,
+                      "dynamicHeight": "FIXED",
+                      "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+                      "isVisible": true,
+                      "version": 1,
+                      "isLoading": false,
+                      "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+                      "originalBottomRow": 27,
+                      "mobileBottomRow": 18,
+                      "widgetName": "LatestFollowUpSelect",
+                      "isFilterable": false,
+                      "dynamicPropertyPathList": [
+                        {
+                          "key": "isDisabled"
+                        },
+                        {
+                          "key": "onOptionChange"
+                        },
+                        {
+                          "key": "onFilterUpdate"
+                        }
+                      ],
+                      "displayName": "Select",
+                      "searchTags": [
+                        "dropdown"
+                      ],
+                      "bottomRow": 27,
+                      "parentRowSpace": 10,
+                      "hideCard": false,
+                      "mobileRightColumn": 16,
+                      "parentColumnSpace": 19.765625,
+                      "dynamicTriggerPathList": [
+                        {
+                          "key": "onOptionChange"
+                        },
+                        {
+                          "key": "onFilterUpdate"
+                        }
+                      ],
+                      "labelPosition": "Top",
+                      "key": "fxmpm76qeh",
+                      "labelTextSize": "0.875rem",
+                      "isDeprecated": false,
+                      "rightColumn": 51,
+                      "widgetId": "ja20row9g9",
+                      "minWidth": 450,
+                      "parentId": "soy0euu8dl",
+                      "labelAlignment": "left",
+                      "renderMode": "CANVAS",
+                      "mobileTopRow": 11,
+                      "responsiveBehavior": "fill",
+                      "originalTopRow": 20,
+                      "mobileLeftColumn": 0,
+                      "maxDynamicHeight": 9000,
+                      "onOptionChange": "",
+                      "onFilterUpdate": "{{console.log(\"updated\")}}",
+                      "minDynamicHeight": 4
+                    },
+                    {
+                      "boxShadow": "none",
+                      "iconSVG": "/static/media/icon.1a5defb3c19b4cac4a27829d1f979e4c.svg",
                       "labelText": "PoA Sent",
                       "topRow": 11,
                       "labelWidth": 5,
@@ -1549,6 +2020,89 @@
                     },
                     {
                       "boxShadow": "none",
+                      "iconSVG": "/static/media/icon.1a5defb3c19b4cac4a27829d1f979e4c.svg",
+                      "labelText": "Deregistration",
+                      "topRow": 20,
+                      "labelWidth": 5,
+                      "type": "SELECT_WIDGET",
+                      "serverSideFiltering": false,
+                      "defaultOptionValue": "",
+                      "animateLoading": true,
+                      "leftColumn": 0,
+                      "dynamicBindingPathList": [
+                        {
+                          "key": "accentColor"
+                        },
+                        {
+                          "key": "borderRadius"
+                        },
+                        {
+                          "key": "options"
+                        }
+                      ],
+                      "options": "{{Utils.getOptionsForDeregistration()}}",
+                      "placeholderText": "Select option",
+                      "isDisabled": "",
+                      "isRequired": false,
+                      "dynamicHeight": "FIXED",
+                      "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+                      "isVisible": true,
+                      "version": 1,
+                      "isLoading": false,
+                      "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+                      "originalBottomRow": 18,
+                      "mobileBottomRow": 18,
+                      "widgetName": "DeregistrationSelect",
+                      "isFilterable": false,
+                      "dynamicPropertyPathList": [
+                        {
+                          "key": "isDisabled"
+                        },
+                        {
+                          "key": "onOptionChange"
+                        },
+                        {
+                          "key": "onFilterUpdate"
+                        }
+                      ],
+                      "displayName": "Select",
+                      "searchTags": [
+                        "dropdown"
+                      ],
+                      "bottomRow": 27,
+                      "parentRowSpace": 10,
+                      "hideCard": false,
+                      "mobileRightColumn": 16,
+                      "parentColumnSpace": 19.765625,
+                      "dynamicTriggerPathList": [
+                        {
+                          "key": "onOptionChange"
+                        },
+                        {
+                          "key": "onFilterUpdate"
+                        }
+                      ],
+                      "labelPosition": "Top",
+                      "key": "fxmpm76qeh",
+                      "labelTextSize": "0.875rem",
+                      "isDeprecated": false,
+                      "rightColumn": 9,
+                      "widgetId": "m10q582te6",
+                      "minWidth": 450,
+                      "parentId": "soy0euu8dl",
+                      "labelAlignment": "left",
+                      "renderMode": "CANVAS",
+                      "mobileTopRow": 11,
+                      "responsiveBehavior": "fill",
+                      "originalTopRow": 11,
+                      "mobileLeftColumn": 0,
+                      "maxDynamicHeight": 9000,
+                      "onOptionChange": "",
+                      "onFilterUpdate": "{{console.log(\"updated\")}}",
+                      "minDynamicHeight": 4
+                    },
+                    {
+                      "boxShadow": "none",
                       "mobileBottomRow": 18,
                       "widgetName": "CalculateFilter",
                       "onClick": "{{Utils.getCompaniesData()}}",
@@ -1668,6 +2222,80 @@
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
                       "mobileLeftColumn": 57,
                       "buttonVariant": "PRIMARY"
+                    },
+                    {
+                      "boxShadow": "none",
+                      "iconSVG": "/static/media/icon.16c864f46228416bf937ce5e688bf1eb.svg",
+                      "labelText": "Jurisdictions (Not Working For Now)\n",
+                      "topRow": 20,
+                      "labelWidth": 5,
+                      "type": "MULTI_SELECT_WIDGET_V2",
+                      "serverSideFiltering": false,
+                      "defaultOptionValue": "",
+                      "animateLoading": true,
+                      "leftColumn": 9,
+                      "dynamicBindingPathList": [
+                        {
+                          "key": "accentColor"
+                        },
+                        {
+                          "key": "borderRadius"
+                        },
+                        {
+                          "key": "options"
+                        }
+                      ],
+                      "options": "{{Utils.getCountriesLookup()}}",
+                      "placeholderText": "Select option(s)",
+                      "isDisabled": false,
+                      "isRequired": false,
+                      "dynamicHeight": "FIXED",
+                      "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+                      "isVisible": true,
+                      "version": 1,
+                      "isLoading": false,
+                      "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+                      "originalBottomRow": 27,
+                      "mobileBottomRow": 27,
+                      "widgetName": "JurisdictionSelect",
+                      "isFilterable": true,
+                      "dynamicPropertyPathList": [
+                        {
+                          "key": "onDropdownClose"
+                        }
+                      ],
+                      "displayName": "MultiSelect",
+                      "searchTags": [
+                        "dropdown",
+                        "tags"
+                      ],
+                      "bottomRow": 27,
+                      "parentRowSpace": 10,
+                      "hideCard": false,
+                      "mobileRightColumn": 29,
+                      "parentColumnSpace": 19.765625,
+                      "dynamicTriggerPathList": [
+                        {
+                          "key": "onDropdownClose"
+                        }
+                      ],
+                      "labelPosition": "Top",
+                      "onDropdownClose": "{{Utils.getCompaniesData()}}",
+                      "key": "gd3g07reic",
+                      "labelTextSize": "0.875rem",
+                      "isDeprecated": false,
+                      "rightColumn": 18,
+                      "widgetId": "6vy9ayj4lj",
+                      "minWidth": 450,
+                      "parentId": "soy0euu8dl",
+                      "labelAlignment": "left",
+                      "renderMode": "CANVAS",
+                      "mobileTopRow": 20,
+                      "responsiveBehavior": "fill",
+                      "originalTopRow": 20,
+                      "mobileLeftColumn": 9,
+                      "maxDynamicHeight": 9000,
+                      "minDynamicHeight": 4
                     }
                   ],
                   "key": "kgvhrafln5",
@@ -1717,6 +2345,16 @@
             {
               "id": "Jurisdiction Tracking_GetOfflineSubscription",
               "name": "GetOfflineSubscription",
+              "confirmBeforeExecute": false,
+              "pluginType": "API",
+              "jsonPathKeys": [],
+              "timeoutInMillisecond": 10000
+            }
+          ],
+          [
+            {
+              "id": "Jurisdiction Tracking_GetCountries",
+              "name": "GetCountries",
               "confirmBeforeExecute": false,
               "pluginType": "API",
               "jsonPathKeys": [],
