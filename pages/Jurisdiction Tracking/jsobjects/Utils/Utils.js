@@ -85,9 +85,15 @@ export default {
 	},
 	getCompaniesData: async() => {
 		if(!Utils.isFilterActive() && !GetOfflineSubscription.isLoading) {
-			await GetCompanyData.run();
-			const companyIds = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise.map(company => company.Company.Id);
-			await AllTrackingJurisdiction.run({companies: companyIds})
+			// await GetCompanyData.run();
+			// const companyIds = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise.map(company => company.Company.Id);
+			// await AllTrackingJurisdiction.run({companies: companyIds})
+			const runGetCompanyData = GetCompanyData.run();
+			const runAllTrackingJurisdiction = runGetCompanyData.then(() => {
+				const companyIds = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise.map(company => company.Company.Id);
+				return AllTrackingJurisdiction.run({companies: companyIds});
+			})
+			await Promise.all([runGetCompanyData, runAllTrackingJurisdiction]);
 			const companyData = GetCompanyData.data.data.prod.missionctrl_track_company_status_wise;
 			const jurisdictionWiseData = companyData.flatMap((company) => {
 				const { LegalNameOfBusiness } = company.Company;
@@ -153,55 +159,6 @@ export default {
 		const isOffline = allOfflineSubsriptionData.some(data => data.company_id === companyId && data.country_id === countryId);
 		return isOffline ? "OFFLINE" : "ONLINE";
 	},
-	// mutateJurisdictionTracker: async() => {
-	// const {
-	// account_checked,
-	// action,
-	// comments,
-	// company_id,
-	// country_id,
-	// deregistration,
-	// latest_followup,
-	// letter2_sent,
-	// modification_done,
-	// modification_request,
-	// sales_call_made,
-	// sheet_link,
-	// outcome,
-	// agent,
-	// application_submitted_to_ta,
-	// poa_received_date
-	// } = JurisdictionTrackingTable.updatedRow;
-	// const mutationObject = {
-	// account_checked: account_checked || null,
-	// action,
-	// comments,
-	// company_id,
-	// country_id,
-	// deregistration,
-	// latest_followup: latest_followup || null,
-	// letter2_sent: letter2_sent || null,
-	// modification_done: modification_done || null,
-	// modification_request,
-	// sales_call_made: sales_call_made || null,
-	// sheet_link,
-	// outcome,
-	// agent,
-	// application_submitted_to_ta: application_submitted_to_ta || null,
-	// poa_received_date: poa_received_date || null
-	// };
-	// try {
-	// const response = await AddJurisdictionTracking.run({object: mutationObject});
-	// if (response.data) {
-	// showAlert("Updated Jurisdiction Successfully!", "success");
-	// } else {
-	// showAlert("Something Went Wrong!", "error");
-	// }
-	// Utils.getCompaniesData();
-	// } catch (error) {
-	// console.error("An error occurred:", error);
-	// }
-	// },
 	convertUpdateDataToJurisdictionForm: (data, action="UPDATE") => {
 		if(action === "UPDATE") {
 			const dataToBeUpdated = data.map(data => {
@@ -253,9 +210,14 @@ export default {
 		if(JurisdictionTrackingTable.selectedRows.length) {
 			const updatableFormat = Utils.convertUpdateDataToJurisdictionForm(JurisdictionTrackingTable.selectedRows, "SELECTED");
 			const firstData = {...finalDataToBeUpdated[0]};
+			const parentCompanyId = firstData.company_id;
 			delete firstData["company_id"];
 			delete firstData["country_id"];
 			updatableFormat.filter((data) => {
+				if(data.company_id !== parentCompanyId) {
+					showAlert(`You selected a company(${data.company_id}) which is different than the parent company, so we ignored it`, "info")
+					return false;
+				}
 				finalDataToBeUpdated.push({
 					...firstData,
 					company_id: data.company_id,
