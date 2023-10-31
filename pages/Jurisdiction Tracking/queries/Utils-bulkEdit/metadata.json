@@ -2,8 +2,8 @@
   "pluginType": "JS",
   "pluginId": "js-plugin",
   "unpublishedAction": {
-    "name": "multipleUpdate",
-    "fullyQualifiedName": "Utils.multipleUpdate",
+    "name": "bulkEdit",
+    "fullyQualifiedName": "Utils.bulkEdit",
     "datasource": {
       "name": "UNUSED_DATASOURCE",
       "pluginId": "js-plugin",
@@ -37,7 +37,7 @@
     "policies": [],
     "userPermissions": []
   },
-  "id": "Jurisdiction Tracking_Utils.multipleUpdate",
+  "id": "Jurisdiction Tracking_Utils.bulkEdit",
   "deleted": false,
-  "gitSyncId": "64ddbc9544dc506821b62c28_653a1bdc44dc506821b63455"
+  "gitSyncId": "64ddbc9544dc506821b62c28_654079ce44dc506821b63573"
 }

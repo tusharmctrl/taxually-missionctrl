@@ -272,7 +272,7 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1698663085562,
+                      "columnUpdatedAt": 1698725690478,
                       "originalBottomRow": 125,
                       "primaryColumnId": "id",
                       "defaultSelectedRowIndices": "[]",
@@ -372,7 +372,7 @@
                         "latest_followup": 126,
                         "modification_done": 214,
                         "modification_request": 211,
-                        "account_checked": 132,
+                        "account_checked": 161,
                         "companyId": 124,
                         "comments": 113,
                         "poa_received_date": 188,
@@ -1403,7 +1403,7 @@
                       "serverSideFiltering": false,
                       "defaultOptionValue": "",
                       "animateLoading": true,
-                      "leftColumn": 10,
+                      "leftColumn": 9,
                       "dynamicBindingPathList": [
                         {
                           "key": "accentColor"
@@ -1461,7 +1461,7 @@
                       "key": "fxmpm76qeh",
                       "labelTextSize": "0.875rem",
                       "isDeprecated": false,
-                      "rightColumn": 19,
+                      "rightColumn": 18,
                       "widgetId": "yvoq7vflq3",
                       "minWidth": 450,
                       "parentId": "soy0euu8dl",
@@ -1486,7 +1486,7 @@
                       "serverSideFiltering": false,
                       "defaultOptionValue": "",
                       "animateLoading": true,
-                      "leftColumn": 20,
+                      "leftColumn": 18,
                       "dynamicBindingPathList": [
                         {
                           "key": "accentColor"
@@ -1544,7 +1544,7 @@
                       "key": "fxmpm76qeh",
                       "labelTextSize": "0.875rem",
                       "isDeprecated": false,
-                      "rightColumn": 28,
+                      "rightColumn": 26,
                       "widgetId": "7ttzta78yq",
                       "minWidth": 450,
                       "parentId": "soy0euu8dl",
@@ -1569,7 +1569,7 @@
                       "serverSideFiltering": false,
                       "defaultOptionValue": "",
                       "animateLoading": true,
-                      "leftColumn": 29,
+                      "leftColumn": 26,
                       "dynamicBindingPathList": [
                         {
                           "key": "accentColor"
@@ -1627,7 +1627,7 @@
                       "key": "fxmpm76qeh",
                       "labelTextSize": "0.875rem",
                       "isDeprecated": false,
-                      "rightColumn": 37,
+                      "rightColumn": 34,
                       "widgetId": "19yxuv4tzd",
                       "minWidth": 450,
                       "parentId": "soy0euu8dl",
@@ -1652,7 +1652,7 @@
                       "serverSideFiltering": false,
                       "defaultOptionValue": "",
                       "animateLoading": true,
-                      "leftColumn": 38,
+                      "leftColumn": 34,
                       "dynamicBindingPathList": [
                         {
                           "key": "accentColor"
@@ -1710,7 +1710,7 @@
                       "key": "fxmpm76qeh",
                       "labelTextSize": "0.875rem",
                       "isDeprecated": false,
-                      "rightColumn": 46,
+                      "rightColumn": 43,
                       "widgetId": "ja20row9g9",
                       "minWidth": 450,
                       "parentId": "soy0euu8dl",
@@ -2119,14 +2119,14 @@
                       "boxShadow": "none",
                       "mobileBottomRow": 17,
                       "widgetName": "MultipleSaveButton",
-                      "onClick": "{{Utils.multipleUpdate()}}",
+                      "onClick": "{{Utils.bulkEdit()}}",
                       "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
                       "dynamicPropertyPathList": [
                         {
-                          "key": "isDisabled"
+                          "key": "onClick"
                         },
                         {
-                          "key": "onClick"
+                          "key": "isDisabled"
                         }
                       ],
                       "displayName": "Icon button",
@@ -2161,7 +2161,7 @@
                           "key": "isDisabled"
                         }
                       ],
-                      "isDisabled": "{{JurisdictionTrackingTable.updatedRows.length ? false : true}}",
+                      "isDisabled": "{{JurisdictionTrackingTable.selectedRows.length <= 1}}",
                       "key": "f501xbf1nu",
                       "isDeprecated": false,
                       "rightColumn": 61,

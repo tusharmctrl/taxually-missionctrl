@@ -252,7 +252,6 @@ export default {
 			application_submitted_to_ta,
 			poa_received_date
 		} = JurisdictionTrackingTable.triggeredRow;
-		console.log("CAME HERE")
 		const mutationObject = {
 			account_checked: account_checked || null,
 			action,
@@ -279,33 +278,24 @@ export default {
 			console.error("An error occurred:", error);
 		}
 	},
-	multipleUpdate: async() => {
-		const tableUpdateData = JurisdictionTrackingTable.updatedRows;
-		const finalDataToBeUpdated = Utils.convertUpdateDataToJurisdictionForm(tableUpdateData);
-		if(JurisdictionTrackingTable.selectedRows.length) {
-			const updatableFormat = Utils.convertUpdateDataToJurisdictionForm(JurisdictionTrackingTable.selectedRows, "SELECTED");
-			const firstData = {...finalDataToBeUpdated[0]};
-			const parentCompanyId = firstData.company_id;
-			delete firstData["company_id"];
-			delete firstData["country_id"];
-			updatableFormat.filter((data) => {
-				if(data.company_id !== parentCompanyId) {
-					showAlert(`You selected a company(${data.company_id}) which is different than the parent company, so we ignored it`, "info")
-					return false;
+	bulkEdit: async() => {
+		if(JurisdictionTrackingTable.selectedRows.length >= 2) {
+			const databaseFormat = Utils.convertUpdateDataToJurisdictionForm(JurisdictionTrackingTable.selectedRows, "SELECTED");
+			const {company_id, country_id, ...restParentData} = databaseFormat[0];
+			console.log(restParentData, "***")
+			const child_rows = databaseFormat.slice(1);
+			const refinedChildRows = child_rows.filter((row) => row.company_id === company_id).map((data) => ({...data, ...restParentData}));
+			const differentCompanySelected = child_rows.some((row) => row.company_id !== company_id);
+			if(differentCompanySelected) showAlert("You selected different company/companies than parent row, we've ignored them!", "info")
+			if(refinedChildRows.length) {
+				const response = await MultipleJurisdictionTracking.run({objects: refinedChildRows});
+				if (response.data) {
+					Utils.getCompaniesData();
+					showAlert("Updated Jurisdiction Successfully!", "success");
+				} else {
+					showAlert("Something Went Wrong!", "error");
 				}
-				finalDataToBeUpdated.push({
-					...firstData,
-					company_id: data.company_id,
-					country_id: data.country_id
-				})
-			})
-		}
-		const response = await MultipleJurisdictionTracking.run({objects: finalDataToBeUpdated});
-		if (response.data) {
-			Utils.getCompaniesData();
-			showAlert("Updated Jurisdiction Successfully!", "success");
-		} else {
-			showAlert("Something Went Wrong!", "error");
+			}
 		}
 	}
 }
