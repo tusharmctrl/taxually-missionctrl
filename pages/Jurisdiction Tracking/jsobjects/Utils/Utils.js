@@ -187,7 +187,6 @@ export default {
 	convertUpdateDataToJurisdictionForm: (data, action="UPDATE") => {
 		if(action === "UPDATE") {
 			const dataToBeUpdated = data.map(data => {
-				console.log(data, "UP IN FUNC")
 				delete data["allFields"]["JurisdictionCountry"];
 				delete data["allFields"]["Name"];
 				delete data["allFields"]["type"];
@@ -233,7 +232,23 @@ export default {
 			return {value: country.Id, label: country.NameEN }
 		})
 	},
-	mutateJurisdictionTracker: async() => {
+	updateEditingStore: (currentlyEditedCell, companyId, countryId) => {
+		const currentEditingStore = appsmith.store.currentEditStore
+		if(currentEditingStore.company_id === companyId && currentEditingStore.country_id === countryId) {
+			const [currentObjectKey] = Object.keys(currentlyEditedCell);
+			if(currentEditingStore[currentObjectKey]) {
+				delete currentEditingStore[currentObjectKey]
+			}
+			const newEditedObject = {...currentlyEditedCell, ...currentEditingStore};
+			storeValue("currentEditStore", newEditedObject)
+		} else {
+			storeValue("currentEditStore", {...currentlyEditedCell, company_id: companyId, country_id:countryId })
+		}
+	},
+	mutateJurisdictionTracker: async(cellName) => {
+		const triggeredRow = JurisdictionTrackingTable.triggeredRow
+		const payloadForStore = {[cellName]: triggeredRow[cellName] }
+		Utils.updateEditingStore(payloadForStore, triggeredRow.company_id, triggeredRow.country_id);
 		const {
 			account_checked,
 			action,
@@ -279,10 +294,9 @@ export default {
 		}
 	},
 	bulkEdit: async() => {
-		if(JurisdictionTrackingTable.selectedRows.length >= 2) {
+		if(JurisdictionTrackingTable.selectedRows.length >= 2 && appsmith.store.currentEditStore) {
 			const databaseFormat = Utils.convertUpdateDataToJurisdictionForm(JurisdictionTrackingTable.selectedRows, "SELECTED");
-			const {company_id, country_id, ...restParentData} = databaseFormat[0];
-			console.log(restParentData, "***")
+			const {company_id, country_id, ...restParentData} = appsmith.store.currentEditStore;
 			const child_rows = databaseFormat.slice(1);
 			const refinedChildRows = child_rows.filter((row) => row.company_id === company_id).map((data) => ({...data, ...restParentData}));
 			const differentCompanySelected = child_rows.some((row) => row.company_id !== company_id);

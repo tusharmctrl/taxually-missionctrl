@@ -13,7 +13,7 @@
           "detachFromLayout": true,
           "widgetId": "0",
           "topRow": 0,
-          "bottomRow": 910,
+          "bottomRow": 1030,
           "containerStyle": "none",
           "snapRows": 72,
           "parentRowSpace": 1,
@@ -39,7 +39,7 @@
                 "group"
               ],
               "topRow": 0,
-              "bottomRow": 83,
+              "bottomRow": 95,
               "parentRowSpace": 10,
               "type": "CONTAINER_WIDGET",
               "hideCard": false,
@@ -63,7 +63,7 @@
                   "widgetName": "Canvas1",
                   "displayName": "Canvas",
                   "topRow": 0,
-                  "bottomRow": 1250,
+                  "bottomRow": 950,
                   "parentRowSpace": 1,
                   "type": "CANVAS_WIDGET",
                   "canExtend": false,
@@ -140,7 +140,7 @@
                       "borderColor": "#E0DEDE",
                       "isVisibleDownload": true,
                       "iconSVG": "/static/media/icon.24905525921dd6f5ff46d0dd843b9e12.svg",
-                      "topRow": 34,
+                      "topRow": 30,
                       "isSortable": true,
                       "onPageChange": "{{Utils.executeCompaniesOnChange()}}",
                       "type": "TABLE_WIDGET_V2",
@@ -247,7 +247,7 @@
                       "version": 1,
                       "totalRecordsCount": "",
                       "isLoading": false,
-                      "onSearchTextChanged": "{{!FullMode.isSwitchedOn && Utils.getCompaniesData()}}",
+                      "onSearchTextChanged": "{{Utils.getCompaniesData()}}",
                       "childStylesheet": {
                         "button": {
                           "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
@@ -272,8 +272,8 @@
                         }
                       },
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-                      "columnUpdatedAt": 1698725690478,
-                      "originalBottomRow": 125,
+                      "columnUpdatedAt": 1699502180150,
+                      "originalBottomRow": 90,
                       "primaryColumnId": "id",
                       "defaultSelectedRowIndices": "[]",
                       "mobileBottomRow": 45,
@@ -358,7 +358,7 @@
                         }
                       ],
                       "displayName": "Table",
-                      "bottomRow": 125,
+                      "bottomRow": 90,
                       "columnWidthMap": {
                         "task": 245,
                         "step": 70,
@@ -468,7 +468,7 @@
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
                           "outputFormat": "MM-DD-YYYY",
-                          "onDateSelected": "{{Utils.mutateJurisdictionTracker()}}"
+                          "onDateSelected": "{{Utils.mutateJurisdictionTracker(\"account_checked\")}}"
                         },
                         "sheet_link": {
                           "allowCellWrapping": false,
@@ -500,7 +500,7 @@
                           "validation": {},
                           "cellBackground": "",
                           "displayText": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( currentRow[\"sheet_link\"]))}}",
-                          "onSubmit": "{{Utils.mutateJurisdictionTracker()}}"
+                          "onSubmit": "{{Utils.mutateJurisdictionTracker(\"sheet_link\")}}"
                         },
                         "letter2_sent": {
                           "allowCellWrapping": false,
@@ -533,7 +533,7 @@
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
                           "outputFormat": "MM-DD-YYYY",
-                          "onDateSelected": "{{Utils.mutateJurisdictionTracker()}}"
+                          "onDateSelected": "{{Utils.mutateJurisdictionTracker(\"letter2_sent\")}}"
                         },
                         "latest_followup": {
                           "allowCellWrapping": false,
@@ -566,7 +566,7 @@
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
                           "outputFormat": "MM-DD-YYYY",
-                          "onDateSelected": "{{Utils.mutateJurisdictionTracker()}}"
+                          "onDateSelected": "{{Utils.mutateJurisdictionTracker(\"latest_followup\")}}"
                         },
                         "action": {
                           "allowCellWrapping": false,
@@ -599,7 +599,7 @@
                           "cellBackground": "",
                           "selectOptions": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( Utils.getOptionsForAction()))}}",
                           "placeholderText": "",
-                          "onOptionChange": "{{Utils.mutateJurisdictionTracker()}}"
+                          "onOptionChange": "{{Utils.mutateJurisdictionTracker(\"action\")}}"
                         },
                         "modification_done": {
                           "allowCellWrapping": false,
@@ -632,7 +632,7 @@
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
                           "outputFormat": "MM-DD-YYYY",
-                          "onDateSelected": "{{Utils.mutateJurisdictionTracker()}}"
+                          "onDateSelected": "{{Utils.mutateJurisdictionTracker(\"modification_done\")}}"
                         },
                         "modification_request": {
                           "allowCellWrapping": false,
@@ -663,7 +663,7 @@
                           "sticky": "",
                           "validation": {},
                           "cellBackground": "",
-                          "onSubmit": "{{Utils.mutateJurisdictionTracker()}}"
+                          "onSubmit": "{{Utils.mutateJurisdictionTracker(\"modification_request\")}}"
                         },
                         "sales_call_made": {
                           "allowCellWrapping": false,
@@ -696,7 +696,7 @@
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
                           "outputFormat": "MM-DD-YYYY",
-                          "onDateSelected": "{{Utils.mutateJurisdictionTracker()}}"
+                          "onDateSelected": "{{Utils.mutateJurisdictionTracker(\"sales_call_made\")}}"
                         },
                         "deregistration": {
                           "allowCellWrapping": false,
@@ -727,8 +727,8 @@
                           "sticky": "",
                           "validation": {},
                           "cellBackground": "",
-                          "selectOptions": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( Utils.getOptionsForDeregistration()))}}",
-                          "onOptionChange": "{{Utils.mutateJurisdictionTracker()}}"
+                          "selectOptions": "{{JurisdictionTrackingTable.processedTableData.map((currentRow, currentIndex) => ( Utils.getOptionsForDeregistration(\"deregistration\")))}}",
+                          "onOptionChange": "{{Utils.mutateJurisdictionTracker(\"deregistration\")}}"
                         },
                         "comments": {
                           "allowCellWrapping": false,
@@ -759,7 +759,7 @@
                           "sticky": "",
                           "validation": {},
                           "cellBackground": "",
-                          "onSubmit": "{{Utils.mutateJurisdictionTracker()}}"
+                          "onSubmit": "{{Utils.mutateJurisdictionTracker(\"comments\")}}"
                         },
                         "outcome": {
                           "allowCellWrapping": false,
@@ -790,7 +790,7 @@
                           "sticky": "",
                           "validation": {},
                           "cellBackground": "",
-                          "onSubmit": "{{Utils.mutateJurisdictionTracker()}}"
+                          "onSubmit": "{{Utils.mutateJurisdictionTracker(\"outcome\")}}"
                         },
                         "agent": {
                           "allowCellWrapping": false,
@@ -821,7 +821,7 @@
                           "sticky": "",
                           "validation": {},
                           "cellBackground": "",
-                          "onSubmit": "{{Utils.mutateJurisdictionTracker()}}"
+                          "onSubmit": "{{Utils.mutateJurisdictionTracker(\"agent\")}}"
                         },
                         "customColumn1": {
                           "allowCellWrapping": false,
@@ -889,7 +889,7 @@
                           "cellBackground": "",
                           "outputFormat": "MM-DD-YYYY",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
-                          "onDateSelected": "{{Utils.mutateJurisdictionTracker()}}"
+                          "onDateSelected": "{{Utils.mutateJurisdictionTracker(\"application_submitted_to_ta\")}}"
                         },
                         "poa_received_date": {
                           "allowCellWrapping": false,
@@ -922,7 +922,7 @@
                           "cellBackground": "",
                           "inputFormat": "YYYY-MM-DDTHH:mm:ss",
                           "outputFormat": "MM-DD-YYYY",
-                          "onDateSelected": "{{Utils.mutateJurisdictionTracker()}}"
+                          "onDateSelected": "{{Utils.mutateJurisdictionTracker(\"poa_received_date\")}}"
                         },
                         "Name": {
                           "allowCellWrapping": false,
@@ -1092,7 +1092,7 @@
                       "horizontalAlignment": "LEFT",
                       "isVisibleSearch": true,
                       "responsiveBehavior": "fill",
-                      "originalTopRow": 34,
+                      "originalTopRow": 30,
                       "mobileLeftColumn": 0,
                       "isVisiblePagination": "true",
                       "verticalAlignment": "CENTER"

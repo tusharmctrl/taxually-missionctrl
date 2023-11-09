@@ -2,8 +2,8 @@
   "pluginType": "JS",
   "pluginId": "js-plugin",
   "unpublishedAction": {
-    "name": "mutateJurisdictionTracker",
-    "fullyQualifiedName": "Utils.mutateJurisdictionTracker",
+    "name": "updateEditingStore",
+    "fullyQualifiedName": "Utils.updateEditingStore",
     "datasource": {
       "name": "UNUSED_DATASOURCE",
       "pluginId": "js-plugin",
@@ -22,7 +22,13 @@
       "selfReferencingDataPaths": [],
       "jsArguments": [
         {
-          "name": "cellName"
+          "name": "currentlyEditedCell"
+        },
+        {
+          "name": "companyId"
+        },
+        {
+          "name": "countryId"
         }
       ],
       "isAsync": true
@@ -41,7 +47,7 @@
     "policies": [],
     "userPermissions": []
   },
-  "id": "Jurisdiction Tracking_Utils.mutateJurisdictionTracker",
+  "id": "Jurisdiction Tracking_Utils.updateEditingStore",
   "deleted": false,
-  "gitSyncId": "64ddbc9544dc506821b62c28_653f876644dc506821b63561"
+  "gitSyncId": "64ddbc9544dc506821b62c28_654b89c9ec8f354fec37ed61"
 }

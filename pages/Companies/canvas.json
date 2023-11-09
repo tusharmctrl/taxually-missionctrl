@@ -1614,6 +1614,19 @@
         "layoutOnLoadActions": [
           [
             {
+              "id": "Companies_Utils.onLoad",
+              "name": "Utils.onLoad",
+              "collectionId": "Companies_Utils",
+              "confirmBeforeExecute": false,
+              "pluginType": "JS",
+              "jsonPathKeys": [
+                "async () => {\n  await Promise.all([GetCompanyData.run(), GetOfflineSubscription.run(), GetLastRecord.run()]);\n}"
+              ],
+              "timeoutInMillisecond": 10000
+            }
+          ],
+          [
+            {
               "id": "Companies_GetAllStatuses",
               "name": "GetAllStatuses",
               "confirmBeforeExecute": false,
@@ -1651,17 +1664,6 @@
               "confirmBeforeExecute": false,
               "pluginType": "API",
               "jsonPathKeys": [],
-              "timeoutInMillisecond": 10000
-            },
-            {
-              "id": "Companies_Utils.onLoad",
-              "name": "Utils.onLoad",
-              "collectionId": "Companies_Utils",
-              "confirmBeforeExecute": false,
-              "pluginType": "JS",
-              "jsonPathKeys": [
-                "async () => {\n  await Promise.all([GetCompanyData.run(), GetOfflineSubscription.run(), GetLastRecord.run()]);\n}"
-              ],
               "timeoutInMillisecond": 10000
             }
           ],
