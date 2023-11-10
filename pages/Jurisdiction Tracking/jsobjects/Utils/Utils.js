@@ -234,7 +234,7 @@ export default {
 	},
 	updateEditingStore: (currentlyEditedCell, companyId, countryId) => {
 		const currentEditingStore = appsmith.store.currentEditStore
-		if(currentEditingStore.company_id === companyId && currentEditingStore.country_id === countryId) {
+		if(currentEditingStore && currentEditingStore?.company_id === companyId && currentEditingStore?.country_id === countryId) {
 			const [currentObjectKey] = Object.keys(currentlyEditedCell);
 			if(currentEditingStore[currentObjectKey]) {
 				delete currentEditingStore[currentObjectKey]
@@ -244,10 +244,12 @@ export default {
 		} else {
 			storeValue("currentEditStore", {...currentlyEditedCell, company_id: companyId, country_id:countryId })
 		}
+		console.log(appsmith.store.currentEditStore)
 	},
 	mutateJurisdictionTracker: async(cellName) => {
 		const triggeredRow = JurisdictionTrackingTable.triggeredRow
 		const payloadForStore = {[cellName]: triggeredRow[cellName] }
+		console.log(payloadForStore, triggeredRow.company_id, triggeredRow.country_id)
 		Utils.updateEditingStore(payloadForStore, triggeredRow.company_id, triggeredRow.country_id);
 		const {
 			account_checked,
@@ -305,6 +307,7 @@ export default {
 				const response = await MultipleJurisdictionTracking.run({objects: refinedChildRows});
 				if (response.data) {
 					Utils.getCompaniesData();
+					storeValue("currentEditStore", undefined)
 					showAlert("Updated Jurisdiction Successfully!", "success");
 				} else {
 					showAlert("Something Went Wrong!", "error");
