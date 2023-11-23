@@ -79,6 +79,7 @@ export default {
 		OfflineInformationTypes.run();
 	},
 	getSelectedCountriesOfInformation: async(id) => {
+		console.log("CALEDD")
 		if (GetCountries.isLoading) return;
 		storeValue("currentInformationId", id);
 		await GetSelectedCountriesOfInfo.run({ id, type: TypeOfInformation.selectedOptionValue });

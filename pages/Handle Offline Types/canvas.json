@@ -3893,8 +3893,8 @@
               "confirmBeforeExecute": false,
               "pluginType": "API",
               "jsonPathKeys": [
-                "this.params.id",
-                "this.params.type"
+                "this.params.type",
+                "this.params.id"
               ],
               "timeoutInMillisecond": 10000
             },
@@ -3923,17 +3923,6 @@
               "confirmBeforeExecute": false,
               "pluginType": "API",
               "jsonPathKeys": [],
-              "timeoutInMillisecond": 10000
-            },
-            {
-              "id": "Handle Offline Types_Utils.getSelectedCountriesOfInformation",
-              "name": "Utils.getSelectedCountriesOfInformation",
-              "collectionId": "Handle Offline Types_Utils",
-              "confirmBeforeExecute": false,
-              "pluginType": "JS",
-              "jsonPathKeys": [
-                "async id => {\n  if (GetCountries.isLoading) return;\n  storeValue(\"currentInformationId\", id);\n  await GetSelectedCountriesOfInfo.run({\n    id,\n    type: TypeOfInformation.selectedOptionValue\n  });\n  const selectedCountries = GetSelectedCountriesOfInfo.data.data.prod.missionctrl_track_missing_information;\n  const countries = GetCountries.data.data.prod.Countries;\n  const finalResponse = countries.map(country => {\n    const isAssigned = selectedCountries.some(selectedCountry => selectedCountry.Country.Id === country.Id);\n    const countryObject = {\n      Name: country.NameEN,\n      Assigned: isAssigned,\n      InformationId: id,\n      CountryId: country.Id\n    };\n    const specialComments = selectedCountries.find(selectedCountry => selectedCountry.Country.Id === country.Id)?.special_comments;\n    countryObject.SpecialComments = specialComments ?? \"\";\n    return countryObject;\n  }).sort((a, b) => a.Assigned === b.Assigned ? 0 : a.Assigned ? -1 : 1);\n  showModal(\"CountryBindingsToInfoModal\");\n  return finalResponse;\n}"
-              ],
               "timeoutInMillisecond": 10000
             }
           ]

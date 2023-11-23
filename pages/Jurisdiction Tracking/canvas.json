@@ -358,7 +358,7 @@
                         }
                       ],
                       "displayName": "Table",
-                      "bottomRow": 90,
+                      "bottomRow": 93,
                       "columnWidthMap": {
                         "task": 245,
                         "step": 70,
@@ -2111,8 +2111,10 @@
                       "isLoading": false,
                       "mobileTopRow": 14,
                       "responsiveBehavior": "hug",
+                      "originalTopRow": 13,
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
                       "mobileLeftColumn": 39,
+                      "originalBottomRow": 17,
                       "buttonVariant": "PRIMARY"
                     },
                     {
@@ -2175,8 +2177,10 @@
                       "isLoading": false,
                       "mobileTopRow": 13,
                       "responsiveBehavior": "hug",
+                      "originalTopRow": 13,
                       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
                       "mobileLeftColumn": 57,
+                      "originalBottomRow": 17,
                       "buttonVariant": "PRIMARY"
                     }
                   ],
