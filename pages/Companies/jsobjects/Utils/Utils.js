@@ -1,12 +1,11 @@
 export default {
-	onLoad: async() => {
-		await Promise.all(
-			[
-				GetCompanyData.run(),
-				GetOfflineSubscription.run(),
-				GetLastRecord.run()
-			]
-		)
+	onLoad: () => {
+		GetCompanyData.run()
+			.then(() => GetOfflineSubscription.run())
+			.then(() => GetLastRecord.run())
+			.catch((error) => {
+			console.log(error)
+		});
 	},
 	RedirectToCompanyDetailPage: () => {
 		navigateTo("CompanyDetails", {companyId: CompanyListing.selectedRow.Id, countryId: CompanyListing.selectedRow.Country})
